@@ -1,6 +1,7 @@
  using System;
 using System.Collections.Generic;
-using System.Linq;
+ using System.ComponentModel;
+ using System.Linq;
 using System.Threading.Tasks;
  using InternshipAutomation.Persistance.CQRS.User;
  using MediatR;
@@ -31,6 +32,12 @@ namespace InternshipAutomation.Controller
         public async Task<IActionResult> AddClaim([FromBody] AddClaimCommand addClaimCommand)
         {
             return Ok(await _mediator.Send(addClaimCommand));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand updateUserCommand)
+        {
+            return Ok(await _mediator.Send(updateUserCommand));
         }
     }
 }

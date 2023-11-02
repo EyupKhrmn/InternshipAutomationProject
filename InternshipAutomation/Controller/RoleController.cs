@@ -6,6 +6,7 @@ using InternshipAutomation.Persistance.CQRS.Role;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace InternshipAutomation.Controller
@@ -26,6 +27,18 @@ namespace InternshipAutomation.Controller
         public async Task<IActionResult> AddRole([FromBody] AddRoleCommand addRoleCommand)
         {
             return Ok(await _mediator.Send(addRoleCommand));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleCommand updateRoleCommand)
+        {
+            return Ok(await _mediator.Send(updateRoleCommand));
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteRole([FromBody] DeleteRoleCommand deleteRoleCommand)
+        {
+            return Ok(await _mediator.Send(deleteRoleCommand));
         }
     }
 }
