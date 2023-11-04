@@ -22,6 +22,12 @@ namespace InternshipAutomation.Controller
             _mediator = mediator;
         }
 
+        [HttpGet("GetUserByFilter")]
+        public async Task<IActionResult> GetUser([FromQuery] GetUserCommand getUserCommand)
+        {
+            return Ok(await _mediator.Send(getUserCommand));
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] AddUserCommand addUserCommand)
         {

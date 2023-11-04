@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using InternshipAutomation.Persistance.CQRS.Role;
 using MediatR;
@@ -20,6 +21,12 @@ namespace InternshipAutomation.Controller
         public RoleController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRolesByFilter([FromQuery] GetRoleCommand getRoleCommand)
+        {
+            return Ok(await _mediator.Send(getRoleCommand));
         }
 
 
