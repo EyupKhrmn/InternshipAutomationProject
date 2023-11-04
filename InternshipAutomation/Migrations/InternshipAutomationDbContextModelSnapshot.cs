@@ -119,16 +119,11 @@ namespace InternshipAutomation.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("FileData")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("SendingDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("StudenUserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("StudentUserId")
                         .HasColumnType("uniqueidentifier");

@@ -4,4 +4,5 @@ namespace InternshipAutomation.Domain.User;
 
 public class User : IdentityUser<Guid>
 {
+    
 }
