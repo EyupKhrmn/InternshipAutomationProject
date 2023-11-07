@@ -45,5 +45,11 @@ namespace InternshipAutomation.Controller
         {
             return Ok(await _mediator.Send(updateUserCommand));
         }
+
+        [HttpPut("AddUserRole")]
+        public async Task<IActionResult> AddUserRole([FromQuery] AddUserRoleCommand addUserRoleCommand)
+        {
+            return Ok(await _mediator.Send(addUserRoleCommand));
+        }
     }
 }

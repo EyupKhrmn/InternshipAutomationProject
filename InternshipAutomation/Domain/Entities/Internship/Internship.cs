@@ -1,4 +1,3 @@
-using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.User;
 
 namespace InternshipAutomation.Domain.Entities.Internship;
@@ -20,7 +19,6 @@ public class Internship
 
     #region Users
     public Guid AdminUserId { get; set; }
-    public AdminUser AdminUser { get; set; }
     public Guid StudentUserId { get; set; }
     public StudentUser StudentUser { get; set; }
     public Guid CompanyUserId { get; set; }
@@ -30,8 +28,7 @@ public class Internship
 
     #region FileManagement
 
-    public List<InternshipBookPageFile>? InternshipBookPages { get; set; }
-    public List<InternshipApplicationFile> InternshipApplicationFiles { get; set; }
+    
 
     #endregion
 }

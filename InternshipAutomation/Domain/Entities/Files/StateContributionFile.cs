@@ -1,8 +1,6 @@
-using Azure.Core;
-
 namespace InternshipAutomation.Domain.Entities.Files;
 
-public class InternshipApplicationFile
+public class StateContributionFile
 {
     #region Student
 
@@ -11,18 +9,19 @@ public class InternshipApplicationFile
     public string StudentTCKN { get; set; }
     public string StudentPhoneNumber { get; set; }
     public string StudentProgram { get; set; }
-    public float StudentAGNO { get; set; }
-    public DateTime StartedDate { get; set; }
-    public DateTime FinishedDate { get; set; }
+    public DateTime StudentBirthDate { get; set; }
 
     #endregion
 
     #region Company
 
     public string CompanyName { get; set; }
-    public string CompanyPhoneNumber { get; set; }
-    public string CompanyEMail { get; set; }
-    public string CompanySector { get; set; }
+    public string CompanyTCKN { get; set; }
+    public string CompanyVKN { get; set; }
+    public int EmployeeCount { get; set; }
+    public string PhoneNumber { get; set; }
+    public string BankAccountHolder { get; set; }
+    public string CompnayIBAN { get; set; }
 
     #endregion
 }

@@ -6,6 +6,5 @@ public class InternshipPeriod
 {
     public Guid Id { get; set; }
     public DateTime StartedDate { get; set; }
-    public AdminUser AdminUser { get; set; }
     public List<Internship> Internships { get; set; }
 }

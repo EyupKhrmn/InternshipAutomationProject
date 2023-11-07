@@ -18,17 +18,17 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
     #region Users
     
     public DbSet<CompanyUser> CompanyUsers { get; set; }
-    public DbSet<AdminUser> AdminUsers { get; set; }
+    //public DbSet<AdminUser> AdminUsers { get; set; }
     public DbSet<StudentUser> StudentUsers { get; set; }
 
     #endregion
 
     #region Files
 
-    public DbSet<BackUpFile> BackUpFiles { get; set; }
-    public DbSet<InternshipApplicationFile> InternshipApplicationFiles { get; set; }
-    public DbSet<InternshipBookPageFile> InternshipBookPages { get; set; }
-    public DbSet<SendingFile> SendingFiles { get; set; }
+    //public DbSet<BackUpFile> BackUpFiles { get; set; }
+    //public DbSet<InternshipApplicationFile> InternshipApplicationFiles { get; set; }
+    //public DbSet<InternshipBookPageFile> InternshipBookPages { get; set; }
+    //public DbSet<SendingFile> SendingFiles { get; set; }
 
     #endregion
 
@@ -81,20 +81,10 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
             .HasForeignKey<StudentUser>(_ => _.InternshipId)
             .OnDelete(DeleteBehavior.NoAction);
 
-        modelBuilder.Entity<AdminUser>()
-            .HasMany(user => user.Internship)
-            .WithOne(_ => _.AdminUser)
-            .OnDelete(DeleteBehavior.NoAction);
-
         modelBuilder.Entity<CompanyUser>()
             .HasOne(_ => _.Internship)
             .WithOne(_ => _.CompanyUser)
             .HasForeignKey<CompanyUser>(_ => _.InternshipId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.Entity<StudentUser>()
-            .HasMany(_ => _.InternshipApplicationFiles)
-            .WithOne(_ => _.StudentUser)
             .OnDelete(DeleteBehavior.NoAction);
         
         base.OnModelCreating(modelBuilder);
