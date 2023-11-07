@@ -12,6 +12,7 @@ public class AddClaimCommand : IRequest<AddClaimResponse>
     public Guid Id { get; set; }
     public string Name { get; set; }
     public string Value { get; set; }
+    public string Role { get; set; }
     
     public class AddClaimCommandHandler : IRequestHandler<AddClaimCommand,AddClaimResponse>
     {
@@ -36,7 +37,7 @@ public class AddClaimCommand : IRequest<AddClaimResponse>
 
             foreach (var role in userRoles)
             {
-                if (role == "Yönetici")
+                if (role == request.Role)
                 {
                     await _userManager.AddClaimAsync(user, claim);
                 }
@@ -53,7 +54,6 @@ public class AddClaimCommand : IRequest<AddClaimResponse>
         }
     }
 }
-
 
 public class AddClaimResponse
 {
