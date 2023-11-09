@@ -17,4 +17,6 @@ public class User : IdentityUser<Guid>
     public string TeacherNameSurname { get; set; }
 
     #endregion
+
+    public string Token { get; set; }
 }

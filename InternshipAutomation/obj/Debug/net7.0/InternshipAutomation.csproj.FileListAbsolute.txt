@@ -259,3 +259,4 @@
 /Users/eyup/RiderProjects/InternshipAutomation/InternshipAutomation/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/eyup/RiderProjects/InternshipAutomation/InternshipAutomation/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/eyup/RiderProjects/InternshipAutomation/InternshipAutomation/obj/Debug/net7.0/InternshipAutomation.MvcApplicationPartsAssemblyInfo.cs
+/Users/eyup/RiderProjects/InternshipAutomation/InternshipAutomation/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "zyTx4h0RCKLRxld0zHWSOmLQdEe3u3mOtT6fPWKqPywtDqyO+ROqSbtuugEppBnt4BLF4JtxEDB5/wFYiPoKDw==",
+  "dgSpecHash": "ut1FuZvGTtOXSxMxC9vrV0T91YGOEDK4zdSZBrqMOLIhNf2oawfq6J5p27oBF0YpehjbAOqRmpKKWCdcjJ9iGA==",
   "success": true,
   "projectFilePath": "/Users/eyup/RiderProjects/InternshipAutomation/InternshipAutomation/InternshipAutomation.csproj",
   "expectedPackageFiles": [
@@ -58,6 +58,7 @@
     "/Users/eyup/.nuget/packages/humanizer.core.zh-hant/2.14.1/humanizer.core.zh-hant.2.14.1.nupkg.sha512",
     "/Users/eyup/.nuget/packages/mediatr/12.1.1/mediatr.12.1.1.nupkg.sha512",
     "/Users/eyup/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
+    "/Users/eyup/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/7.0.13/microsoft.aspnetcore.authentication.jwtbearer.7.0.13.nupkg.sha512",
     "/Users/eyup/.nuget/packages/microsoft.aspnetcore.cryptography.internal/7.0.13/microsoft.aspnetcore.cryptography.internal.7.0.13.nupkg.sha512",
     "/Users/eyup/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/7.0.13/microsoft.aspnetcore.cryptography.keyderivation.7.0.13.nupkg.sha512",
     "/Users/eyup/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/7.0.13/microsoft.aspnetcore.identity.entityframeworkcore.7.0.13.nupkg.sha512",

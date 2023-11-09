@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
  using InternshipAutomation.Persistance.CQRS.User;
  using MediatR;
+ using Microsoft.AspNetCore.Authentication.JwtBearer;
+ using Microsoft.AspNetCore.Authorization;
  using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +14,7 @@ namespace InternshipAutomation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class UserController : ControllerBase
     {
 
@@ -34,6 +37,7 @@ namespace InternshipAutomation.Controller
             return Ok(await _mediator.Send(addUserCommand));
         }
 
+        [Authorize("Yönetici")] 
         [HttpPost("AddClaimForuser")]
         public async Task<IActionResult> AddClaim([FromBody] AddClaimCommand addClaimCommand)
         {
