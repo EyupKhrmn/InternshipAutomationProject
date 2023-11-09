@@ -26,6 +26,7 @@ public class LoginCommand : IRequest<LoginResponse>
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
             
+            //TODO Kullanıcının Passwordu kontrol edilecek
             //if (user.PasswordHash == request.Password)
             //{
             //    throw new Exception("Kullanıcı adı veya şifre yanlış");
