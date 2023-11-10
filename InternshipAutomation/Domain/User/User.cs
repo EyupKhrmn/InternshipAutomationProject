@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using InternshipAutomation.Domain.Entities.Internship;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace InternshipAutomation.Domain.User;
@@ -19,4 +20,6 @@ public class User : IdentityUser<Guid>
     #endregion
 
     public string Token { get; set; }
+
+    public List<Internship> Internships { get; set; }
 }

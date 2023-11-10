@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Controller\" />
       <Folder Include="Persistance\CQRS\Files\" />
     </ItemGroup>
 

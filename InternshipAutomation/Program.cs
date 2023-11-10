@@ -1,5 +1,4 @@
 using System.Text;
-using InternshipAutomation.Application.CurrentUser;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.User;
 using InternshipAutomation.Persistance.Context;

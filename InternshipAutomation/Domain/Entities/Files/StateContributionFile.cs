@@ -1,7 +1,10 @@
+using InternshipAutomation.Domain.Entities.Base;
+
 namespace InternshipAutomation.Domain.Entities.Files;
 
-public class StateContributionFile
+public class StateContributionFile : Entity
 {
+    public Guid Id { get; set; }
     #region Student
 
     public string StudentNameSurname { get; set; }

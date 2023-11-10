@@ -36,6 +36,10 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
 
     public DbSet<Company> Companies { get; set; }
     public DbSet<Internship> Internships { get; set; }
+    public DbSet<InternshipApplicationFile> InternshipApplicationFiles { get; set; }
+    public DbSet<InternshipDailyReportFile> InternshipDailyReportFiles { get; set; }
+    public DbSet<StateContributionFile> StateContributionFiles { get; set; }
+    public DbSet<InternshipPeriod> InternshipPeriods { get; set; }
 
     #endregion
 
@@ -75,18 +79,6 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<StudentUser>()
-            .HasOne(_ => _.Internship)
-            .WithOne(_ => _.StudentUser)
-            .HasForeignKey<StudentUser>(_ => _.InternshipId)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.Entity<CompanyUser>()
-            .HasOne(_ => _.Internship)
-            .WithOne(_ => _.CompanyUser)
-            .HasForeignKey<CompanyUser>(_ => _.InternshipId)
-            .OnDelete(DeleteBehavior.NoAction);
-        
         base.OnModelCreating(modelBuilder);
     }
 

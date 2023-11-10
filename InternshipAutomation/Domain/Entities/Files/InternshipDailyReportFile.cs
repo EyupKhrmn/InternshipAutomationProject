@@ -1,10 +1,12 @@
 using System.Runtime.Serialization;
+using InternshipAutomation.Domain.Entities.Base;
 using InternshipAutomation.Domain.Entities.Enums;
 
 namespace InternshipAutomation.Domain.Entities.Files;
 
-public class InternshipDailyReportFile
+public class InternshipDailyReportFile : Entity
 {
+    public Guid Id { get; set; }
     public string StudentNameSurname { get; set; }
     public string StudentNumber { get; set; }
     public string CompanyName { get; set; }

@@ -10,5 +10,4 @@ public class StudentUser : User
     //public List<SendingFile> SendingFiles { get; set; }
    // public List<InternshipApplicationFile> InternshipApplicationFiles { get; set; }
     public Guid InternshipId { get; set; }
-    public Internship Internship { get; set; }
 }

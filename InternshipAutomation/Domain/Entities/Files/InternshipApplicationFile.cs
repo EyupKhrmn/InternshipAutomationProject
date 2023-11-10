@@ -1,9 +1,11 @@
 using Azure.Core;
+using InternshipAutomation.Domain.Entities.Base;
 
 namespace InternshipAutomation.Domain.Entities.Files;
 
-public class InternshipApplicationFile
+public class InternshipApplicationFile : Entity
 {
+    public Guid Id { get; set; }
     #region Student
 
     public string StudentNameSurname { get; set; }
