@@ -1,8 +1,10 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace InternshipAutomation.Persistance.CQRS.Login;
 
@@ -15,24 +17,29 @@ public class LoginCommand : IRequest<LoginResponse>
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<Domain.User.User> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoginCommandHandler(UserManager<Domain.User.User> userManager, IConfiguration configuration)
+        public LoginCommandHandler(UserManager<Domain.User.User> userManager, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
-
+        
         public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
+            var role = await _userManager.GetRolesAsync(user);
             
             //TODO Kullanıcının Passwordu kontrol edilecek
             //if (user.PasswordHash == request.Password)
             //{
             //    throw new Exception("Kullanıcı adı veya şifre yanlış");
             //}
+            
+            
 
-            var token = TokenHandler.CreateToken(_configuration,request.UserName, request.Password);
+            var token = TokenHandler.CreateToken(_configuration,request.UserName, request.Password,role);
 
             user.Token = token.AccessToken;
             await _userManager.UpdateAsync(user);
@@ -49,4 +56,5 @@ public class LoginCommand : IRequest<LoginResponse>
 public class LoginResponse
 {
     public string Token { get; set; }
+    public string Type { get; set; }
 }

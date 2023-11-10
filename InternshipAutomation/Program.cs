@@ -1,4 +1,5 @@
 using System.Text;
+using InternshipAutomation.Application.CurrentUser;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.User;
 using InternshipAutomation.Persistance.Context;
@@ -75,6 +76,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ClockSkew = TimeSpan.Zero
     };
 });
+
+#endregion
+
+#region Cookie Settings
+
+//builder.Services.ConfigureApplicationCookie(_ =>
+//{
+//    _.Cookie = new CookieBuilder
+//    {
+//        Name = "InternshipAutomationCookie",
+//        HttpOnly = false,
+//        Expiration = TimeSpan.FromMinutes(2),
+//        SameSite = SameSiteMode.Lax,
+//        SecurePolicy = CookieSecurePolicy.Always
+//    };
+//    _.SlidingExpiration = true;
+//    _.ExpireTimeSpan = TimeSpan.FromMinutes(2);
+//});
 
 #endregion
 

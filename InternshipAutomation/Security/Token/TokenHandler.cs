@@ -2,18 +2,19 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace InternshipAutomation.Security.Token;
 
 public class TokenHandler
 {
-    public static Token CreateToken(IConfiguration configuration,string UserName,string Password)
+    public static Token CreateToken(IConfiguration configuration,string UserName,string Password,IList<string> Role)
     {
         var claims = new[]
         {
             new Claim(ClaimTypes.Name, UserName),
-            new Claim(ClaimTypes.Name, Password)
+            new Claim(ClaimTypes.Role, Role[0])
         };
         Token token = new();
 
