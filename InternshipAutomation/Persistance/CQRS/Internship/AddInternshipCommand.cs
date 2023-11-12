@@ -35,7 +35,6 @@ public class AddInternshipCommand : IRequest<AddInternshipResponse>
     }
 }
 
-
 public class AddInternshipResponse
 {
     public bool Success { get; set; }

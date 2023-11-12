@@ -55,6 +55,7 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
         return base.SaveChanges();
     }
 
+    //TODO gelen entitynin createdDate ve LastModificationDate gibi özellikleri buradan yazılacak
     void CheckEntity(EntityEntry entry)
     {
         if (entry.Entity is not IEntity appEntity)
@@ -79,6 +80,11 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<InternshipPeriod>()
+            .HasMany(_ => _.Internships)
+            .WithOne(_ => _.InternshipPeriod)
+            .OnDelete(DeleteBehavior.NoAction);
+            
         base.OnModelCreating(modelBuilder);
     }
 

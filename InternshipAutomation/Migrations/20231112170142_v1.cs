@@ -89,19 +89,6 @@ namespace InternshipAutomation.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InternshipPeriods",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StartedDate = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InternshipPeriods", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "StateContributionFiles",
                 columns: table => new
                 {
@@ -186,48 +173,6 @@ namespace InternshipAutomation.Migrations
                         principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Internships",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
-                    InternshipApplicationFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    InternshipDailyReportFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    StateContributionFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    InternshipPeriodId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Internships", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Internships_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Internships_InternshipApplicationFiles_InternshipApplicationFileId",
-                        column: x => x.InternshipApplicationFileId,
-                        principalTable: "InternshipApplicationFiles",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Internships_InternshipDailyReportFiles_InternshipDailyReportFileId",
-                        column: x => x.InternshipDailyReportFileId,
-                        principalTable: "InternshipDailyReportFiles",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Internships_InternshipPeriods_InternshipPeriodId",
-                        column: x => x.InternshipPeriodId,
-                        principalTable: "InternshipPeriods",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Internships_StateContributionFiles_StateContributionFileId",
-                        column: x => x.StateContributionFileId,
-                        principalTable: "StateContributionFiles",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -316,27 +261,73 @@ namespace InternshipAutomation.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InternshipUser",
+                name: "InternshipPeriods",
                 columns: table => new
                 {
-                    InternshipsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StartedDate = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InternshipUser", x => new { x.InternshipsId, x.UsersId });
+                    table.PrimaryKey("PK_InternshipPeriods", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InternshipUser_AspNetUsers_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_InternshipPeriods_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Internships",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentUser = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    TeacherUser = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CompanyUser = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    InternshipApplicationFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    InternshipDailyReportFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    StateContributionFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    InternshipPeriodId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Internships", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InternshipUser_Internships_InternshipsId",
-                        column: x => x.InternshipsId,
-                        principalTable: "Internships",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Internships_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Internships_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Internships_InternshipApplicationFiles_InternshipApplicationFileId",
+                        column: x => x.InternshipApplicationFileId,
+                        principalTable: "InternshipApplicationFiles",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Internships_InternshipDailyReportFiles_InternshipDailyReportFileId",
+                        column: x => x.InternshipDailyReportFileId,
+                        principalTable: "InternshipDailyReportFiles",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Internships_InternshipPeriods_InternshipPeriodId",
+                        column: x => x.InternshipPeriodId,
+                        principalTable: "InternshipPeriods",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Internships_StateContributionFiles_StateContributionFileId",
+                        column: x => x.StateContributionFileId,
+                        principalTable: "StateContributionFiles",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -384,6 +375,11 @@ namespace InternshipAutomation.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_InternshipPeriods_UserId",
+                table: "InternshipPeriods",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Internships_CompanyId",
                 table: "Internships",
                 column: "CompanyId");
@@ -409,9 +405,9 @@ namespace InternshipAutomation.Migrations
                 column: "StateContributionFileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InternshipUser_UsersId",
-                table: "InternshipUser",
-                column: "UsersId");
+                name: "IX_Internships_UserId",
+                table: "Internships",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -433,19 +429,10 @@ namespace InternshipAutomation.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "InternshipUser");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Internships");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "InternshipApplicationFiles");
@@ -458,6 +445,12 @@ namespace InternshipAutomation.Migrations
 
             migrationBuilder.DropTable(
                 name: "StateContributionFiles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Companies");
         }
     }
 }

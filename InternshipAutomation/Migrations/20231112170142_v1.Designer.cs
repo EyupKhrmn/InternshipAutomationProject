@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipAutomation.Migrations
 {
     [DbContext(typeof(InternshipAutomationDbContext))]
-    [Migration("20231110144427_v3")]
-    partial class v3
+    [Migration("20231112170142_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,8 +243,8 @@ namespace InternshipAutomation.Migrations
                     b.Property<Guid?>("CompanyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CompanyUserName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("CompanyUser")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("InternshipApplicationFileId")
                         .HasColumnType("uniqueidentifier");
@@ -255,16 +255,19 @@ namespace InternshipAutomation.Migrations
                     b.Property<Guid?>("InternshipPeriodId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
-
                     b.Property<Guid?>("StateContributionFileId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("TeacherUserName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("StudentUser")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TeacherUser")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -574,27 +577,26 @@ namespace InternshipAutomation.Migrations
                         .WithMany()
                         .HasForeignKey("InternshipDailyReportFileId");
 
-                    b.HasOne("InternshipAutomation.Domain.Entities.Internship.InternshipPeriod", null)
+                    b.HasOne("InternshipAutomation.Domain.Entities.Internship.InternshipPeriod", "InternshipPeriod")
                         .WithMany("Internships")
-                        .HasForeignKey("InternshipPeriodId");
+                        .HasForeignKey("InternshipPeriodId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("InternshipAutomation.Domain.Entities.Files.StateContributionFile", "StateContributionFile")
                         .WithMany()
                         .HasForeignKey("StateContributionFileId");
 
-                    b.HasOne("InternshipAutomation.Domain.User.User", "User")
+                    b.HasOne("InternshipAutomation.Domain.User.User", null)
                         .WithMany("Internships")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("InternshipApplicationFile");
 
                     b.Navigation("InternshipDailyReportFile");
 
-                    b.Navigation("StateContributionFile");
+                    b.Navigation("InternshipPeriod");
 
-                    b.Navigation("User");
+                    b.Navigation("StateContributionFile");
                 });
 
             modelBuilder.Entity("InternshipAutomation.Domain.Entities.Internship.InternshipPeriod", b =>

@@ -1,5 +1,7 @@
+using System.Text.Json.Serialization;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.User;
+using Newtonsoft.Json;
 
 namespace InternshipAutomation.Domain.Entities.Internship;
 
@@ -26,11 +28,14 @@ public class Internship
     public Guid? StudentUser { get; set; }
     public Guid? TeacherUser { get; set; }
     public Guid? CompanyUser { get; set; }
-    public bool IsApproved { get; set; }
+    public InternshipStatus Status { get; set; }
 
     public InternshipApplicationFile? InternshipApplicationFile { get; set; }
     public InternshipDailyReportFile? InternshipDailyReportFile { get; set; }
     public StateContributionFile? StateContributionFile { get; set; }
+    
+    [System.Text.Json.Serialization.JsonIgnore]
+    public InternshipPeriod? InternshipPeriod { get; set; }
 
     
 }

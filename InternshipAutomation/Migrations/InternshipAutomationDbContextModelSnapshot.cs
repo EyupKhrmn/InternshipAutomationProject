@@ -252,11 +252,11 @@ namespace InternshipAutomation.Migrations
                     b.Property<Guid?>("InternshipPeriodId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
-
                     b.Property<Guid?>("StateContributionFileId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("StudentUser")
                         .HasColumnType("uniqueidentifier");
@@ -574,9 +574,10 @@ namespace InternshipAutomation.Migrations
                         .WithMany()
                         .HasForeignKey("InternshipDailyReportFileId");
 
-                    b.HasOne("InternshipAutomation.Domain.Entities.Internship.InternshipPeriod", null)
+                    b.HasOne("InternshipAutomation.Domain.Entities.Internship.InternshipPeriod", "InternshipPeriod")
                         .WithMany("Internships")
-                        .HasForeignKey("InternshipPeriodId");
+                        .HasForeignKey("InternshipPeriodId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("InternshipAutomation.Domain.Entities.Files.StateContributionFile", "StateContributionFile")
                         .WithMany()
@@ -589,6 +590,8 @@ namespace InternshipAutomation.Migrations
                     b.Navigation("InternshipApplicationFile");
 
                     b.Navigation("InternshipDailyReportFile");
+
+                    b.Navigation("InternshipPeriod");
 
                     b.Navigation("StateContributionFile");
                 });
