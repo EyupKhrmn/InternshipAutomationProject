@@ -2,6 +2,7 @@ using System.Text;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.User;
 using InternshipAutomation.Persistance.Context;
+using InternshipAutomation.Security.Token;
 using IntershipOtomation.Domain.Entities.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -55,6 +56,8 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddScoped<IGeneralRepository, GeneralRepository<InternshipAutomationDbContext>>();
 
+builder.Services.AddScoped<IDecodeTokenService, DecodeTokenService>();
+
 builder.Services.AddIdentity<User, AppRole>().AddEntityFrameworkStores<InternshipAutomationDbContext>();
 
 #endregion
@@ -98,7 +101,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 builder.Services.AddDbContext<InternshipAutomationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerLocalhost"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 });
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());

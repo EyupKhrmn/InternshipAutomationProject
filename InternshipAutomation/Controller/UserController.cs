@@ -1,13 +1,7 @@
  using System;
-using System.Collections.Generic;
- using System.ComponentModel;
- using System.Linq;
-using System.Threading.Tasks;
  using InternshipAutomation.Persistance.CQRS.User;
  using MediatR;
- using Microsoft.AspNetCore.Authentication.JwtBearer;
  using Microsoft.AspNetCore.Authorization;
- using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternshipAutomation.Controller
