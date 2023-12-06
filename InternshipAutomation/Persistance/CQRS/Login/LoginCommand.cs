@@ -50,7 +50,7 @@ public class LoginCommand : IRequest<LoginResponse>
             {
                 HttpOnly = true, // Sadece HTTP üzerinden erişilebilir
                 SameSite = SameSiteMode.Strict, // Güvenlik için sadece aynı site üzerinden erişime izin ver
-                Expires = DateTime.Now.AddHours(1) // Token'ın geçerlilik süresi
+                Expires = DateTime.Now.AddDays(1) // Token'ın geçerlilik süresi
             };
 
             _httpContextAccessor.HttpContext.Response.Cookies.Append("AuthToken", user.Token, cookieOptions);
@@ -71,5 +71,4 @@ public class LoginCommand : IRequest<LoginResponse>
 public class LoginResponse
 {
     public string Token { get; set; }
-    public string Type { get; set; }
 }

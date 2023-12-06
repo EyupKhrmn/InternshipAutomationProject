@@ -25,7 +25,7 @@ public class Internship
     //public Guid CompanyUserId { get; set; }
     //public CompanyUser CompanyUser { get; set; }
 
-    public Guid? StudentUser { get; set; }
+    public User.User? StudentUser { get; set; }
     public Guid? TeacherUser { get; set; }
     public Guid? CompanyUser { get; set; }
     public InternshipStatus? Status { get; set; }
