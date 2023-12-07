@@ -1,4 +1,6 @@
+using System.Configuration;
 using System.Text;
+using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.User;
 using InternshipAutomation.Persistance.Context;
@@ -110,6 +112,14 @@ builder.Services.AddAuthorization(options =>
 //    _.SlidingExpiration = true;
 //    _.ExpireTimeSpan = TimeSpan.FromMinutes(2);
 //});
+
+#endregion
+
+#region Mail Operations
+
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+
+builder.Services.AddScoped<IEmailSender,MailSender>();
 
 #endregion
 

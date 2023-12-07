@@ -1,13 +1,9 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Azure;
-using Azure.Core;
+using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Security.Token;
+using MailKit.Net.Smtp;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
-using Newtonsoft.Json.Linq;
+using MimeKit;
 
 namespace InternshipAutomation.Persistance.CQRS.Login;
 
@@ -15,18 +11,22 @@ public class LoginCommand : IRequest<LoginResponse>
 {
     public string UserName { get; set; }
     public string Password { get; set; }
+    public string Email { get; set; }
 
     public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<Domain.User.User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IEmailSender _emailSender;
+   
 
-        public LoginCommandHandler(UserManager<Domain.User.User> userManager, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public LoginCommandHandler(UserManager<Domain.User.User> userManager, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender)
         {
             _userManager = userManager;
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
+            _emailSender = emailSender;
         }
 
         public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -57,7 +57,7 @@ public class LoginCommand : IRequest<LoginResponse>
             #endregion
 
             await _userManager.UpdateAsync(user);
-
+            
             return new LoginResponse
             {
                 Token = token.AccessToken
@@ -70,4 +70,5 @@ public class LoginCommand : IRequest<LoginResponse>
 public class LoginResponse
 {
     public string Token { get; set; }
+    public string MailResult { get; set; }
 }

@@ -255,3 +255,7 @@ C:\Users\eyupk\RiderProjects\InternshipAutomationProject\InternshipAutomation\ob
 C:\Users\eyupk\RiderProjects\InternshipAutomationProject\InternshipAutomation\obj\Debug\net8.0\InternshipAutomation.pdb
 C:\Users\eyupk\RiderProjects\InternshipAutomationProject\InternshipAutomation\obj\Debug\net8.0\InternshipAutomation.genruntimeconfig.cache
 C:\Users\eyupk\RiderProjects\InternshipAutomationProject\InternshipAutomation\obj\Debug\net8.0\ref\InternshipAutomation.dll
+C:\Users\eyupk\RiderProjects\InternshipAutomationProject\InternshipAutomation\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\eyupk\RiderProjects\InternshipAutomationProject\InternshipAutomation\bin\Debug\net8.0\MailKit.dll
+C:\Users\eyupk\RiderProjects\InternshipAutomationProject\InternshipAutomation\bin\Debug\net8.0\MimeKit.dll
+C:\Users\eyupk\RiderProjects\InternshipAutomationProject\InternshipAutomation\bin\Debug\net8.0\NETCore.MailKit.dll
