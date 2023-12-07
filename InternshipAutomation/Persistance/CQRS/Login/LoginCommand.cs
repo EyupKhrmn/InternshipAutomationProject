@@ -33,12 +33,11 @@ public class LoginCommand : IRequest<LoginResponse>
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
             var role = await _userManager.GetRolesAsync(user);
-
-            //TODO Kullanıcının Passwordu kontrol edilecek
-            //if (user.PasswordHash == request.Password)
-            //{
-            //    throw new Exception("Kullanıcı adı veya şifre yanlış");
-            //}
+            
+            if (user.PasswordHash != request.Password)
+            {
+                throw new Exception("Kullanıcı adı veya parola yanlış");
+            }
             
             var token = TokenHandler.CreateToken(_configuration, request.UserName, request.Password, role);
 

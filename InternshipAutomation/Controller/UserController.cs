@@ -1,5 +1,6 @@
  using System;
  using InternshipAutomation.Persistance.CQRS.User;
+ using InternshipAutomation.Security.Token;
  using MediatR;
  using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ namespace InternshipAutomation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer",Policy = IdentityData.AdminUserPolicyName)]
     public class UserController : ControllerBase
     {
 
@@ -24,14 +25,13 @@ namespace InternshipAutomation.Controller
         {
             return Ok(await _mediator.Send(getUserCommand));
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] AddUserCommand addUserCommand)
         {
             return Ok(await _mediator.Send(addUserCommand));
         }
-
-        [Authorize("Yönetici")] 
+        
         [HttpPost("AddClaimForuser")]
         public async Task<IActionResult> AddClaim([FromBody] AddClaimCommand addClaimCommand)
         {

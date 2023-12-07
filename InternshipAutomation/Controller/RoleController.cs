@@ -4,9 +4,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using InternshipAutomation.Persistance.CQRS.Role;
+using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
@@ -15,7 +17,7 @@ namespace InternshipAutomation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer",Policy = IdentityData.TeacherUserPolicyName)]
     public class RoleController : ControllerBase
     {
         private readonly IMediator _mediator;

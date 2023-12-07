@@ -12,7 +12,6 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 #region Swagger Token Entegrations
@@ -62,7 +61,7 @@ builder.Services.AddIdentity<User, AppRole>().AddEntityFrameworkStores<Internshi
 
 #endregion
 
-#region Authentication
+#region Authentication & Authorization
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {
@@ -74,9 +73,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Token:Issuer"],
         ValidAudience = builder.Configuration["Token:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"] ?? string.Empty)),
         ClockSkew = TimeSpan.Zero
     };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(IdentityData.AdminUserPolicyName, p => 
+        p.RequireClaim(IdentityData.UserRankClaimsName, IdentityData.AdminUserRankName));
+
+    options.AddPolicy(IdentityData.TeacherUserPolicyName, p =>
+        p.RequireClaim(IdentityData.UserRankClaimsName, IdentityData.TeacherUserRankName));
+    
+    options.AddPolicy(IdentityData.StudentUserPolicyName, p => 
+        p.RequireClaim(IdentityData.UserRankClaimsName,IdentityData.StudentUserRankName));
+    
+    options.AddPolicy(IdentityData.UserRankClaimsName, p => 
+        p.RequireClaim(IdentityData.UserRankClaimsName,IdentityData.CompanyUserRankName));
 });
 
 #endregion
