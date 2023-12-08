@@ -33,6 +33,8 @@ public class Internship
     public InternshipApplicationFile? InternshipApplicationFile { get; set; }
     public InternshipDailyReportFile? InternshipDailyReportFile { get; set; }
     public StateContributionFile? StateContributionFile { get; set; }
+
+    public int Note { get; set; }
     
     [System.Text.Json.Serialization.JsonIgnore]
     public InternshipPeriod? InternshipPeriod { get; set; }

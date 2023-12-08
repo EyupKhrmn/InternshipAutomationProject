@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "2Jn0icsvBmvlyraBM7OPpArZ6EsWBcLej3UR4oB+rhwRitZby8WRtBSG+Q152QchHO/UOCOanpt+y3fJ3r9kig==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\eyupk\\RiderProjects\\InternshipAutomationProject\\GeneratePdf\\GeneratePdf.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\eyupk\\.nuget\\packages\\harfbuzzsharp\\7.3.0\\harfbuzzsharp.7.3.0.nupkg.sha512",
+    "C:\\Users\\eyupk\\.nuget\\packages\\harfbuzzsharp.nativeassets.macos\\7.3.0\\harfbuzzsharp.nativeassets.macos.7.3.0.nupkg.sha512",
+    "C:\\Users\\eyupk\\.nuget\\packages\\harfbuzzsharp.nativeassets.win32\\7.3.0\\harfbuzzsharp.nativeassets.win32.7.3.0.nupkg.sha512",
+    "C:\\Users\\eyupk\\.nuget\\packages\\questpdf\\2023.12.0\\questpdf.2023.12.0.nupkg.sha512",
+    "C:\\Users\\eyupk\\.nuget\\packages\\skiasharp\\2.88.6\\skiasharp.2.88.6.nupkg.sha512",
+    "C:\\Users\\eyupk\\.nuget\\packages\\skiasharp.harfbuzz\\2.88.6\\skiasharp.harfbuzz.2.88.6.nupkg.sha512",
+    "C:\\Users\\eyupk\\.nuget\\packages\\skiasharp.nativeassets.macos\\2.88.6\\skiasharp.nativeassets.macos.2.88.6.nupkg.sha512",
+    "C:\\Users\\eyupk\\.nuget\\packages\\skiasharp.nativeassets.win32\\2.88.6\\skiasharp.nativeassets.win32.2.88.6.nupkg.sha512"
+  ],
+  "logs": []
+}

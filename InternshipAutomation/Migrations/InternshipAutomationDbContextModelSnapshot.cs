@@ -222,6 +222,9 @@ namespace InternshipAutomation.Migrations
                     b.Property<Guid?>("InternshipPeriodId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Note")
+                        .HasColumnType("int");
+
                     b.Property<Guid?>("StateContributionFileId")
                         .HasColumnType("uniqueidentifier");
 
