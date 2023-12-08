@@ -11,7 +11,6 @@ public class LoginCommand : IRequest<LoginResponse>
 {
     public string UserName { get; set; }
     public string Password { get; set; }
-    public string Email { get; set; }
 
     public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
     {
@@ -70,5 +69,4 @@ public class LoginCommand : IRequest<LoginResponse>
 public class LoginResponse
 {
     public string Token { get; set; }
-    public string MailResult { get; set; }
 }

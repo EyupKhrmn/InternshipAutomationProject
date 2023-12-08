@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Text;
 using Azure.Core;
+using InternshipAutomation.Application.Mail;
 using IntershipOtomation.Domain.Entities.User;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +22,7 @@ public class AddUserCommand : IRequest<AddUserResponse>
     {
         private readonly UserManager<Domain.User.User> _userManager;
         private readonly RoleManager<AppRole>? _roleManager;
+        private readonly IEmailSender _emailSender;
 
         public AddUserCommandHandler(UserManager<Domain.User.User> userManager, RoleManager<AppRole>? roleManager)
         {
@@ -56,6 +58,15 @@ public class AddUserCommand : IRequest<AddUserResponse>
                     await _userManager.AddToRoleAsync(createdUser,request.Role);
                     break;
             }
+
+            #region MailSender
+            
+            string mailSubject = "Kullanıcı Ekleme İşlemi";
+            string mailContent = "Kullanıcı ekleme işlemi başarıyla gerçekleşti.";
+
+            await _emailSender.SendEmailAsync(request.Email, request.UserNumber, mailSubject, mailContent);
+            
+            #endregion
             
             return new AddUserResponse()
             {
