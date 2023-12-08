@@ -24,10 +24,11 @@ public class AddUserCommand : IRequest<AddUserResponse>
         private readonly RoleManager<AppRole>? _roleManager;
         private readonly IEmailSender _emailSender;
 
-        public AddUserCommandHandler(UserManager<Domain.User.User> userManager, RoleManager<AppRole>? roleManager)
+        public AddUserCommandHandler(UserManager<Domain.User.User> userManager, RoleManager<AppRole>? roleManager, IEmailSender emailSender)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _emailSender = emailSender;
         }
 
         public async Task<AddUserResponse> Handle(AddUserCommand request, CancellationToken cancellationToken)

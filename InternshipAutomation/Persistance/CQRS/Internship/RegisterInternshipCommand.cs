@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
+using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.Entities.Internship;
 using InternshipAutomation.Security.Token;
 using MediatR;
@@ -13,7 +14,7 @@ namespace InternshipAutomation.Persistance.CQRS.Internship;
 public class RegisterInternshipCommand : IRequest<RegisterInternshipResponse>
 {
     public InternshipApplicationDto InternshipApplication { get; set; }
-    public Guid InternshipPeriodId { get; set; }
+    public Guid InternshipPeriod { get; set; }
     
     
     public class RegisterInternshipCommandHandler : IRequestHandler<RegisterInternshipCommand,RegisterInternshipResponse>
@@ -41,17 +42,33 @@ public class RegisterInternshipCommand : IRequest<RegisterInternshipResponse>
             
             var internshipPeriod = await _generalRepository
                 .Query<InternshipPeriod>()
-                .SingleOrDefaultAsync(_ => _.Id == request.InternshipPeriodId, cancellationToken: cancellationToken);
+                .SingleOrDefaultAsync(_ => _.Id == request.InternshipPeriod, cancellationToken: cancellationToken);
+
+            InternshipApplicationFile internshipApplicationFile = new()
+            {
+                CompanyName = request.InternshipApplication.InternshipApplicationFile.CompanyName,
+                CompanySector = request.InternshipApplication.InternshipApplicationFile.CompanySector,
+                StudentProgram = request.InternshipApplication.InternshipApplicationFile.StudentProgram,
+                FinishedDate = request.InternshipApplication.InternshipApplicationFile.FinishedDate,
+                StartedDate = request.InternshipApplication.InternshipApplicationFile.StartedDate,
+                StudentNumber = request.InternshipApplication.InternshipApplicationFile.StudentNumber,
+                CompanyEMail = request.InternshipApplication.InternshipApplicationFile.CompanyEMail,
+                StudentPhoneNumber = request.InternshipApplication.InternshipApplicationFile.StudentPhoneNumber,
+                CompanyPhoneNumber = request.InternshipApplication.InternshipApplicationFile.CompanyPhoneNumber,
+                StudentNameSurname = request.InternshipApplication.InternshipApplicationFile.StudentNameSurname,
+                StudentAGNO = request.InternshipApplication.InternshipApplicationFile.StudentAGNO,
+                StudentTCKN = request.InternshipApplication.InternshipApplicationFile.StudentTCKN
+            };
 
             var studentUser = await _userManager.FindByNameAsync(currentUserUsername);
-            //var teacherUser = await _userManager.FindByNameAsync(//yeni gelen kullanıcı ıd si ile);
+            //var teacherUser = await _userManager.FindByIdAsync(request.InternshipApplication.TeacherUser.ToString() ?? string.Empty);
 
             var internship = new Domain.Entities.Internship.Internship
             {
-                StudentUser = studentUser, //TODO o anki kullanıcının öğrenci verileri alındı -----SİLİNECEK
+                StudentUser = studentUser,
                 TeacherUser = request.InternshipApplication.TeacherUser, //TODO internship üzerinden gelen UserID ile doldurulacak
                 CompanyUser = request.InternshipApplication.CompanyUser,
-                InternshipApplicationFile = request.InternshipApplication.InternshipApplicationFile,
+                InternshipApplicationFile = internshipApplicationFile,
                 InternshipPeriod = internshipPeriod
             };
             

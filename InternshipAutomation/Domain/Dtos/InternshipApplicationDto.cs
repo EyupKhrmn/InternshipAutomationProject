@@ -8,5 +8,5 @@ public class InternshipApplicationDto
     public Guid? CompanyUser { get; set; }
     public bool IsApproved { get; set; }
 
-    public InternshipApplicationFile? InternshipApplicationFile { get; set; }
+    public InternshipApplicationFileDto? InternshipApplicationFile { get; set; }
 }
