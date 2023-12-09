@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternshipAutomation", "InternshipAutomation\InternshipAutomation.csproj", "{048316CD-524A-43F6-8F3A-184B85463E6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratePdf", "GeneratePdf\GeneratePdf.csproj", "{7D31A2EA-CEEA-483B-8529-EF01EDBE0C75}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,9 +12,5 @@ Global
 		{048316CD-524A-43F6-8F3A-184B85463E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{048316CD-524A-43F6-8F3A-184B85463E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{048316CD-524A-43F6-8F3A-184B85463E6F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D31A2EA-CEEA-483B-8529-EF01EDBE0C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D31A2EA-CEEA-483B-8529-EF01EDBE0C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D31A2EA-CEEA-483B-8529-EF01EDBE0C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D31A2EA-CEEA-483B-8529-EF01EDBE0C75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

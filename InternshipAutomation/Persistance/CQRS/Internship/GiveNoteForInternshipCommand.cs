@@ -8,8 +8,10 @@ public class GiveNoteForInternshipCommand : IRequest<GiveNoteForInternshipRespon
 {
     public Guid InternshipId { get; set; }
     public int Note { get; set; }
-    
-    public class GiveNoteForInternshipCommandHandler : IRequestHandler<GiveNoteForInternshipCommand,GiveNoteForInternshipResponse>
+
+    public class
+        GiveNoteForInternshipCommandHandler : IRequestHandler<GiveNoteForInternshipCommand,
+            GiveNoteForInternshipResponse>
     {
         private readonly IGeneralRepository _generalRepository;
 
@@ -18,7 +20,8 @@ public class GiveNoteForInternshipCommand : IRequest<GiveNoteForInternshipRespon
             _generalRepository = generalRepository;
         }
 
-        public async Task<GiveNoteForInternshipResponse> Handle(GiveNoteForInternshipCommand request, CancellationToken cancellationToken)
+        public async Task<GiveNoteForInternshipResponse> Handle(GiveNoteForInternshipCommand request,
+            CancellationToken cancellationToken)
         {
             var internship = await _generalRepository.Query<Domain.Entities.Internship.Internship>()
                 .Where(_ => _.Id == request.InternshipId)
@@ -29,6 +32,7 @@ public class GiveNoteForInternshipCommand : IRequest<GiveNoteForInternshipRespon
             _generalRepository.Update(internship);
             await _generalRepository.SaveChangesAsync(cancellationToken);
 
+
             return new GiveNoteForInternshipResponse
             {
                 Message = "Not verme işlemi başarıyla gerçekleşti",
@@ -37,7 +41,6 @@ public class GiveNoteForInternshipCommand : IRequest<GiveNoteForInternshipRespon
         }
     }
 }
-
 
 public class GiveNoteForInternshipResponse
 {
