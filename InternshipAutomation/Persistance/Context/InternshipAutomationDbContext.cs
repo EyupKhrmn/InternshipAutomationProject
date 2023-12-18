@@ -6,6 +6,7 @@ using IntershipOtomation.Domain.Entities.User;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Mono.TextTemplating;
 
 namespace InternshipAutomation.Persistance.Context;
 
@@ -25,10 +26,11 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
 
     #region Files
 
-    //public DbSet<BackUpFile> BackUpFiles { get; set; }
-    //public DbSet<InternshipApplicationFile> InternshipApplicationFiles { get; set; }
-    //public DbSet<InternshipBookPageFile> InternshipBookPages { get; set; }
-    //public DbSet<SendingFile> SendingFiles { get; set; }
+    public DbSet<InternshipApplicationFile> ApplicationFiles { get; set; }
+    public DbSet<InternshipDailyReportFile> DailyReportFiles { get; set; }
+    public DbSet<InternshipEvaluationFormForCompany> InternshipEvaluationFormForCompanies { get; set; }
+    public DbSet<InternshipResultReport> InternshipResultReports { get; set; }
+    public DbSet<StateContributionFile> ContributionFiles { get; set; }
 
     #endregion
 
@@ -83,6 +85,29 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
         modelBuilder.Entity<InternshipPeriod>()
             .HasMany(_ => _.Internships)
             .WithOne(_ => _.InternshipPeriod)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Internship>()
+            .HasMany(_ => _.InternshipDailyReportFiles)
+            .WithOne(_ => _.Internship)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Internship>()
+            .HasOne(_ => _.InternshipEvaluationFormForCompany)
+            .WithOne(_ => _.Internship)
+            .HasForeignKey<InternshipEvaluationFormForCompany>(_=>_.InternshipId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Internship>()
+            .HasOne(_ => _.InternshipResultReport)
+            .WithOne(_ => _.Internship)
+            .HasForeignKey<InternshipResultReport>(_=>_.InternshipId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Internship>()
+            .HasOne(_ => _.StateContributionFile)
+            .WithOne(_ => _.Internship)
+            .HasForeignKey<StateContributionFile>(_=>_.InternshipId)
             .OnDelete(DeleteBehavior.NoAction);
             
         base.OnModelCreating(modelBuilder);

@@ -66,7 +66,7 @@ public class RegisterInternshipCommand : IRequest<RegisterInternshipResponse>
             var internship = new Domain.Entities.Internship.Internship
             {
                 StudentUser = studentUser,
-                TeacherUser = request.InternshipApplication.TeacherUser, //TODO internship üzerinden gelen UserID ile doldurulacak
+                TeacherUser = request.InternshipApplication.TeacherUser, //TODO tıklanan internship üzerinden gelen UserID ile doldurulacak
                 CompanyUser = request.InternshipApplication.CompanyUser,
                 InternshipApplicationFile = internshipApplicationFile,
                 InternshipPeriod = internshipPeriod

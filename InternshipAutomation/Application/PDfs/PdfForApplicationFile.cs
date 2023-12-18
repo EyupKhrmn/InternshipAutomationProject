@@ -20,7 +20,7 @@ public class PdfForApplicationFile
 
                 page.Header().Text("MAKÜ Staj Basvuru Formu")
                     .SemiBold().FontSize(30).FontColor(Colors.Grey.Darken4);
-
+                
                 page.Content()
                     .PaddingVertical(1, Unit.Centimetre)
                     .Column(x =>

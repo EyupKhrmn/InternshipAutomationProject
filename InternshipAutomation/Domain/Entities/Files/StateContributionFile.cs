@@ -27,4 +27,7 @@ public class StateContributionFile : Entity
     public string? CompnayIBAN { get; set; }
 
     #endregion
+
+    public Guid InternshipId { get; set; }
+    public Internship.Internship Internship { get; set; }
 }
