@@ -25,14 +25,9 @@ public class AddInternshipCommand : IRequest<AddInternshipResponse>
 
         public async Task<AddInternshipResponse> Handle(AddInternshipCommand request, CancellationToken cancellationToken)
         {
-            var token = _httpContextAccessor.HttpContext.Request.Cookies["AuthToken"];
-            var currentUserUsername = _decodeTokenService.GetUsernameFromToken(token);
+            var currentUser = await _decodeTokenService.GetUsernameFromToken();
             
-            var user = await _generalRepository
-                .Query<Domain.User.User>()
-                .SingleOrDefaultAsync(_ => _.UserName == currentUserUsername, cancellationToken: cancellationToken);
-            
-            user.Internships.Add(request.Internship);
+            currentUser.Internships.Add(request.Internship);
 
             return new AddInternshipResponse
             {

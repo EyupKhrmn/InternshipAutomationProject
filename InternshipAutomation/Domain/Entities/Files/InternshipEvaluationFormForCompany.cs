@@ -31,7 +31,6 @@ public class InternshipEvaluationFormForCompany : Entity
     public string SupervisorNameSurname { get; set; }
     public bool WorkAgain { get; set; }
     public string DevelopmentSuggestionForStudentUser { get; set; }
-
     public Guid InternshipId { get; set; }
     public Internship.Internship Internship { get; set; }
 }

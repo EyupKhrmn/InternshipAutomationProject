@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipAutomation.Migrations
 {
     [DbContext(typeof(InternshipAutomationDbContext))]
-    [Migration("20231208100956_v1")]
-    partial class v1
+    [Migration("20231221091412_v5")]
+    partial class v5
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,7 +75,7 @@ namespace InternshipAutomation.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InternshipApplicationFiles");
+                    b.ToTable("InternshipApplicationFile");
                 });
 
             modelBuilder.Entity("InternshipAutomation.Domain.Entities.Files.InternshipDailyReportFile", b =>
@@ -84,48 +84,192 @@ namespace InternshipAutomation.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyOfficerNameSurname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Content")
+                    b.Property<string>("CompanyManagerNameSurname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DayCount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("EducationDate")
+                    b.Property<DateTime>("CurrentDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DescriptionOfWork")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("InternshipId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("LastModificationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SchoolTerm")
+                    b.Property<string>("StudentNameSurname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TopicTitleOfWork")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InternshipId");
+
+                    b.ToTable("InternshipDailyReportFile");
+                });
+
+            modelBuilder.Entity("InternshipAutomation.Domain.Entities.Files.InternshipEvaluationFormForCompany", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Appearance")
                         .HasColumnType("int");
 
-                    b.Property<string>("StudentNameSurname")
+                    b.Property<int>("Attendance")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BeingInnovative")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommunicationWithCustomers")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommunicationWithSupervisors")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommunicationWithWorkFriends")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Creativity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DevelopmentSuggestionForStudentUser")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StudentNumber")
+                    b.Property<int>("EffectiveUserOfResources")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EfficiencyInTimeUsing")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FamiliarityOfTeamWorks")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FamiliarityOfTechnology")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FulfillingTheDuties")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Initiative")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InterestForWork")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("InternshipId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("LastModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Leadership")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProblemSolving")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SelfConfidence")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentUserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeachingStaffNameSurname")
+                    b.Property<int>("SuitabilityForJobStandards")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SupervisorNameSurname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<int>("TakingOnResponsibility")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TechnicalKnowledge")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("WorkAgain")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("WorkingArea")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("WritingDate")
+                    b.Property<DateTime>("WorkingDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("InternshipDailyReportFiles");
+                    b.HasIndex("InternshipId")
+                        .IsUnique();
+
+                    b.ToTable("InternshipEvaluationFormForCompanies");
+                });
+
+            modelBuilder.Entity("InternshipAutomation.Domain.Entities.Files.InternshipResultReport", b =>
+                {
+                    b.Property<Guid?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AcademicYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyManager")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("InternshipId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SchoolTerm")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentNameSurname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentProgram")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeacherNameSurname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InternshipId")
+                        .IsUnique();
+
+                    b.ToTable("InternshipResultReports");
                 });
 
             modelBuilder.Entity("InternshipAutomation.Domain.Entities.Files.StateContributionFile", b =>
@@ -155,6 +299,9 @@ namespace InternshipAutomation.Migrations
                     b.Property<int?>("EmployeeCount")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("InternshipId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("LastModificationDate")
                         .HasColumnType("datetime2");
 
@@ -181,7 +328,10 @@ namespace InternshipAutomation.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StateContributionFiles");
+                    b.HasIndex("InternshipId")
+                        .IsUnique();
+
+                    b.ToTable("StateContributionFile");
                 });
 
             modelBuilder.Entity("InternshipAutomation.Domain.Entities.Internship.Company", b =>
@@ -216,17 +366,20 @@ namespace InternshipAutomation.Migrations
                     b.Property<Guid?>("CompanyUser")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("InternshipApplicationFileId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("InternshipDailyReportFileId")
+                    b.Property<Guid?>("InternshipApplicationFileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("InternshipPeriodId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("StateContributionFileId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime>("LastModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Note")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Status")
                         .HasColumnType("int");
@@ -243,11 +396,7 @@ namespace InternshipAutomation.Migrations
 
                     b.HasIndex("InternshipApplicationFileId");
 
-                    b.HasIndex("InternshipDailyReportFileId");
-
                     b.HasIndex("InternshipPeriodId");
-
-                    b.HasIndex("StateContributionFileId");
 
                     b.HasIndex("StudentUserId");
 
@@ -285,17 +434,16 @@ namespace InternshipAutomation.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Class")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CompanyUserNameSurname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -330,7 +478,8 @@ namespace InternshipAutomation.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StudentNumber")
+                    b.Property<string>("StudentNameSurname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeacherNameSurname")
@@ -348,6 +497,8 @@ namespace InternshipAutomation.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -357,10 +508,6 @@ namespace InternshipAutomation.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("IntershipOtomation.Domain.Entities.User.AppRole", b =>
@@ -494,38 +641,48 @@ namespace InternshipAutomation.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("InternshipAutomation.Domain.User.CompanyUser", b =>
+            modelBuilder.Entity("InternshipAutomation.Domain.Entities.Files.InternshipDailyReportFile", b =>
                 {
-                    b.HasBaseType("InternshipAutomation.Domain.User.User");
+                    b.HasOne("InternshipAutomation.Domain.Entities.Internship.Internship", "Internship")
+                        .WithMany("InternshipDailyReportFiles")
+                        .HasForeignKey("InternshipId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("InternshipId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("AspNetUsers", t =>
-                        {
-                            t.Property("InternshipId")
-                                .HasColumnName("CompanyUser_InternshipId");
-                        });
-
-                    b.HasDiscriminator().HasValue("CompanyUser");
+                    b.Navigation("Internship");
                 });
 
-            modelBuilder.Entity("InternshipAutomation.Domain.User.StudentUser", b =>
+            modelBuilder.Entity("InternshipAutomation.Domain.Entities.Files.InternshipEvaluationFormForCompany", b =>
                 {
-                    b.HasBaseType("InternshipAutomation.Domain.User.User");
+                    b.HasOne("InternshipAutomation.Domain.Entities.Internship.Internship", "Internship")
+                        .WithOne("InternshipEvaluationFormForCompany")
+                        .HasForeignKey("InternshipAutomation.Domain.Entities.Files.InternshipEvaluationFormForCompany", "InternshipId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.Property<Guid>("InternshipId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Navigation("Internship");
+                });
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+            modelBuilder.Entity("InternshipAutomation.Domain.Entities.Files.InternshipResultReport", b =>
+                {
+                    b.HasOne("InternshipAutomation.Domain.Entities.Internship.Internship", "Internship")
+                        .WithOne("InternshipResultReport")
+                        .HasForeignKey("InternshipAutomation.Domain.Entities.Files.InternshipResultReport", "InternshipId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.HasDiscriminator().HasValue("StudentUser");
+                    b.Navigation("Internship");
+                });
+
+            modelBuilder.Entity("InternshipAutomation.Domain.Entities.Files.StateContributionFile", b =>
+                {
+                    b.HasOne("InternshipAutomation.Domain.Entities.Internship.Internship", "Internship")
+                        .WithOne("StateContributionFile")
+                        .HasForeignKey("InternshipAutomation.Domain.Entities.Files.StateContributionFile", "InternshipId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Internship");
                 });
 
             modelBuilder.Entity("InternshipAutomation.Domain.Entities.Internship.Internship", b =>
@@ -538,18 +695,10 @@ namespace InternshipAutomation.Migrations
                         .WithMany()
                         .HasForeignKey("InternshipApplicationFileId");
 
-                    b.HasOne("InternshipAutomation.Domain.Entities.Files.InternshipDailyReportFile", "InternshipDailyReportFile")
-                        .WithMany()
-                        .HasForeignKey("InternshipDailyReportFileId");
-
                     b.HasOne("InternshipAutomation.Domain.Entities.Internship.InternshipPeriod", "InternshipPeriod")
                         .WithMany("Internships")
                         .HasForeignKey("InternshipPeriodId")
                         .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("InternshipAutomation.Domain.Entities.Files.StateContributionFile", "StateContributionFile")
-                        .WithMany()
-                        .HasForeignKey("StateContributionFileId");
 
                     b.HasOne("InternshipAutomation.Domain.User.User", "StudentUser")
                         .WithMany("Internships")
@@ -557,11 +706,7 @@ namespace InternshipAutomation.Migrations
 
                     b.Navigation("InternshipApplicationFile");
 
-                    b.Navigation("InternshipDailyReportFile");
-
                     b.Navigation("InternshipPeriod");
-
-                    b.Navigation("StateContributionFile");
 
                     b.Navigation("StudentUser");
                 });
@@ -573,6 +718,13 @@ namespace InternshipAutomation.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("InternshipAutomation.Domain.User.User", b =>
+                {
+                    b.HasOne("InternshipAutomation.Domain.Entities.Internship.Company", null)
+                        .WithMany("CompanyUsers")
+                        .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -626,22 +778,22 @@ namespace InternshipAutomation.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("InternshipAutomation.Domain.User.CompanyUser", b =>
-                {
-                    b.HasOne("InternshipAutomation.Domain.Entities.Internship.Company", "Company")
-                        .WithMany("CompanyUsers")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("InternshipAutomation.Domain.Entities.Internship.Company", b =>
                 {
                     b.Navigation("CompanyUsers");
 
                     b.Navigation("Internships");
+                });
+
+            modelBuilder.Entity("InternshipAutomation.Domain.Entities.Internship.Internship", b =>
+                {
+                    b.Navigation("InternshipDailyReportFiles");
+
+                    b.Navigation("InternshipEvaluationFormForCompany");
+
+                    b.Navigation("InternshipResultReport");
+
+                    b.Navigation("StateContributionFile");
                 });
 
             modelBuilder.Entity("InternshipAutomation.Domain.Entities.Internship.InternshipPeriod", b =>

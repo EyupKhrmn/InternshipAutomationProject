@@ -40,7 +40,7 @@ namespace InternshipAutomation.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InternshipApplicationFiles",
+                name: "InternshipApplicationFile",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -61,57 +61,7 @@ namespace InternshipAutomation.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InternshipApplicationFiles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "InternshipDailyReportFiles",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StudentNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyOfficerNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TeachingStaffNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SchoolTerm = table.Column<int>(type: "int", nullable: true),
-                    EducationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WritingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DayCount = table.Column<int>(type: "int", nullable: true),
-                    LastModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InternshipDailyReportFiles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StateContributionFiles",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StudentNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentTCKN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentProgram = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentBirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyTCKN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyVKN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmployeeCount = table.Column<int>(type: "int", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BankAccountHolder = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompnayIBAN = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StateContributionFiles", x => x.Id);
+                    table.PrimaryKey("PK_InternshipApplicationFile", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -289,10 +239,11 @@ namespace InternshipAutomation.Migrations
                     CompanyUser = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: true),
                     InternshipApplicationFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    InternshipDailyReportFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    StateContributionFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Note = table.Column<int>(type: "int", nullable: false),
                     InternshipPeriodId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -308,24 +259,147 @@ namespace InternshipAutomation.Migrations
                         principalTable: "Companies",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Internships_InternshipApplicationFiles_InternshipApplicationFileId",
+                        name: "FK_Internships_InternshipApplicationFile_InternshipApplicationFileId",
                         column: x => x.InternshipApplicationFileId,
-                        principalTable: "InternshipApplicationFiles",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Internships_InternshipDailyReportFiles_InternshipDailyReportFileId",
-                        column: x => x.InternshipDailyReportFileId,
-                        principalTable: "InternshipDailyReportFiles",
+                        principalTable: "InternshipApplicationFile",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Internships_InternshipPeriods_InternshipPeriodId",
                         column: x => x.InternshipPeriodId,
                         principalTable: "InternshipPeriods",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InternshipDailyReportFile",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TopicTitleOfWork = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DescriptionOfWork = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudentNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyManagerNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CurrentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StudentUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InternshipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LastModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InternshipDailyReportFile", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Internships_StateContributionFiles_StateContributionFileId",
-                        column: x => x.StateContributionFileId,
-                        principalTable: "StateContributionFiles",
+                        name: "FK_InternshipDailyReportFile_AspNetUsers_StudentUserId",
+                        column: x => x.StudentUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InternshipDailyReportFile_Internships_InternshipId",
+                        column: x => x.InternshipId,
+                        principalTable: "Internships",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InternshipEvaluationFormForCompanies",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentUserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkingArea = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SelfConfidence = table.Column<int>(type: "int", nullable: false),
+                    Initiative = table.Column<int>(type: "int", nullable: false),
+                    InterestForWork = table.Column<int>(type: "int", nullable: false),
+                    Creativity = table.Column<int>(type: "int", nullable: false),
+                    Leadership = table.Column<int>(type: "int", nullable: false),
+                    Appearance = table.Column<int>(type: "int", nullable: false),
+                    CommunicationWithSupervisors = table.Column<int>(type: "int", nullable: false),
+                    CommunicationWithWorkFriends = table.Column<int>(type: "int", nullable: false),
+                    CommunicationWithCustomers = table.Column<int>(type: "int", nullable: false),
+                    Attendance = table.Column<int>(type: "int", nullable: false),
+                    EfficiencyInTimeUsing = table.Column<int>(type: "int", nullable: false),
+                    ProblemSolving = table.Column<int>(type: "int", nullable: false),
+                    FamiliarityOfTeamWorks = table.Column<int>(type: "int", nullable: false),
+                    TechnicalKnowledge = table.Column<int>(type: "int", nullable: false),
+                    SuitabilityForJobStandards = table.Column<int>(type: "int", nullable: false),
+                    TakingOnResponsibility = table.Column<int>(type: "int", nullable: false),
+                    FulfillingTheDuties = table.Column<int>(type: "int", nullable: false),
+                    EffectiveUserOfResources = table.Column<int>(type: "int", nullable: false),
+                    FamiliarityOfTechnology = table.Column<int>(type: "int", nullable: false),
+                    BeingInnovative = table.Column<int>(type: "int", nullable: false),
+                    SupervisorNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkAgain = table.Column<bool>(type: "bit", nullable: false),
+                    DevelopmentSuggestionForStudentUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InternshipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LastModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InternshipEvaluationFormForCompanies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InternshipEvaluationFormForCompanies_Internships_InternshipId",
+                        column: x => x.InternshipId,
+                        principalTable: "Internships",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InternshipResultReports",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudentNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StudentProgram = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyManager = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TeacherNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SchoolTerm = table.Column<int>(type: "int", nullable: false),
+                    AcademicYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InternshipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InternshipResultReports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InternshipResultReports_Internships_InternshipId",
+                        column: x => x.InternshipId,
+                        principalTable: "Internships",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StateContributionFile",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentTCKN = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentProgram = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentBirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanyTCKN = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompanyVKN = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeCount = table.Column<int>(type: "int", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BankAccountHolder = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompnayIBAN = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InternshipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LastModificationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StateContributionFile", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StateContributionFile_Internships_InternshipId",
+                        column: x => x.InternshipId,
+                        principalTable: "Internships",
                         principalColumn: "Id");
                 });
 
@@ -374,9 +448,31 @@ namespace InternshipAutomation.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_InternshipDailyReportFile_InternshipId",
+                table: "InternshipDailyReportFile",
+                column: "InternshipId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InternshipDailyReportFile_StudentUserId",
+                table: "InternshipDailyReportFile",
+                column: "StudentUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InternshipEvaluationFormForCompanies_InternshipId",
+                table: "InternshipEvaluationFormForCompanies",
+                column: "InternshipId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InternshipPeriods_UserId",
                 table: "InternshipPeriods",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InternshipResultReports_InternshipId",
+                table: "InternshipResultReports",
+                column: "InternshipId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Internships_CompanyId",
@@ -389,24 +485,20 @@ namespace InternshipAutomation.Migrations
                 column: "InternshipApplicationFileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Internships_InternshipDailyReportFileId",
-                table: "Internships",
-                column: "InternshipDailyReportFileId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Internships_InternshipPeriodId",
                 table: "Internships",
                 column: "InternshipPeriodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Internships_StateContributionFileId",
-                table: "Internships",
-                column: "StateContributionFileId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Internships_StudentUserId",
                 table: "Internships",
                 column: "StudentUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StateContributionFile_InternshipId",
+                table: "StateContributionFile",
+                column: "InternshipId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -428,22 +520,28 @@ namespace InternshipAutomation.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Internships");
+                name: "InternshipDailyReportFile");
+
+            migrationBuilder.DropTable(
+                name: "InternshipEvaluationFormForCompanies");
+
+            migrationBuilder.DropTable(
+                name: "InternshipResultReports");
+
+            migrationBuilder.DropTable(
+                name: "StateContributionFile");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "InternshipApplicationFiles");
+                name: "Internships");
 
             migrationBuilder.DropTable(
-                name: "InternshipDailyReportFiles");
+                name: "InternshipApplicationFile");
 
             migrationBuilder.DropTable(
                 name: "InternshipPeriods");
-
-            migrationBuilder.DropTable(
-                name: "StateContributionFiles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

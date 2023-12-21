@@ -16,14 +16,6 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
     {
     }
 
-    #region Users
-    
-    public DbSet<CompanyUser> CompanyUsers { get; set; }
-    //public DbSet<AdminUser> AdminUsers { get; set; }
-    public DbSet<StudentUser> StudentUsers { get; set; }
-
-    #endregion
-
     #region Files
 
     public DbSet<InternshipApplicationFile> ApplicationFiles { get; set; }

@@ -128,7 +128,7 @@ builder.Services.AddScoped<IEmailSender,MailSender>();
 
 builder.Services.AddDbContext<InternshipAutomationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerLocalhost"));
 });
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());

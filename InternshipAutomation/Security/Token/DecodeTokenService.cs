@@ -1,13 +1,28 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using Azure.Identity;
+using InternshipAutomation.Application.Repository.GeneralRepository;
+using InternshipAutomation.Domain.User;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Security.Token;
 
 public class DecodeTokenService : IDecodeTokenService
 {
-    public string GetUsernameFromToken(string token)
+    private readonly IHttpContextAccessor _contextAccessor;
+    private readonly IGeneralRepository _generalRepository;
+
+    public DecodeTokenService(IHttpContextAccessor contextAccessor, IGeneralRepository generalRepository)
     {
+        _contextAccessor = contextAccessor;
+        _generalRepository = generalRepository;
+    }
+
+    public async Task<User> GetUsernameFromToken()
+    {
+        var token = _contextAccessor.HttpContext.Request.Cookies["AuthToken"];
+        
         var handler = new JwtSecurityTokenHandler();
         var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
 
@@ -16,10 +31,13 @@ public class DecodeTokenService : IDecodeTokenService
             var username = jsonToken.Claims
                 .FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
 
-            return username;
+            var user = await _generalRepository.Query<User>()
+                .FirstOrDefaultAsync(_=>_.UserName == username);
+
+            return user;
         }
         
-        return "Token Boş Veya hatalı";
+        return new User();
     }
     
     

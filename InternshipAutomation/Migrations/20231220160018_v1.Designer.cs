@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipAutomation.Migrations
 {
     [DbContext(typeof(InternshipAutomationDbContext))]
-    [Migration("20231218202348_v62")]
-    partial class v62
+    [Migration("20231220160018_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

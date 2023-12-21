@@ -9,5 +9,5 @@ public class Company
     public string? Address { get; set; }
     public string? CompanyWorkingArea { get; set; }
     public List<Internship>? Internships { get; set; }
-    public List<CompanyUser>? CompanyUsers { get; set; }
+    public List<User.User>? CompanyUsers { get; set; }
 }

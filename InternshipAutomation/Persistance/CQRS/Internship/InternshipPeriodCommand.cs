@@ -29,11 +29,7 @@ public class InternshipPeriodCommand : IRequest<InternshipPeriodResponse>
 
         public async Task<InternshipPeriodResponse> Handle(InternshipPeriodCommand request, CancellationToken cancellationToken)
         {
-            var token = _contextAccessor.HttpContext.Request.Cookies["AuthToken"];
-            var currentUserUsername = _decodeTokenService.GetUsernameFromToken(token);
-
-            var currentUser = await _generalRepository.Query<Domain.User.User>()
-                .SingleOrDefaultAsync(_ => _.UserName == currentUserUsername, cancellationToken: cancellationToken);
+            var currentUser = await _decodeTokenService.GetUsernameFromToken();
             
             var internshipPeriod = new InternshipPeriod
             {

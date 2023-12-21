@@ -36,9 +36,7 @@ public class RegisterInternshipCommand : IRequest<RegisterInternshipResponse>
 
         public async Task<RegisterInternshipResponse> Handle(RegisterInternshipCommand request, CancellationToken cancellationToken)
         {
-            var token = _httpContextAccessor.HttpContext.Request.Cookies["AuthToken"];
-
-            var currentUserUsername = _decodeTokenService.GetUsernameFromToken(token);
+            var currentUser = await _decodeTokenService.GetUsernameFromToken();
             
             var internshipPeriod = await _generalRepository
                 .Query<InternshipPeriod>()
@@ -60,7 +58,7 @@ public class RegisterInternshipCommand : IRequest<RegisterInternshipResponse>
                 StudentTCKN = request.InternshipApplication.InternshipApplicationFile.StudentTCKN
             };
 
-            var studentUser = await _userManager.FindByNameAsync(currentUserUsername);
+            var studentUser = currentUser;
             //var teacherUser = await _userManager.FindByIdAsync(request.InternshipApplication.TeacherUser.ToString() ?? string.Empty);
 
             var internship = new Domain.Entities.Internship.Internship

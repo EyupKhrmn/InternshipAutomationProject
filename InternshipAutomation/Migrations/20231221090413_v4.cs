@@ -5,25 +5,32 @@
 namespace InternshipAutomation.Migrations
 {
     /// <inheritdoc />
-    public partial class v3 : Migration
+    public partial class v4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
+            migrationBuilder.AlterColumn<int>(
                 name: "Note",
                 table: "Internships",
                 type: "int",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true,
+                oldClrType: typeof(int),
+                oldType: "int");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
+            migrationBuilder.AlterColumn<int>(
                 name: "Note",
-                table: "Internships");
+                table: "Internships",
+                type: "int",
+                nullable: false,
+                defaultValue: 0,
+                oldClrType: typeof(int),
+                oldType: "int",
+                oldNullable: true);
         }
     }
 }
