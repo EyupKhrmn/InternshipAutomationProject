@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Security.Token;
