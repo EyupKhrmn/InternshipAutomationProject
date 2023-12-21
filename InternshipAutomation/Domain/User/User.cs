@@ -24,6 +24,12 @@ public class User : IdentityUser<Guid>
 
     #endregion
 
+    #region Admin
+
+    public string AdminUserNameSurname { get; set; }
+
+    #endregion
+
     public string? Token { get; set; }
 
     public List<Internship>? Internships { get; set; }

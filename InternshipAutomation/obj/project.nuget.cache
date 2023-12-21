@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "ZzGYFTESMVD+Kt9ThsbqTBwW5teGTnleToWL6B7HVslPyIjpTOeum4kuy2NIYnLljCBCUSnAHh2uzV9U7+FR9Q==",
+  "dgSpecHash": "QYluy1Yj0sSEi9v/jsWnCZHrZ+td46TMxV51LzWZuWSPFBPay717zX6pKhdRlCBPTO+zc8nR8PbnD2SAgDZGyw==",
   "success": true,
   "projectFilePath": "/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/InternshipAutomation.csproj",
   "expectedPackageFiles": [
     "/Users/eyupkahraman/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/Users/eyupkahraman/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",
     "/Users/eyupkahraman/.nuget/packages/bouncycastle.cryptography/2.2.1/bouncycastle.cryptography.2.2.1.nupkg.sha512",
+    "/Users/eyupkahraman/.nuget/packages/fluentvalidation/11.9.0/fluentvalidation.11.9.0.nupkg.sha512",
+    "/Users/eyupkahraman/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.9.0/fluentvalidation.dependencyinjectionextensions.11.9.0.nupkg.sha512",
     "/Users/eyupkahraman/.nuget/packages/harfbuzzsharp/7.3.0/harfbuzzsharp.7.3.0.nupkg.sha512",
     "/Users/eyupkahraman/.nuget/packages/harfbuzzsharp.nativeassets.macos/7.3.0/harfbuzzsharp.nativeassets.macos.7.3.0.nupkg.sha512",
     "/Users/eyupkahraman/.nuget/packages/harfbuzzsharp.nativeassets.win32/7.3.0/harfbuzzsharp.nativeassets.win32.7.3.0.nupkg.sha512",

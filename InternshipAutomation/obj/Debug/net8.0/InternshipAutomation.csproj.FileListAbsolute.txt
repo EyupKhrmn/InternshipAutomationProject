@@ -545,3 +545,5 @@ C:/Users/eyupk/RiderProjects/InternshipAutomationProject/InternshipAutomation/bi
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/obj/Debug/net8.0/InternshipAutomation.pdb
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/obj/Debug/net8.0/InternshipAutomation.genruntimeconfig.cache
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/obj/Debug/net8.0/ref/InternshipAutomation.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/FluentValidation.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll

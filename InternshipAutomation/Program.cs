@@ -1,9 +1,13 @@
 using System.Configuration;
 using System.Text;
+using FluentValidation;
 using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Application.Repository.GeneralRepository;
+using InternshipAutomation.Application.Validation.FileValidator;
+using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.User;
 using InternshipAutomation.Persistance.Context;
+using InternshipAutomation.Persistance.CQRS.File;
 using InternshipAutomation.Security.Token;
 using IntershipOtomation.Domain.Entities.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -125,6 +129,8 @@ builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpS
 builder.Services.AddScoped<IEmailSender,MailSender>();
 
 #endregion
+
+
 
 builder.Services.AddDbContext<InternshipAutomationDbContext>(options =>
 {

@@ -1,3 +1,4 @@
+using InternshipAutomation.Persistance.CQRS.File;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -15,6 +16,12 @@ public class CompanyController : ControllerBase
     public CompanyController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpPost("EvaluateStudent")]
+    public async Task<IActionResult> EvaluateStudent([FromQuery] EvaluateStudentCommand evaluateStudentCommand)
+    {
+        return Ok(await _mediator.Send(evaluateStudentCommand));
     }
 
 }

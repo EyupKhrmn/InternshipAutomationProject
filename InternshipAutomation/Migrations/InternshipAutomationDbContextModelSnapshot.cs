@@ -431,6 +431,10 @@ namespace InternshipAutomation.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("AdminUserNameSurname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("CompanyId")
                         .HasColumnType("uniqueidentifier");
 

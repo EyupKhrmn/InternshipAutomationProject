@@ -7,6 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.9.0" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
       <PackageReference Include="MailKit" Version="4.3.0" />
       <PackageReference Include="MediatR" Version="12.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
@@ -25,6 +27,13 @@
       <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
       <PackageReference Include="QuestPDF" Version="2023.12.0" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Application\Validation\InternshipValidator\" />
+      <Folder Include="Application\Validation\LoginValidator\" />
+      <Folder Include="Application\Validation\RoleValidator\" />
+      <Folder Include="Application\Validation\Uservalidator\" />
     </ItemGroup>
 
 </Project>
