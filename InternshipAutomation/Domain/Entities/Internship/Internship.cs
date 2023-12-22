@@ -9,7 +9,7 @@ namespace InternshipAutomation.Domain.Entities.Internship;
 public class Internship : Entity
 {
     public Guid Id { get; set; }
-    public User.User? StudentUser { get; set; }
+    public Guid? StudentUser { get; set; }
     public Guid? TeacherUser { get; set; }
     public Guid? CompanyUser { get; set; }
     public InternshipStatus? Status { get; set; }

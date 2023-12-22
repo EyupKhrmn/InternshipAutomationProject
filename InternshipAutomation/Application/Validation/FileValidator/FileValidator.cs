@@ -2,6 +2,7 @@ using System.Data;
 using FluentValidation;
 using InternshipAutomation.Persistance.CQRS.File;
 using InternshipAutomation.Persistance.CQRS.Internship;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace InternshipAutomation.Application.Validation.FileValidator;
 
@@ -62,6 +63,18 @@ public class FileValidator
             RuleFor(_ => _.InternshipApplication.IsApproved).NotNull();
             RuleFor(_ => _.InternshipApplication.TeacherUser).NotEmpty();
             RuleFor(_ => _.InternshipApplication.CompanyUser).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.StartedDate).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.CompanyName).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.CompanySector).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.StudentProgram).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.FinishedDate).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.StudentNumber).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.CompanyEMail).NotEmpty().EmailAddress();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.CompanyPhoneNumber).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.StudentNameSurname).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.StudentPhoneNumber).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.StudentAGNO).NotEmpty();
+            RuleFor(_ => _.InternshipApplication.InternshipApplicationFile.StudentTCKN).NotEmpty().MaximumLength(11);
         }
     }
 }

@@ -15,14 +15,12 @@ public class InternshipPeriodCommand : IRequest<InternshipPeriodResponse>
     public class InternshipPeriodCommandHandler : IRequestHandler<InternshipPeriodCommand,InternshipPeriodResponse>
     {
         private readonly IGeneralRepository _generalRepository;
-        private readonly IHttpContextAccessor _contextAccessor;
         private readonly IDecodeTokenService _decodeTokenService;
         private readonly IEmailSender _emailSender;
 
-        public InternshipPeriodCommandHandler(IGeneralRepository generalRepository, IHttpContextAccessor contextAccessor, IDecodeTokenService decodeTokenService, IEmailSender emailSender)
+        public InternshipPeriodCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService, IEmailSender emailSender)
         {
             _generalRepository = generalRepository;
-            _contextAccessor = contextAccessor;
             _decodeTokenService = decodeTokenService;
             _emailSender = emailSender;
         }

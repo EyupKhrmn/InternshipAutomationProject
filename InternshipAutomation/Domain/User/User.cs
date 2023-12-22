@@ -8,7 +8,7 @@ public class User : IdentityUser<Guid>
 {
     #region Student
 
-    public string StudentNameSurname { get; set; }
+    public string? StudentNameSurname { get; set; }
     
     #endregion
 
@@ -20,17 +20,15 @@ public class User : IdentityUser<Guid>
 
     #region Company
 
-    public string CompanyUserNameSurname { get; set; }
+    public string? CompanyUserNameSurname { get; set; }
 
     #endregion
 
     #region Admin
 
-    public string AdminUserNameSurname { get; set; }
+    public string? AdminUserNameSurname { get; set; }
 
     #endregion
 
     public string? Token { get; set; }
-
-    public List<Internship>? Internships { get; set; }
 }

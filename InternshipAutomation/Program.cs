@@ -99,7 +99,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy(IdentityData.StudentUserPolicyName, p => 
         p.RequireClaim(IdentityData.UserRankClaimsName,IdentityData.StudentUserRankName));
     
-    options.AddPolicy(IdentityData.UserRankClaimsName, p => 
+    options.AddPolicy(IdentityData.CompanyUserPolicyName, p => 
         p.RequireClaim(IdentityData.UserRankClaimsName,IdentityData.CompanyUserRankName));
 });
 

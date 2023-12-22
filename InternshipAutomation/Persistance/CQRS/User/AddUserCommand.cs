@@ -1,8 +1,3 @@
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Security.Policy;
-using System.Text;
-using Azure.Core;
 using InternshipAutomation.Application.Mail;
 using IntershipOtomation.Domain.Entities.User;
 using MediatR;

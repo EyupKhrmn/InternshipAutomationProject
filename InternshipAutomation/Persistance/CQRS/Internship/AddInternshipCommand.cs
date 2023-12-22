@@ -26,8 +26,6 @@ public class AddInternshipCommand : IRequest<AddInternshipResponse>
         public async Task<AddInternshipResponse> Handle(AddInternshipCommand request, CancellationToken cancellationToken)
         {
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
-            
-            currentUser.Internships.Add(request.Internship);
 
             return new AddInternshipResponse
             {

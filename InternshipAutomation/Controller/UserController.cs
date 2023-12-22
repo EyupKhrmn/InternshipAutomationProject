@@ -9,7 +9,7 @@ namespace InternshipAutomation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Bearer",Policy = IdentityData.AdminUserPolicyName)]
+    [Authorize(AuthenticationSchemes = "Bearer", Policy = IdentityData.AdminUserPolicyName)]
     public class UserController : ControllerBase
     {
 
@@ -26,19 +26,19 @@ namespace InternshipAutomation.Controller
             return Ok(await _mediator.Send(getUserCommand));
         }
         
-        [HttpPost]
+        [HttpPost("AddUser")]
         public async Task<IActionResult> AddUser([FromBody] AddUserCommand addUserCommand)
         {
             return Ok(await _mediator.Send(addUserCommand));
         }
         
-        [HttpPost("AddClaimForuser")]
+        [HttpPost("AddClaimForUser")]
         public async Task<IActionResult> AddClaim([FromBody] AddClaimCommand addClaimCommand)
         {
             return Ok(await _mediator.Send(addClaimCommand));
         }
 
-        [HttpPut]
+        [HttpPut("UpdateUser")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand updateUserCommand)
         {
             return Ok(await _mediator.Send(updateUserCommand));

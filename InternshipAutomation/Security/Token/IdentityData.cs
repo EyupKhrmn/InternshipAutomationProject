@@ -4,7 +4,7 @@ public class IdentityData
 {
     public const string UserRankClaimsName = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
     
-    public const string AdminUserRankName = "admin";
+    public const string AdminUserRankName = "Admin";
     public const string AdminUserPolicyName = "admin";
 
     public const string TeacherUserRankName = "Öğretmen";

@@ -4,6 +4,7 @@ using InternshipAutomation.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipAutomation.Migrations
 {
     [DbContext(typeof(InternshipAutomationDbContext))]
-    partial class InternshipAutomationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231222145326_v7")]
+    partial class v7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -381,7 +384,7 @@ namespace InternshipAutomation.Migrations
                     b.Property<int?>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("StudentUser")
+                    b.Property<Guid?>("StudentUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("TeacherUser")
@@ -394,6 +397,8 @@ namespace InternshipAutomation.Migrations
                     b.HasIndex("InternshipApplicationFileId");
 
                     b.HasIndex("InternshipPeriodId");
+
+                    b.HasIndex("StudentUserId");
 
                     b.ToTable("Internships");
                 });
@@ -430,12 +435,14 @@ namespace InternshipAutomation.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AdminUserNameSurname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("CompanyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CompanyUserNameSurname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -476,6 +483,7 @@ namespace InternshipAutomation.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StudentNameSurname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeacherNameSurname")
@@ -696,9 +704,15 @@ namespace InternshipAutomation.Migrations
                         .HasForeignKey("InternshipPeriodId")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.HasOne("InternshipAutomation.Domain.User.User", "StudentUser")
+                        .WithMany("Internships")
+                        .HasForeignKey("StudentUserId");
+
                     b.Navigation("InternshipApplicationFile");
 
                     b.Navigation("InternshipPeriod");
+
+                    b.Navigation("StudentUser");
                 });
 
             modelBuilder.Entity("InternshipAutomation.Domain.Entities.Internship.InternshipPeriod", b =>
@@ -787,6 +801,11 @@ namespace InternshipAutomation.Migrations
                 });
 
             modelBuilder.Entity("InternshipAutomation.Domain.Entities.Internship.InternshipPeriod", b =>
+                {
+                    b.Navigation("Internships");
+                });
+
+            modelBuilder.Entity("InternshipAutomation.Domain.User.User", b =>
                 {
                     b.Navigation("Internships");
                 });

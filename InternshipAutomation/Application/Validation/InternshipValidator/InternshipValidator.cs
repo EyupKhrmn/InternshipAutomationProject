@@ -9,9 +9,7 @@ public class InternshipValidator
     {
         public InternshipPeriodValidator()
         {
-            RuleFor(_ => _.StartedDate)
-                .GreaterThan(DateTime.UtcNow.Year - 1)
-                .WithMessage("Geçmiş dönemler için staj dönemi oluşturulamaz");
+            
         }
     }
     

@@ -2,6 +2,7 @@
 
 public class InternshipApplicationFileDto
 {
+    public Guid StudentUserId { get; set; }
     public string? StudentNameSurname { get; set; }
     public string? StudentNumber { get; set; }
     public string? StudentTCKN { get; set; }

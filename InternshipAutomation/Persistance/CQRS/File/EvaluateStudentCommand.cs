@@ -53,11 +53,14 @@ public class EvaluateStudentCommand : IRequest<EvaluateStudentResponse>
             var internship = await _generalRepository.Query<Domain.Entities.Internship.Internship>()
                 .FirstOrDefaultAsync(_ => _.Id == request.InternshipId, cancellationToken: cancellationToken);
 
+            var studentUser = await _generalRepository.Query<Domain.User.User>()
+                .FirstOrDefaultAsync(_ => _.Id == internship.StudentUser, cancellationToken: cancellationToken);
+
             #region File
 
             var file = new InternshipEvaluationFormForCompany
             {
-                StudentUserName = internship.StudentUser.StudentNameSurname,
+                StudentUserName = studentUser.StudentNameSurname,
                 Appearance = request.Appearance,
                 Attendance = request.Attendance,
                 BeingInnovative = request.BeingInnovative,
@@ -83,7 +86,10 @@ public class EvaluateStudentCommand : IRequest<EvaluateStudentResponse>
                 TakingOnResponsibility = request.TakingOnResponsibility,
                 SupervisorNameSurname = currentUser.CompanyUserNameSurname,
                 EffectiveUserOfResources = request.EffectiveUserOfResources,
-                WorkingDate = request.WorkingDate
+                WorkingDate = request.WorkingDate,
+                Internship = internship,
+                InternshipId = internship.Id,
+                
             };
 
             #endregion
