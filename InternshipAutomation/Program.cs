@@ -1,24 +1,25 @@
-using System.Configuration;
+using System.Reflection;
 using System.Text;
-using FluentValidation;
+using FluentValidation.AspNetCore;
 using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Application.Repository.GeneralRepository;
-using InternshipAutomation.Application.Validation.FileValidator;
-using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.User;
 using InternshipAutomation.Persistance.Context;
-using InternshipAutomation.Persistance.CQRS.File;
 using InternshipAutomation.Security.Token;
 using IntershipOtomation.Domain.Entities.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation(v =>
+{
+    v.ImplicitlyValidateChildProperties = true;
+    v.ImplicitlyValidateRootCollectionElements = true;
+    v.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+});
 builder.Services.AddEndpointsApiExplorer();
 
 QuestPDF.Settings.License = LicenseType.Community;
@@ -129,8 +130,6 @@ builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpS
 builder.Services.AddScoped<IEmailSender,MailSender>();
 
 #endregion
-
-
 
 builder.Services.AddDbContext<InternshipAutomationDbContext>(options =>
 {
