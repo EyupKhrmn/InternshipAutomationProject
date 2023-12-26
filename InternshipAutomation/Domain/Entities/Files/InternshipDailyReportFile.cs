@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.Serialization;
 using InternshipAutomation.Domain.Entities.Base;
@@ -12,6 +13,6 @@ public class InternshipDailyReportFile : Entity
     public string DescriptionOfWork  { get; set; }
     public string StudentNameSurname { get; set; }
     public string CompanyManagerNameSurname { get; set; }
-    public DateTime CurrentDate { get; set; }
+    public DateTime WorkingDate { get; set; }
     public Internship.Internship Internship { get; set; }
 }

@@ -43,7 +43,7 @@ public class AddDailyReportFileCommand : IRequest<AddDailyReportFileResponse>
                 DescriptionOfWork = request.DescriptionOfWork,
                 StudentNameSurname = currentUser.StudentNameSurname,
                 CompanyManagerNameSurname = companyUser.CompanyUserNameSurname,
-                CurrentDate = DateTime.UtcNow,
+                WorkingDate = DateTime.UtcNow,
                 Internship = internship
             };
 

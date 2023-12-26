@@ -36,4 +36,10 @@ public class TeacherController : ControllerBase
     {
         return Ok(await _mediator.Send(getApplicationFileByStudentNumber));
     }
+
+    [HttpGet("GetStudentDailyReports")]
+    public async Task<IActionResult> GetStudentDailyReports([FromQuery] GetDailyReportFileCommand getDailyReportFileCommand)
+    {
+        return Ok(await _mediator.Send(getDailyReportFileCommand));
+    }
 }
