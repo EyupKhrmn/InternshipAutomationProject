@@ -19,7 +19,6 @@ public class Internship : Entity
     public InternshipResultReport? InternshipResultReport { get; set; }
     public InternshipEvaluationFormForCompany? InternshipEvaluationFormForCompany { get; set; }
     public int? Note { get; set; }
-    [System.Text.Json.Serialization.JsonIgnore]
     public InternshipPeriod? InternshipPeriod { get; set; }
     public double InternshipAverage { get; set; }
 
