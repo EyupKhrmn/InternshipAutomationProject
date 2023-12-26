@@ -4,6 +4,7 @@ using InternshipAutomation.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipAutomation.Migrations
 {
     [DbContext(typeof(InternshipAutomationDbContext))]
-    partial class InternshipAutomationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231226131545_v11")]
+    partial class v11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,9 +374,6 @@ namespace InternshipAutomation.Migrations
 
                     b.Property<Guid?>("InternshipApplicationFileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("InternshipAverage")
-                        .HasColumnType("float");
 
                     b.Property<Guid?>("InternshipPeriodId")
                         .HasColumnType("uniqueidentifier");

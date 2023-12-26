@@ -9,7 +9,9 @@ public class InternshipValidator
     {
         public InternshipPeriodValidator()
         {
-            
+            RuleFor(_ => _.StartedDate)
+                .LessThan(DateTime.UtcNow.Year)
+                .WithMessage("Staj dönemi Aynı yıl içerisinde başlatılabilir");
         }
     }
     

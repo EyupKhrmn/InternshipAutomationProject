@@ -15,4 +15,5 @@ public class InternshipDailyReportFile : Entity
     public string CompanyManagerNameSurname { get; set; }
     public DateTime WorkingDate { get; set; }
     public Internship.Internship Internship { get; set; }
+    public int? Note { get; set; }
 }

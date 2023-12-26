@@ -21,6 +21,7 @@ public class Internship : Entity
     public int? Note { get; set; }
     [System.Text.Json.Serialization.JsonIgnore]
     public InternshipPeriod? InternshipPeriod { get; set; }
+    public double InternshipAverage { get; set; }
 
     
 }
