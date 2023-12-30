@@ -18,9 +18,10 @@ public class TeacherController : ControllerBase
     {
         _mediator = mediator;
     }
-    
+
     [HttpPost("GiveNoteForInternship")]
-    public async Task<IActionResult> GiveNoteForInternship([FromQuery] GiveNoteForInternshipCommand giveNoteForInternshipCommand)
+    public async Task<IActionResult> GiveNoteForInternship(
+        [FromQuery] GiveNoteForInternshipCommand giveNoteForInternshipCommand)
     {
         return Ok(await _mediator.Send(giveNoteForInternshipCommand));
     }
@@ -30,21 +31,24 @@ public class TeacherController : ControllerBase
     {
         return Ok(await _mediator.Send(ınternshipPeriodCommand));
     }
-    
+
     [HttpGet("GetApplicationFileByStudentNumber")]
-    public async Task<IActionResult> ShowApplicationFileByStudent([FromQuery] GetApplicationFileByStudentNumber getApplicationFileByStudentNumber)
+    public async Task<IActionResult> ShowApplicationFileByStudent(
+        [FromQuery] GetApplicationFileByStudentNumber getApplicationFileByStudentNumber)
     {
         return Ok(await _mediator.Send(getApplicationFileByStudentNumber));
     }
 
     [HttpGet("GetStudentDailyReports")]
-    public async Task<IActionResult> GetStudentDailyReports([FromQuery] GetDailyReportFileCommand getDailyReportFileCommand)
+    public async Task<IActionResult> GetStudentDailyReports(
+        [FromQuery] GetDailyReportFileCommand getDailyReportFileCommand)
     {
         return Ok(await _mediator.Send(getDailyReportFileCommand));
     }
 
     [HttpPost("GiveNoteForDailyReport")]
-    public async Task<IActionResult> GiveNoteForDailyReport([FromQuery] GiveNoteForDailyReportFileCommand giveNoteForDailyReportFileCommand)
+    public async Task<IActionResult> GiveNoteForDailyReport(
+        [FromQuery] GiveNoteForDailyReportFileCommand giveNoteForDailyReportFileCommand)
     {
         return Ok(await _mediator.Send(giveNoteForDailyReportFileCommand));
     }
@@ -53,5 +57,23 @@ public class TeacherController : ControllerBase
     public async Task<IActionResult> GetAllInternships([FromQuery] GetAllInternshipCommand getAllInternshipCommand)
     {
         return Ok(await _mediator.Send(getAllInternshipCommand));
+    }
+    
+    [HttpGet("GetInternship")]
+    public async Task<IActionResult> GetInternship([FromQuery] GetInternshipCommand getInternshipCommand)
+    {
+        return Ok(await _mediator.Send(getInternshipCommand));
+    }
+
+    [HttpGet("GetInternshipResultReport")]
+    public async Task<IActionResult> GetInternshipResultReport([FromQuery] GetInternshipResultReportCommand getInternshipResultReportCommand)
+    {
+        return Ok(await _mediator.Send(getInternshipResultReportCommand));
+    }
+    
+    [HttpPut("ChangeStatusForInternship")]
+    public async Task<IActionResult> ChangeStatusForInternship([FromQuery] ChangeStatusForInternshipCommand changeStatusForInternshipCommand)
+    {
+        return Ok(await _mediator.Send(changeStatusForInternshipCommand));
     }
 }

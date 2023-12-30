@@ -67,7 +67,8 @@ public class RegisterInternshipCommand : IRequest<RegisterInternshipResponse>
                 TeacherUser = request.InternshipApplication.TeacherUser, //TODO tıklanan internship üzerinden gelen UserID ile doldurulacak
                 CompanyUser = request.InternshipApplication.CompanyUser,
                 InternshipApplicationFile = internshipApplicationFile,
-                InternshipPeriod = internshipPeriod
+                InternshipPeriod = internshipPeriod,
+                Status = InternshipStatus.WaitingForApproval
             };
             
             _generalRepository.Add(internship);
