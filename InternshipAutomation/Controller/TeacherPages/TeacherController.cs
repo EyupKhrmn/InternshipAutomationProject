@@ -60,7 +60,7 @@ public class TeacherController : ControllerBase
         return Ok(await _mediator.Send(giveNoteForDailyReportFileCommand));
     }
 
-    [HttpGet("GetInternships")]
+    [HttpGet("GetAllInternships")]
     public async Task<IActionResult> GetAllInternships([FromQuery] GetAllInternshipCommand getAllInternshipCommand)
     {
         return Ok(await _mediator.Send(getAllInternshipCommand));

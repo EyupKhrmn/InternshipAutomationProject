@@ -28,11 +28,13 @@ public class StudentController : ControllerBase
     [HttpPost("AddDailyReport")]
     public async Task<IActionResult> AddDailyReportFile([FromQuery] AddDailyReportFileCommand addDailyReportFileCommand)
     {
-        if (!ModelState.IsValid)
-        {
-            return Ok(StatusCode(6161));
-        }
         return Ok(await _mediator.Send(addDailyReportFileCommand));
+    }
+    
+    [HttpGet("ShowInternshipSituation")]
+    public async Task<IActionResult> ShowInternshipSituation([FromQuery] ShowInternshipSituationCommand showInternshipSituationCommand)
+    {
+        return Ok(await _mediator.Send(showInternshipSituationCommand));
     }
 
 }

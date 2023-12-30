@@ -1,32 +1,30 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
+using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class GetInternshipCommand : IRequest<GetInternshipresponse>
+public class ShowInternshipSituationCommand : IRequest<ShowInternshipSituationResponse>
 {
-    public Guid InternshipId { get; set; }
- 
-    public class GetInternshipCommandHandler : IRequestHandler<GetInternshipCommand, GetInternshipresponse>
+    public class ShowInternshipSituationCommandHandler : IRequestHandler<ShowInternshipSituationCommand, ShowInternshipSituationResponse>
     {
         private readonly IGeneralRepository _generalRepository;
+        private readonly IDecodeTokenService _decodeTokenService;
 
-        public GetInternshipCommandHandler(IGeneralRepository generalRepository)
+        public ShowInternshipSituationCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService)
         {
             _generalRepository = generalRepository;
+            _decodeTokenService = decodeTokenService;
         }
 
-        public async Task<GetInternshipresponse> Handle(GetInternshipCommand request, CancellationToken cancellationToken)
+        public async Task<ShowInternshipSituationResponse> Handle(ShowInternshipSituationCommand request, CancellationToken cancellationToken)
         {
-            var internship = await _generalRepository.Query<Domain.Entities.Internship.Internship>()
-                .FirstOrDefaultAsync(_=>_.Id == request.InternshipId, cancellationToken: cancellationToken);
+            var CurrentUser = await _decodeTokenService.GetUsernameFromToken();
 
-            var studentUser = await _generalRepository.Query<Domain.User.User>()
-                .Where(_ => _.Id == internship.StudentUser)
-                .Select(_ => _.StudentNameSurname)
-                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+            var internship = _generalRepository.Query<Domain.Entities.Internship.Internship>()
+                .FirstOrDefault(_ => _.StudentUser == CurrentUser.Id);
             
             var teacherUser = await _generalRepository.Query<Domain.User.User>()
                 .Where(_ => _.Id == internship.TeacherUser)
@@ -38,14 +36,13 @@ public class GetInternshipCommand : IRequest<GetInternshipresponse>
                 .Select(_=>_.CompanyUserNameSurname)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
             
-            
-            return new GetInternshipresponse
+            return new ShowInternshipSituationResponse
             {
                 InternshipDto = new InternshipDto
                 {
-                    CompanyUser = companyUser,
-                    StudentUser = studentUser,
+                    StudentUser = CurrentUser.StudentNameSurname,
                     TeacherUser = teacherUser,
+                    CompanyUser = companyUser,
                     InternshipAverage = internship.InternshipAverage,
                     Note = internship.Note,
                     Status = internship.Status
@@ -55,7 +52,7 @@ public class GetInternshipCommand : IRequest<GetInternshipresponse>
     }
 }
 
-public class GetInternshipresponse
+public class ShowInternshipSituationResponse
 {
     public InternshipDto InternshipDto { get; set; }
 }

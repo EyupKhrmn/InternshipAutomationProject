@@ -10,6 +10,5 @@ public class InternshipDto
     public string? CompanyUser { get; set; }
     public InternshipStatus? Status { get; set; }
     public int? Note { get; set; }
-    public int? InternshipPeriod { get; set; }
     public double InternshipAverage { get; set; }
 }
