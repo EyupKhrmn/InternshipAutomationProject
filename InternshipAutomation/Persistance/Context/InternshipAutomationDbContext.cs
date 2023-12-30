@@ -43,10 +43,23 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
     {
         foreach (var entry in ChangeTracker.Entries().ToList())
         {
-            CheckEntity(entry);
+            if (entry is IEntity)
+            {
+                CheckEntity(entry);
+            }
         }
 
         return base.SaveChanges();
+    }
+    
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        foreach (var entry in ChangeTracker.Entries())
+        {
+            CheckEntity(entry);
+        }
+
+        return base.SaveChangesAsync(cancellationToken);
     }
 
     //TODO gelen entitynin createdDate ve LastModificationDate gibi özellikleri buradan yazılacak

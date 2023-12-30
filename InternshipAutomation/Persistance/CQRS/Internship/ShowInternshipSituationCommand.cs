@@ -3,6 +3,7 @@ using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Extensions;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
@@ -45,7 +46,7 @@ public class ShowInternshipSituationCommand : IRequest<ShowInternshipSituationRe
                     CompanyUser = companyUser,
                     InternshipAverage = internship.InternshipAverage,
                     Note = internship.Note,
-                    Status = internship.Status
+                    Status = internship.Status.GetDisplayName()
                 }
             };
         }

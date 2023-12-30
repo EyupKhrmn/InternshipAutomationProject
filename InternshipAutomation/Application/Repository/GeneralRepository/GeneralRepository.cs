@@ -1,45 +1,46 @@
+using InternshipAutomation.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Application.Repository.GeneralRepository;
 
 public class GeneralRepository<TContext> : IGeneralRepository where TContext : DbContext
 {
-    protected TContext Context { get; set; }
-    public GeneralRepository(TContext context)
+    private readonly InternshipAutomationDbContext _internshipAutomationDbContext;
+    public GeneralRepository(TContext context, InternshipAutomationDbContext internshipAutomationDbContext)
     {
-        Context = context;
+        _internshipAutomationDbContext = internshipAutomationDbContext;
     }
 
     public IQueryable<TEntity> Query<TEntity>()
         where TEntity : class
     {
-        return Context.Set<TEntity>();
+        return _internshipAutomationDbContext.Set<TEntity>();
     }
 
     public object Add(object entity)
     {
-        return Context.Add(entity).Entity;
+        return _internshipAutomationDbContext.Add(entity).Entity;
     }
 
     public object Update(object entity)
     {
-        Context.Update(entity);
+        _internshipAutomationDbContext.Update(entity);
         return entity;
     }
 
     public object Delete(object entity)
     {
-        Context.Remove(entity);
+        _internshipAutomationDbContext.Remove(entity);
         return entity;
     }
 
     public int SaveChanges()
     {
-        return Context.SaveChanges();
+        return _internshipAutomationDbContext.SaveChanges();
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return await Context.SaveChangesAsync(cancellationToken);
+        return await _internshipAutomationDbContext.SaveChangesAsync(cancellationToken);
     }
 }

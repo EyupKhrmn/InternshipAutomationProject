@@ -2,6 +2,7 @@ using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Extensions;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
@@ -48,7 +49,7 @@ public class GetInternshipCommand : IRequest<GetInternshipresponse>
                     TeacherUser = teacherUser,
                     InternshipAverage = internship.InternshipAverage,
                     Note = internship.Note,
-                    Status = internship.Status
+                    Status = internship.Status.GetDisplayName()
                 }
             };
         }
