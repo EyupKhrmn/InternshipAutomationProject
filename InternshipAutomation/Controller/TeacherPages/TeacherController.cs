@@ -45,6 +45,13 @@ public class TeacherController : ControllerBase
     {
         return Ok(await _mediator.Send(getDailyReportFileCommand));
     }
+    
+    [HttpGet("GetAllDailyReport")]
+    public async Task<IActionResult> GetAllDailyReport(
+        [FromQuery] GetAllDailyReportCommand getAllDailyReportCommand)
+    {
+        return Ok(await _mediator.Send(getAllDailyReportCommand));
+    }
 
     [HttpPost("GiveNoteForDailyReport")]
     public async Task<IActionResult> GiveNoteForDailyReport(
