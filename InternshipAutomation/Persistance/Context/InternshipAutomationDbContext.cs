@@ -41,12 +41,9 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
 
     public override int SaveChanges()
     {
-        foreach (var entry in ChangeTracker.Entries().ToList())
+        foreach (var entry in ChangeTracker.Entries())
         {
-            if (entry is IEntity)
-            {
                 CheckEntity(entry);
-            }
         }
 
         return base.SaveChanges();
@@ -61,8 +58,6 @@ public class InternshipAutomationDbContext : IdentityDbContext<User,AppRole,Guid
 
         return base.SaveChangesAsync(cancellationToken);
     }
-
-    //TODO gelen entitynin createdDate ve LastModificationDate gibi özellikleri buradan yazılacak
     void CheckEntity(EntityEntry entry)
     {
         if (entry.Entity is not IEntity appEntity)

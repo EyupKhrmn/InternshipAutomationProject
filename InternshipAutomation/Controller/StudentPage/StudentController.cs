@@ -25,11 +25,24 @@ public class StudentController : ControllerBase
         return Ok(await _mediator.Send(registerInternshipCommand));
     }
     
+    [HttpPut("UpdateInternshipApplication")]
+    public async Task<IActionResult> UpdateInternshipApplication([FromQuery] UpdateInternshipApplicationCommand updateInternshipApplicationCommand)
+    {
+        return Ok(await _mediator.Send(updateInternshipApplicationCommand));
+    }
+    
     [HttpPost("AddDailyReport")]
     public async Task<IActionResult> AddDailyReportFile([FromQuery] AddDailyReportFileCommand addDailyReportFileCommand)
     {
         return Ok(await _mediator.Send(addDailyReportFileCommand));
     }
+    
+    [HttpPut("UpdateDailyReport")]
+    public async Task<IActionResult> UpdateDailyReportFile([FromQuery] UpdateDailyReportFileCommand updateDailyReportFileCommand)
+    {
+        return Ok(await _mediator.Send(updateDailyReportFileCommand));
+    }
+    
     
     [HttpGet("ShowInternshipSituation")]
     public async Task<IActionResult> ShowInternshipSituation([FromQuery] ShowInternshipSituationCommand showInternshipSituationCommand)

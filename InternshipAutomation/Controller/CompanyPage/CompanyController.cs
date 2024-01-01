@@ -1,4 +1,5 @@
 using InternshipAutomation.Persistance.CQRS.File;
+using InternshipAutomation.Persistance.CQRS.Internship;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -24,4 +25,9 @@ public class CompanyController : ControllerBase
         return Ok(await _mediator.Send(evaluateStudentCommand));
     }
 
+    [HttpGet("GetAllIntern")]
+    public async Task<IActionResult> GetAllIntern([FromQuery] GetAllInternCommand getAllInternCommand)
+    {
+        return Ok(await _mediator.Send(getAllInternCommand));
+    }
 }
