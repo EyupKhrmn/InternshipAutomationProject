@@ -1,11 +1,9 @@
-﻿using InternshipAutomation.Application.PDfs;
-using InternshipAutomation.Application.Repository.GeneralRepository;
+﻿using InternshipAutomation.Application.Repository.GeneralRepository;
+using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Domain.Entities.Files;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
-using QuestPDF.Fluent;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
@@ -26,18 +24,31 @@ public class GetApplicationFileByStudentNumber : IRequest<GetApplicationFileBySt
         
         public async Task<GetApplicationFileByStudentNumberResponse> Handle(GetApplicationFileByStudentNumber request, CancellationToken cancellationToken)
         {
-            PdfForApplicationFile pdfForApplicationFile = new();
-            
             var user = await _userManager.FindByNameAsync(request.StudentNumber);
             var applicationFile = await _generalRepository.Query<InternshipApplicationFile>()
                 .Where(_ => _.StudentNumber == request.StudentNumber)
                 .OrderByDescending(_=>_.CreatedDate)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-            
-            pdfForApplicationFile.GeneratePdfForApplicationFile().GeneratePdfAndShow();
+
+            InternshipApplicationFileDto applicationFileDto = new()
+            {
+                StudentNumber = applicationFile.StudentNumber,
+                StudentNameSurname = applicationFile.StudentNameSurname,
+                StudentProgram = applicationFile.StudentProgram,
+                StudentTCKN = applicationFile.StudentTCKN,
+                StudentPhoneNumber = applicationFile.StudentPhoneNumber,
+                StudentAGNO = applicationFile.StudentAGNO,
+                StartedDate = applicationFile.StartedDate,
+                FinishedDate = applicationFile.FinishedDate,
+                CompanyName = applicationFile.CompanyName,
+                CompanyPhoneNumber = applicationFile.CompanyPhoneNumber,
+                CompanyEMail = applicationFile.CompanyEMail,
+                CompanySector = applicationFile.CompanySector
+            };
 
             return new GetApplicationFileByStudentNumberResponse
             {
+                InternshipApplicationFileDto = applicationFileDto,
                 Success = true
             };
         }
@@ -46,5 +57,6 @@ public class GetApplicationFileByStudentNumber : IRequest<GetApplicationFileBySt
 
 public class GetApplicationFileByStudentNumberResponse
 {
+    public InternshipApplicationFileDto InternshipApplicationFileDto { get; set; }
     public bool Success { get; set; }
 }
