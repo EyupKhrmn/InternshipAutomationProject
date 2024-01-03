@@ -1,6 +1,7 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Domain.Entities.Files;
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class GetAllInternCommand : IRequest<GetAllInternResponse>
+public class GetAllInternCommand : IRequest<Result<List<InternDto>>>
 {
-    public class GetAllInternCommandHandler : IRequestHandler<GetAllInternCommand, GetAllInternResponse>
+    public class GetAllInternCommandHandler : IRequestHandler<GetAllInternCommand, Result<List<InternDto>>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
@@ -21,7 +22,7 @@ public class GetAllInternCommand : IRequest<GetAllInternResponse>
             _decodeTokenService = decodeTokenService;
         }
 
-        public async Task<GetAllInternResponse> Handle(GetAllInternCommand request, CancellationToken cancellationToken)
+        public async Task<Result<List<InternDto>>> Handle(GetAllInternCommand request, CancellationToken cancellationToken)
         {
             List<InternDto> internsDto = new();
             
@@ -78,16 +79,11 @@ public class GetAllInternCommand : IRequest<GetAllInternResponse>
                 internsDto.Add(internDto);
             }
 
-            return new GetAllInternResponse
+            return new Result<List<InternDto>>
             {
-                InternDtos = internsDto
+                Data = internsDto
             };
 
         }
     }
-}
-
-public class GetAllInternResponse
-{
-    public List<InternDto> InternDtos { get; set; }
 }

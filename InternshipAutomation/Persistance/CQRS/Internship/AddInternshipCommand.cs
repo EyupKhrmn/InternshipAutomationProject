@@ -1,16 +1,17 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Internship;
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class AddInternshipCommand : IRequest<AddInternshipResponse>
+public class AddInternshipCommand : IRequest<Result>
 {
     public Domain.Entities.Internship.Internship Internship { get; set; }
     
-    public class AddInternshipCommandHandler : IRequestHandler<AddInternshipCommand,AddInternshipResponse>
+    public class AddInternshipCommandHandler : IRequestHandler<AddInternshipCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -23,19 +24,14 @@ public class AddInternshipCommand : IRequest<AddInternshipResponse>
             _decodeTokenService = decodeTokenService;
         }
 
-        public async Task<AddInternshipResponse> Handle(AddInternshipCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(AddInternshipCommand request, CancellationToken cancellationToken)
         {
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
 
-            return new AddInternshipResponse
+            return new Result
             {
                 Success = true
             };
         }
     }
-}
-
-public class AddInternshipResponse
-{
-    public bool Success { get; set; }
 }

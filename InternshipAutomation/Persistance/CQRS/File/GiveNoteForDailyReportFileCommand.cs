@@ -1,17 +1,18 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Files;
+using InternshipAutomation.Persistance.CQRS.Response;
 using MediatR;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class GiveNoteForDailyReportFileCommand : IRequest<GiveNoteForDailyReportFileResponse>
+public class GiveNoteForDailyReportFileCommand : IRequest<Result>
 {
     public Guid InternshipDailyReportFileId { get; set; }
     public int Note { get; set; }
     
-    public class GiveNoteForDailyReportFileCommandHandler : IRequestHandler<GiveNoteForDailyReportFileCommand,GiveNoteForDailyReportFileResponse>
+    public class GiveNoteForDailyReportFileCommandHandler : IRequestHandler<GiveNoteForDailyReportFileCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
 
@@ -20,7 +21,7 @@ public class GiveNoteForDailyReportFileCommand : IRequest<GiveNoteForDailyReport
             _generalRepository = generalRepository;
         }
 
-        public async Task<GiveNoteForDailyReportFileResponse> Handle(GiveNoteForDailyReportFileCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(GiveNoteForDailyReportFileCommand request, CancellationToken cancellationToken)
         {
             var file = await _generalRepository.Query<InternshipDailyReportFile>()
                 .FirstOrDefaultAsync(_ => _.Id == request.InternshipDailyReportFileId, cancellationToken: cancellationToken);
@@ -30,17 +31,11 @@ public class GiveNoteForDailyReportFileCommand : IRequest<GiveNoteForDailyReport
             _generalRepository.Update(file);
             await _generalRepository.SaveChangesAsync(cancellationToken);
 
-            return new GiveNoteForDailyReportFileResponse
+            return new Result
             {
                     Message = "Günlük Staj raporuna puan verme işlemi başarılı",
                     Success = true
             };
         }
     }
-}
-
-public class GiveNoteForDailyReportFileResponse
-{
-    public bool Success { get; set; }
-    public string Message { get; set; }
 }

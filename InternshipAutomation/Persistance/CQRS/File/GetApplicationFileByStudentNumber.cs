@@ -1,17 +1,18 @@
 ﻿using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Domain.Entities.Files;
+using InternshipAutomation.Persistance.CQRS.Response;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class GetApplicationFileByStudentNumber : IRequest<GetApplicationFileByStudentNumberResponse>
+public class GetApplicationFileByStudentNumber : IRequest<Result<InternshipApplicationFileDto>>
 {
     public string StudentNumber { get; set; }
     
-    public class GetApplicationFileByStudentNumberHandler : IRequestHandler<GetApplicationFileByStudentNumber,GetApplicationFileByStudentNumberResponse>
+    public class GetApplicationFileByStudentNumberHandler : IRequestHandler<GetApplicationFileByStudentNumber,Result<InternshipApplicationFileDto>>
     {
         private readonly UserManager<Domain.User.User> _userManager;
         private readonly IGeneralRepository _generalRepository;
@@ -22,7 +23,7 @@ public class GetApplicationFileByStudentNumber : IRequest<GetApplicationFileBySt
             _generalRepository = generalRepository;
         }
         
-        public async Task<GetApplicationFileByStudentNumberResponse> Handle(GetApplicationFileByStudentNumber request, CancellationToken cancellationToken)
+        public async Task<Result<InternshipApplicationFileDto>> Handle(GetApplicationFileByStudentNumber request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(request.StudentNumber);
             var applicationFile = await _generalRepository.Query<InternshipApplicationFile>()
@@ -46,17 +47,11 @@ public class GetApplicationFileByStudentNumber : IRequest<GetApplicationFileBySt
                 CompanySector = applicationFile.CompanySector
             };
 
-            return new GetApplicationFileByStudentNumberResponse
+            return new Result<InternshipApplicationFileDto>
             {
-                InternshipApplicationFileDto = applicationFileDto,
+                Data = applicationFileDto,
                 Success = true
             };
         }
     }
-}
-
-public class GetApplicationFileByStudentNumberResponse
-{
-    public InternshipApplicationFileDto InternshipApplicationFileDto { get; set; }
-    public bool Success { get; set; }
 }

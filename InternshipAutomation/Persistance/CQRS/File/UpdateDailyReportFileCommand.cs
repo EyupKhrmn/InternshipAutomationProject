@@ -1,5 +1,6 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Files;
+using InternshipAutomation.Persistance.CQRS.Response;
 using MediatR;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class UpdateDailyReportFileCommand : IRequest<UpdateDailyReportFileResponse>
+public class UpdateDailyReportFileCommand : IRequest<Result>
 {
     public Guid DailyReportFileId { get; set; }
     public string? TopicTitleOfWork { get; set; }
@@ -16,7 +17,7 @@ public class UpdateDailyReportFileCommand : IRequest<UpdateDailyReportFileRespon
     public string? CompanyManagerNameSurname { get; set; }
     public DateTime? WorkingDate { get; set; }
  
-    public class UpdateDailyReportFileCommandHandler : IRequestHandler<UpdateDailyReportFileCommand, UpdateDailyReportFileResponse>
+    public class UpdateDailyReportFileCommandHandler : IRequestHandler<UpdateDailyReportFileCommand, Result>
     {
         private readonly IGeneralRepository _generalRepository;
 
@@ -25,7 +26,7 @@ public class UpdateDailyReportFileCommand : IRequest<UpdateDailyReportFileRespon
             _generalRepository = generalRepository;
         }
 
-        public async Task<UpdateDailyReportFileResponse> Handle(UpdateDailyReportFileCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(UpdateDailyReportFileCommand request, CancellationToken cancellationToken)
         {
             var file = await _generalRepository.Query<InternshipDailyReportFile>()
                 .FirstOrDefaultAsync(_ => _.Id == request.DailyReportFileId, cancellationToken: cancellationToken);
@@ -41,17 +42,11 @@ public class UpdateDailyReportFileCommand : IRequest<UpdateDailyReportFileRespon
             
             await _generalRepository.SaveChangesAsync(cancellationToken);
 
-            return new UpdateDailyReportFileResponse
+            return new Result
             {
                 Message = "Günlük rapor dosyası başarıyla güncellendi.",
                 Success = true
             };
         }
     }
-}
-
-public class UpdateDailyReportFileResponse
-{
-    public string Message { get; set; }
-    public bool Success { get; set; }
 }

@@ -1,15 +1,16 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Domain.Entities.Files;
+using InternshipAutomation.Persistance.CQRS.Response;
 using MediatR;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class GetAllDailyReportCommand : IRequest<GetAllDailyReportResponse>
+public class GetAllDailyReportCommand : IRequest<Result<List<DailyReportFileDto>>>
 {
     public Guid InternshipId { get; set; }
     
-    public class GetAllDailyReportCommandHandler : IRequestHandler<GetAllDailyReportCommand, GetAllDailyReportResponse>
+    public class GetAllDailyReportCommandHandler : IRequestHandler<GetAllDailyReportCommand, Result<List<DailyReportFileDto>>>
     {
         private readonly IGeneralRepository _generalRepository;
 
@@ -18,7 +19,7 @@ public class GetAllDailyReportCommand : IRequest<GetAllDailyReportResponse>
             _generalRepository = generalRepository;
         }
 
-        public async Task<GetAllDailyReportResponse> Handle(GetAllDailyReportCommand request, CancellationToken cancellationToken)
+        public async Task<Result<List<DailyReportFileDto>>> Handle(GetAllDailyReportCommand request, CancellationToken cancellationToken)
         {
             List<DailyReportFileDto> response = new();
             
@@ -52,15 +53,10 @@ public class GetAllDailyReportCommand : IRequest<GetAllDailyReportResponse>
 
             await _generalRepository.SaveChangesAsync(cancellationToken);
 
-            return new GetAllDailyReportResponse
+            return new Result<List<DailyReportFileDto>>
             {
-                DailyReportFileDtos = response
+                Data = response,
             };
         }
     }
-}
-
-public class GetAllDailyReportResponse
-{
-    public List<DailyReportFileDto> DailyReportFileDtos { get; set; }
 }

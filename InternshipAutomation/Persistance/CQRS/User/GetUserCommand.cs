@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using InternshipAutomation.Persistance.CQRS.Response;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,13 +7,13 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
-public class GetUserCommand : IRequest<GetUserResponse>
+public class GetUserCommand : IRequest<Result<List<Domain.User.User>>>
 {
     public string? Username { get; set; }
     public string? Email { get; set; }
     
     
-    public class GetUserCommandHandler : IRequestHandler<GetUserCommand,GetUserResponse>
+    public class GetUserCommandHandler : IRequestHandler<GetUserCommand,Result<List<Domain.User.User>>>
     {
         private readonly UserManager<Domain.User.User> _userManager;
 
@@ -21,7 +22,7 @@ public class GetUserCommand : IRequest<GetUserResponse>
             _userManager = userManager;
         }
 
-        public async Task<GetUserResponse> Handle(GetUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result<List<Domain.User.User>>> Handle(GetUserCommand request, CancellationToken cancellationToken)
         {
             var query = _userManager.Users;
 
@@ -35,15 +36,10 @@ public class GetUserCommand : IRequest<GetUserResponse>
 
             var users = await query.ToListAsync(cancellationToken: cancellationToken);
 
-            return new GetUserResponse
+            return new Result<List<Domain.User.User>>
             {
-                Users = users
+                Data = users
             };
         }
     }
-}
-
-public class GetUserResponse
-{
-    public List<Domain.User.User> Users { get; set; }
 }

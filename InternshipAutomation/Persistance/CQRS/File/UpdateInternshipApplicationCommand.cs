@@ -1,11 +1,12 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Files;
+using InternshipAutomation.Persistance.CQRS.Response;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class UpdateInternshipApplicationCommand : IRequest<UpdateInternshipApplicationResponse>
+public class UpdateInternshipApplicationCommand : IRequest<Result>
 {
     public Guid InternshipApplicationFile { get; set; }
     public string? StudentNameSurname { get; set; }
@@ -21,7 +22,7 @@ public class UpdateInternshipApplicationCommand : IRequest<UpdateInternshipAppli
     public string? CompanyEMail { get; set; }
     public string? CompanySector { get; set; }
     
-    public class UpdateInternshipApplicationCommandHandler : IRequestHandler<UpdateInternshipApplicationCommand, UpdateInternshipApplicationResponse>
+    public class UpdateInternshipApplicationCommandHandler : IRequestHandler<UpdateInternshipApplicationCommand, Result>
     {
         private readonly IGeneralRepository _generalRepository;
 
@@ -30,7 +31,7 @@ public class UpdateInternshipApplicationCommand : IRequest<UpdateInternshipAppli
             _generalRepository = generalRepository;
         }
 
-        public async Task<UpdateInternshipApplicationResponse> Handle(UpdateInternshipApplicationCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(UpdateInternshipApplicationCommand request, CancellationToken cancellationToken)
         {
             var file = await _generalRepository.Query<InternshipApplicationFile>()
                 .FirstOrDefaultAsync(_ => _.Id == request.InternshipApplicationFile, cancellationToken: cancellationToken);
@@ -53,17 +54,11 @@ public class UpdateInternshipApplicationCommand : IRequest<UpdateInternshipAppli
             
             await _generalRepository.SaveChangesAsync(cancellationToken);
 
-            return new UpdateInternshipApplicationResponse
+            return new Result
             {
                 Message = "Staj başvuru dosyası başarıyla güncellendi.",
                 Success = true
             };
         }
     }
-}
-
-public class UpdateInternshipApplicationResponse
-{
-    public string Message { get; set; }
-    public bool Success { get; set; }
 }

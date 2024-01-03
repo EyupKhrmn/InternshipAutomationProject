@@ -1,6 +1,7 @@
 using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Internship;
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
@@ -8,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class InternshipPeriodCommand : IRequest<InternshipPeriodResponse>
+public class InternshipPeriodCommand : IRequest<Result>
 {
     public int StartedDate { get; set; }
 
-    public class InternshipPeriodCommandHandler : IRequestHandler<InternshipPeriodCommand,InternshipPeriodResponse>
+    public class InternshipPeriodCommandHandler : IRequestHandler<InternshipPeriodCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
@@ -25,7 +26,7 @@ public class InternshipPeriodCommand : IRequest<InternshipPeriodResponse>
             _emailSender = emailSender;
         }
 
-        public async Task<InternshipPeriodResponse> Handle(InternshipPeriodCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(InternshipPeriodCommand request, CancellationToken cancellationToken)
         {
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
             
@@ -49,18 +50,11 @@ public class InternshipPeriodCommand : IRequest<InternshipPeriodResponse>
 
             #endregion
             
-            return new InternshipPeriodResponse
+            return new Result
             {
                 Message = "Yeni Staj Dönemi Başlatılmıştır !",
                 Success = true
             };
         }
     }
-}
-
-
-public class InternshipPeriodResponse
-{
-    public string Message { get; set; }
-    public bool Success { get; set; }
 }

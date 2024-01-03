@@ -1,16 +1,17 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
+using InternshipAutomation.Persistance.CQRS.Response;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Extensions;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class GetInternshipCommand : IRequest<GetInternshipresponse>
+public class GetInternshipCommand : IRequest<Result<InternshipDto>>
 {
     public Guid InternshipId { get; set; }
  
-    public class GetInternshipCommandHandler : IRequestHandler<GetInternshipCommand, GetInternshipresponse>
+    public class GetInternshipCommandHandler : IRequestHandler<GetInternshipCommand, Result<InternshipDto>>
     {
         private readonly IGeneralRepository _generalRepository;
 
@@ -19,7 +20,7 @@ public class GetInternshipCommand : IRequest<GetInternshipresponse>
             _generalRepository = generalRepository;
         }
 
-        public async Task<GetInternshipresponse> Handle(GetInternshipCommand request, CancellationToken cancellationToken)
+        public async Task<Result<InternshipDto>> Handle(GetInternshipCommand request, CancellationToken cancellationToken)
         {
             var internship = await _generalRepository.Query<Domain.Entities.Internship.Internship>()
                 .FirstOrDefaultAsync(_=>_.Id == request.InternshipId, cancellationToken: cancellationToken);
@@ -40,9 +41,9 @@ public class GetInternshipCommand : IRequest<GetInternshipresponse>
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
             
             
-            return new GetInternshipresponse
+            return new Result<InternshipDto>
             {
-                InternshipDto = new InternshipDto
+                Data = new InternshipDto
                 {
                     CompanyUser = companyUser,
                     StudentUser = studentUser,
@@ -54,9 +55,4 @@ public class GetInternshipCommand : IRequest<GetInternshipresponse>
             };
         }
     }
-}
-
-public class GetInternshipresponse
-{
-    public InternshipDto InternshipDto { get; set; }
 }

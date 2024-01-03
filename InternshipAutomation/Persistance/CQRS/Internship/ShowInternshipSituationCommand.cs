@@ -1,5 +1,6 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -7,9 +8,9 @@ using Microsoft.OpenApi.Extensions;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class ShowInternshipSituationCommand : IRequest<ShowInternshipSituationResponse>
+public class ShowInternshipSituationCommand : IRequest<Result<InternshipDto>>
 {
-    public class ShowInternshipSituationCommandHandler : IRequestHandler<ShowInternshipSituationCommand, ShowInternshipSituationResponse>
+    public class ShowInternshipSituationCommandHandler : IRequestHandler<ShowInternshipSituationCommand, Result<InternshipDto>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
@@ -20,7 +21,7 @@ public class ShowInternshipSituationCommand : IRequest<ShowInternshipSituationRe
             _decodeTokenService = decodeTokenService;
         }
 
-        public async Task<ShowInternshipSituationResponse> Handle(ShowInternshipSituationCommand request, CancellationToken cancellationToken)
+        public async Task<Result<InternshipDto>> Handle(ShowInternshipSituationCommand request, CancellationToken cancellationToken)
         {
             var CurrentUser = await _decodeTokenService.GetUsernameFromToken();
 
@@ -37,9 +38,9 @@ public class ShowInternshipSituationCommand : IRequest<ShowInternshipSituationRe
                 .Select(_=>_.CompanyUserNameSurname)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
             
-            return new ShowInternshipSituationResponse
+            return new Result<InternshipDto>
             {
-                InternshipDto = new InternshipDto
+                Data = new InternshipDto
                 {
                     StudentUser = CurrentUser.StudentNameSurname,
                     TeacherUser = teacherUser,
@@ -51,9 +52,4 @@ public class ShowInternshipSituationCommand : IRequest<ShowInternshipSituationRe
             };
         }
     }
-}
-
-public class ShowInternshipSituationResponse
-{
-    public InternshipDto InternshipDto { get; set; }
 }

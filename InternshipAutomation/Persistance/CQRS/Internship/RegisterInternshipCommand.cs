@@ -4,6 +4,7 @@ using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.Entities.Internship;
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -11,13 +12,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class RegisterInternshipCommand : IRequest<RegisterInternshipResponse>
+public class RegisterInternshipCommand : IRequest<Result>
 {
     public InternshipApplicationDto InternshipApplication { get; set; }
     public Guid InternshipPeriod { get; set; }
     
     
-    public class RegisterInternshipCommandHandler : IRequestHandler<RegisterInternshipCommand,RegisterInternshipResponse>
+    public class RegisterInternshipCommandHandler : IRequestHandler<RegisterInternshipCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -34,7 +35,7 @@ public class RegisterInternshipCommand : IRequest<RegisterInternshipResponse>
             _emailSender = emailSender;
         }
 
-        public async Task<RegisterInternshipResponse> Handle(RegisterInternshipCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(RegisterInternshipCommand request, CancellationToken cancellationToken)
         {
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
             
@@ -94,17 +95,11 @@ public class RegisterInternshipCommand : IRequest<RegisterInternshipResponse>
 
             #endregion
             
-            return new RegisterInternshipResponse
+            return new Result
             {
                 Message = "Staj Dönemine Kaydınız başarıyla tamamlanmıştır.",
                 Success = true
             };
         }
      }
-}
-
-public class RegisterInternshipResponse
-{
-    public string Message { get; set; }
-    public bool Success { get; set; }
 }

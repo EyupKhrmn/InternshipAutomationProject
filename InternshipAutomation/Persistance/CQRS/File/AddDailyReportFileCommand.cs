@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Files;
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
@@ -9,13 +10,13 @@ using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class AddDailyReportFileCommand : IRequest<AddDailyReportFileResponse>
+public class AddDailyReportFileCommand : IRequest<Result>
 {
     public string TopicTitleOfWork { get; set; }
     public string DescriptionOfWork { get; set; }
     public Guid InternshipId { get; set; }
     
-    public class AddDailyReportFileCommandHandler : IRequestHandler<AddDailyReportFileCommand,AddDailyReportFileResponse>
+    public class AddDailyReportFileCommandHandler : IRequestHandler<AddDailyReportFileCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
@@ -26,7 +27,7 @@ public class AddDailyReportFileCommand : IRequest<AddDailyReportFileResponse>
             _decodeTokenService = decodeTokenService;
         }
 
-        public async Task<AddDailyReportFileResponse> Handle(AddDailyReportFileCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(AddDailyReportFileCommand request, CancellationToken cancellationToken)
         {
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
 
@@ -50,15 +51,10 @@ public class AddDailyReportFileCommand : IRequest<AddDailyReportFileResponse>
             _generalRepository.Add(file);
             await _generalRepository.SaveChangesAsync(cancellationToken);
 
-            return new AddDailyReportFileResponse
+            return new Result
             {
                 Success = true
             };
         }
     }
-}
-
-public class AddDailyReportFileResponse
-{
-    public bool Success { get; set; }
 }

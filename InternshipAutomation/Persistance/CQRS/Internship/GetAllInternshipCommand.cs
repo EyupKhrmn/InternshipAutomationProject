@@ -2,6 +2,7 @@ using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.Entities.Internship;
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -10,11 +11,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class GetAllInternshipCommand : IRequest<GetAllInternshipResponse>
+public class GetAllInternshipCommand : IRequest<Result<List<InternshipPreviewDto>>>
 {
     public int PeriodYear { get; set; }
     
-    public class GetAllInternshipCommandHandler : IRequestHandler<GetAllInternshipCommand,GetAllInternshipResponse>
+    public class GetAllInternshipCommandHandler : IRequestHandler<GetAllInternshipCommand,Result<List<InternshipPreviewDto>>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
@@ -27,7 +28,7 @@ public class GetAllInternshipCommand : IRequest<GetAllInternshipResponse>
             _userManager = userManager;
         }
 
-        public async Task<GetAllInternshipResponse> Handle(GetAllInternshipCommand request, CancellationToken cancellationToken)
+        public async Task<Result<List<InternshipPreviewDto>>> Handle(GetAllInternshipCommand request, CancellationToken cancellationToken)
         {
             List<InternshipPreviewDto> internshipPreviewDto = new();
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
@@ -56,15 +57,10 @@ public class GetAllInternshipCommand : IRequest<GetAllInternshipResponse>
                 internshipPreviewDto.Add(previewDto);
             }
 
-            return new GetAllInternshipResponse
+            return new Result<List<InternshipPreviewDto>>
             {
-                InternshipPreviewDtos =  internshipPreviewDto
+                Data =  internshipPreviewDto
             };
         }
     }
-}
-
-public class GetAllInternshipResponse
-{
-    public List<InternshipPreviewDto> InternshipPreviewDtos { get; set; }
 }

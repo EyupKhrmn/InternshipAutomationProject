@@ -1,3 +1,4 @@
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Persistance.CQRS.User;
 using IntershipOtomation.Domain.Entities.User;
 using MediatR;
@@ -5,12 +6,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InternshipAutomation.Persistance.CQRS.Role;
 
-public class AddRoleCommand : IRequest<AddRoleResponse>
+public class AddRoleCommand : IRequest<Result>
 {
     public string RoleName { get; set; }
     
     
-    public class AddRoleCommandHandler : IRequestHandler<AddRoleCommand,AddRoleResponse>
+    public class AddRoleCommandHandler : IRequestHandler<AddRoleCommand,Result>
     {
         private readonly RoleManager<AppRole> _roleManager;
 
@@ -19,7 +20,7 @@ public class AddRoleCommand : IRequest<AddRoleResponse>
             _roleManager = roleManager;
         }
 
-        public async Task<AddRoleResponse> Handle(AddRoleCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(AddRoleCommand request, CancellationToken cancellationToken)
         {
             var role = new AppRole
             {
@@ -27,15 +28,10 @@ public class AddRoleCommand : IRequest<AddRoleResponse>
             };
             await _roleManager.CreateAsync(role);
 
-            return new AddRoleResponse
+            return new Result
             {
                 Success = true
             };
         }
     }
-}
-
-public class AddRoleResponse
-{
-    public bool Success { get; set; }
 }

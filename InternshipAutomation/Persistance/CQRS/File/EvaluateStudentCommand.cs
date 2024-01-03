@@ -1,5 +1,6 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Files;
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class EvaluateStudentCommand : IRequest<EvaluateStudentResponse>
+public class EvaluateStudentCommand : IRequest<Result>
 {
     public Guid InternshipId { get; set; }
     public string WorkingArea { get; set; }
@@ -35,7 +36,7 @@ public class EvaluateStudentCommand : IRequest<EvaluateStudentResponse>
     public bool WorkAgain { get; set; }
     public string DevelopmentSuggestionForStudentUser { get; set; }
     
-    public class EvaluateStudentCommandHandler : IRequestHandler<EvaluateStudentCommand,EvaluateStudentResponse>
+    public class EvaluateStudentCommandHandler : IRequestHandler<EvaluateStudentCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
@@ -46,7 +47,7 @@ public class EvaluateStudentCommand : IRequest<EvaluateStudentResponse>
             _decodeTokenService = decodeTokenService;
         }
 
-        public async Task<EvaluateStudentResponse> Handle(EvaluateStudentCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(EvaluateStudentCommand request, CancellationToken cancellationToken)
         {
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
 
@@ -97,7 +98,7 @@ public class EvaluateStudentCommand : IRequest<EvaluateStudentResponse>
             _generalRepository.Add(file);
             await _generalRepository.SaveChangesAsync(cancellationToken);
 
-            return new EvaluateStudentResponse
+            return new Result
             {
                 Message = "Staj Öğrencisini değerlendirme işlemi başarıyla gerçekleşti",
                 Success = true
@@ -105,10 +106,4 @@ public class EvaluateStudentCommand : IRequest<EvaluateStudentResponse>
 
         }
     }
-}
-
-public class EvaluateStudentResponse
-{
-    public string Message { get; set; }
-    public bool Success { get; set; }
 }

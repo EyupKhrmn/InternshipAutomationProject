@@ -1,4 +1,5 @@
 using InternshipAutomation.Application.Mail;
+using InternshipAutomation.Persistance.CQRS.Response;
 using IntershipOtomation.Domain.Entities.User;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -6,7 +7,7 @@ using Microsoft.CodeAnalysis;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
-public class AddUserCommand : IRequest<AddUserResponse>
+public class AddUserCommand : IRequest<Result>
 {
     public string UserNumber { get; set; }
     public string NameSurname { get; set; }
@@ -14,7 +15,7 @@ public class AddUserCommand : IRequest<AddUserResponse>
     public string Password { get; set; }
     public string Role { get; set; }
     
-    public class AddUserCommandHandler : IRequestHandler<AddUserCommand,AddUserResponse>
+    public class AddUserCommandHandler : IRequestHandler<AddUserCommand,Result>
     {
         private readonly UserManager<Domain.User.User> _userManager;
         private readonly RoleManager<AppRole>? _roleManager;
@@ -27,7 +28,7 @@ public class AddUserCommand : IRequest<AddUserResponse>
             _emailSender = emailSender;
         }
 
-        public async Task<AddUserResponse> Handle(AddUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
             Domain.User.User user = new();
 
@@ -81,15 +82,10 @@ public class AddUserCommand : IRequest<AddUserResponse>
             
             #endregion
             
-            return new AddUserResponse()
+            return new Result
             {
                 Success = true
             };
         }
     }
-}
-
-public class AddUserResponse
-{
-    public bool Success { get; set; }
 }

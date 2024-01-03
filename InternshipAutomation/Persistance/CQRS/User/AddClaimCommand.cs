@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using InternshipAutomation.Application.Repository.GeneralRepository;
+using InternshipAutomation.Persistance.CQRS.Response;
 using IntershipOtomation.Domain.Entities.User;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -7,14 +8,14 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
-public class AddClaimCommand : IRequest<AddClaimResponse>
+public class AddClaimCommand : IRequest<Result>
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
     public string Value { get; set; }
     public string Role { get; set; }
     
-    public class AddClaimCommandHandler : IRequestHandler<AddClaimCommand,AddClaimResponse>
+    public class AddClaimCommandHandler : IRequestHandler<AddClaimCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly UserManager<Domain.User.User> _userManager;
@@ -27,7 +28,7 @@ public class AddClaimCommand : IRequest<AddClaimResponse>
             _roleManager = roleManager;
         }
 
-        public async Task<AddClaimResponse> Handle(AddClaimCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(AddClaimCommand request, CancellationToken cancellationToken)
         {
             Claim claim = new Claim(request.Name, request.Value);
             
@@ -47,15 +48,10 @@ public class AddClaimCommand : IRequest<AddClaimResponse>
                 }
             }
             
-            return new AddClaimResponse
+            return new Result
             {
                 Success = true
             };
         }
     }
-}
-
-public class AddClaimResponse
-{
-    public bool Success { get; set; }
 }

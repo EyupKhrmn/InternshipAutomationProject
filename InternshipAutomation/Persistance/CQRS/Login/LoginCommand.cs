@@ -1,4 +1,5 @@
 using InternshipAutomation.Application.Mail;
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MailKit.Net.Smtp;
 using MediatR;
@@ -7,12 +8,12 @@ using MimeKit;
 
 namespace InternshipAutomation.Persistance.CQRS.Login;
 
-public class LoginCommand : IRequest<LoginResponse>
+public class LoginCommand : IRequest<Result>
 {
     public string UserName { get; set; }
     public string Password { get; set; }
 
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, Result>
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<Domain.User.User> _userManager;
@@ -28,7 +29,7 @@ public class LoginCommand : IRequest<LoginResponse>
             _emailSender = emailSender;
         }
 
-        public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
             var role = await _userManager.GetRolesAsync(user);
@@ -57,16 +58,11 @@ public class LoginCommand : IRequest<LoginResponse>
 
             await _userManager.UpdateAsync(user);
             
-            return new LoginResponse
+            return new Result
             {
-                Token = token.AccessToken
+                Message = token.AccessToken
             };
         }
     }
 
-}
-
-public class LoginResponse
-{
-    public string Token { get; set; }
 }

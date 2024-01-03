@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using Azure.Core;
+using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using IntershipOtomation.Domain.Entities.User;
 using MediatR;
@@ -10,11 +11,11 @@ using Newtonsoft.Json.Linq;
 
 namespace InternshipAutomation.Persistance.CQRS.Role;
 
-public class GetRoleCommand : IRequest<GetRoleResponse>
+public class GetRoleCommand : IRequest<Result<List<AppRole>>>
 {
     public string? RoleName { get; set; }
 
-    public class GetRoleCommandHandler : IRequestHandler<GetRoleCommand, GetRoleResponse>
+    public class GetRoleCommandHandler : IRequestHandler<GetRoleCommand, Result<List<AppRole>>>
     {
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IHttpContextAccessor _contextAccessor;
@@ -27,7 +28,7 @@ public class GetRoleCommand : IRequest<GetRoleResponse>
             _tokenService = tokenService;
         }
 
-        public async Task<GetRoleResponse> Handle(GetRoleCommand request, CancellationToken cancellationToken)
+        public async Task<Result<List<AppRole>>> Handle(GetRoleCommand request, CancellationToken cancellationToken)
         {
             var query = _roleManager.Roles;
             query = !request.RoleName.IsNullOrEmpty()
@@ -38,15 +39,10 @@ public class GetRoleCommand : IRequest<GetRoleResponse>
 
             var token = _contextAccessor.HttpContext.Request.Cookies["AuthToken"];
             
-            return new GetRoleResponse
+            return new Result<List<AppRole>>
             {
-                Roles = roles,
+                Data = roles,
             };
         }
     }
-}
-
-public class GetRoleResponse
-{
-    public List<AppRole> Roles { get; set; }
 }
