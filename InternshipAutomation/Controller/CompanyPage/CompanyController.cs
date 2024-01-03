@@ -1,5 +1,6 @@
 using InternshipAutomation.Persistance.CQRS.File;
 using InternshipAutomation.Persistance.CQRS.Internship;
+using InternshipAutomation.Persistance.CQRS.User.CompanyUser;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,18 @@ public class CompanyController : ControllerBase
     public CompanyController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpPost("RegisterCompanyUser")]
+    public async Task<IActionResult> AddCompanyUserCommand([FromQuery] AddCompanyUserCommand addCompanyUserCommand)
+    {
+        return Ok(await _mediator.Send(addCompanyUserCommand));
+    }
+
+    [HttpPut("UpdateCompanyUser")]
+    public async Task<IActionResult> UpdateCompanyUser([FromQuery] UpdateCompanyUserCommand updateCompanyUserCommand)
+    {
+        return Ok(await _mediator.Send(updateCompanyUserCommand));
     }
 
     [HttpPost("EvaluateStudent")]

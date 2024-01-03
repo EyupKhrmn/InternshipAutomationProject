@@ -20,7 +20,7 @@ public class StudentController : ControllerBase
         _mediator = mediator;
     }
     
-    [HttpPost("AddStudent")]
+    [HttpPost("RegisterStudent")]
     public async Task<IActionResult> AddStudent([FromQuery] AddStudentCommand addStudentCommand)
     {
         return Ok(await _mediator.Send(addStudentCommand));
