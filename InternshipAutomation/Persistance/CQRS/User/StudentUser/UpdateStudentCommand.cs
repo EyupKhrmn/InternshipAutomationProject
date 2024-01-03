@@ -2,37 +2,32 @@ using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
 
-namespace InternshipAutomation.Persistance.CQRS.User;
+namespace InternshipAutomation.Persistance.CQRS.User.StudentUser;
 
-public class UpdateUserCommand : IRequest<Result>
+public class UpdateStudentCommand : IRequest<Result>
 {
     public string Password { get; set; }
-    public string Name { get; set; }
-    public string Surname { get; set; }
+    public string NameSurname { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public string StudentNumber { get; set; }
     
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand,Result>
+    public class UpdateStudentCommandHandler(
+        UserManager<Domain.User.User> userManager,
+        IDecodeTokenService decodeTokenService)
+        : IRequestHandler<UpdateStudentCommand, Result>
     {
-        private readonly UserManager<Domain.User.User> _userManager;
-        private readonly IDecodeTokenService _decodeTokenService;
+        private readonly UserManager<Domain.User.User> _userManager = userManager;
+        private readonly IDecodeTokenService _decodeTokenService = decodeTokenService;
 
-        public UpdateUserCommandHandler(UserManager<Domain.User.User> userManager, IDecodeTokenService decodeTokenService)
-        {
-            _userManager = userManager;
-            _decodeTokenService = decodeTokenService;
-        }
-
-        public async Task<Result> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(UpdateStudentCommand request, CancellationToken cancellationToken)
         {
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
             var user = await _userManager.FindByNameAsync(currentUser.UserName);
             
             user.PasswordHash = request.Password ?? user.PasswordHash;
-            user.StudentNameSurname = request.Name ?? user.StudentNameSurname;
+            user.StudentNameSurname = request.NameSurname ?? user.StudentNameSurname;
             user.UserName = request.StudentNumber ?? user.UserName;
             user.Email = request.Email ?? user.Email;
             user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
@@ -44,7 +39,6 @@ public class UpdateUserCommand : IRequest<Result>
                 Message = "Kullanıcı başarıyla güncellendi.",
                 Success = true
             };
-
         }
     }
 }

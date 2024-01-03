@@ -1,5 +1,6 @@
 using InternshipAutomation.Persistance.CQRS.File;
 using InternshipAutomation.Persistance.CQRS.Internship;
+using InternshipAutomation.Persistance.CQRS.User.StudentUser;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,18 @@ public class StudentController : ControllerBase
     public StudentController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+    
+    [HttpPost("AddStudent")]
+    public async Task<IActionResult> AddStudent([FromQuery] AddStudentCommand addStudentCommand)
+    {
+        return Ok(await _mediator.Send(addStudentCommand));
+    }
+    
+    [HttpPut("UpdateStudent")]
+    public async Task<IActionResult> UpdateStudent([FromQuery] UpdateStudentCommand updateStudentCommand)
+    {
+        return Ok(await _mediator.Send(updateStudentCommand));
     }
     
     [HttpPost("RegisterInternship")]
