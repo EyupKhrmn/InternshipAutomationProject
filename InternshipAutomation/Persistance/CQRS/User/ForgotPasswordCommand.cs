@@ -1,3 +1,4 @@
+using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Persistance.CQRS.Response;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -8,10 +9,11 @@ public class ForgotPasswordCommand : IRequest<Result>
 {
     public string UserCode { get; set; }
     
-    public class ForgotPasswordCommandHandler(UserManager<Domain.User.User> userManager)
+    public class ForgotPasswordCommandHandler(UserManager<Domain.User.User> userManager, IEmailSender emailSender)
         : IRequestHandler<ForgotPasswordCommand, Result>
     {
         private readonly UserManager<Domain.User.User> _userManager = userManager;
+        private readonly IEmailSender _emailSender = emailSender;
 
         public async Task<Result> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
         {
@@ -21,10 +23,12 @@ public class ForgotPasswordCommand : IRequest<Result>
             {
                 throw new Exception("Kullanıcı bulunamadı");
             }
+            
+            await _emailSender.SendEmailAsync(user.Email, "MAKÜ Staj","Şifre Hatırlatma", $"Şifreniz: {user.PasswordHash}");
 
             return new Result
             {
-                Message = $"Şifreniz: {user.PasswordHash}",
+                Message = "Şifreniz mail adresinize gönderildi.",
                 Success = true
             };
         }
