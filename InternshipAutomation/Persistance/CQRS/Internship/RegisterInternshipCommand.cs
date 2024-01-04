@@ -60,12 +60,11 @@ public class RegisterInternshipCommand : IRequest<Result>
             };
 
             var studentUser = currentUser;
-            //var teacherUser = await _userManager.FindByIdAsync(request.InternshipApplication.TeacherUser.ToString() ?? string.Empty);
-
+            
             var internship = new Domain.Entities.Internship.Internship
             {
                 StudentUser = request.InternshipApplication.InternshipApplicationFile.StudentUserId,
-                TeacherUser = request.InternshipApplication.TeacherUser, //TODO tıklanan internship üzerinden gelen UserID ile doldurulacak
+                TeacherUser = request.InternshipApplication.TeacherUser, 
                 CompanyUser = request.InternshipApplication.CompanyUser,
                 InternshipApplicationFile = internshipApplicationFile,
                 InternshipPeriod = internshipPeriod,
@@ -77,21 +76,22 @@ public class RegisterInternshipCommand : IRequest<Result>
             _generalRepository.Update(internshipPeriod);
 
             await _generalRepository.SaveChangesAsync(cancellationToken);
-
+            
+            var teacherUser = await _generalRepository.Query<Domain.User.User>()
+                .FirstOrDefaultAsync(_=>_.Id == request.InternshipApplication.TeacherUser, cancellationToken: cancellationToken);
+            
             #region MailSender
 
             string mailSubject = "Staj Kayıt İşlemi";
             string mailContent = "Staj dönemine kayıt işlemini başarıyla gerçekleşti";
 
             await _emailSender.SendEmailAsync(studentUser.Email, studentUser.UserName, mailSubject, mailContent);
-
             
-            //TODO Öğretmen kullanıcıya mail gönderme işlemi öğrencinin kayıt yaptığı dönemi başlatan öğretmene gidecek
             string mailSubjectForTeacher = "Staj Dönemi Kayıt İşlemi";
             string mailContentForTeacher =
                 $"Staj döneminize yeni kayıt gerçekleşmiştir. kayıt olan öğrenci numarası: {studentUser.UserName}";
 
-            //await _emailSender.SendEmailAsync();
+            await _emailSender.SendEmailAsync(teacherUser.Email, teacherUser.UserName, mailSubjectForTeacher, mailContentForTeacher);
 
             #endregion
             

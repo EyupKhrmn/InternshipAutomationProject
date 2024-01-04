@@ -30,8 +30,7 @@ public class AddDailyReportFileCommand : IRequest<Result>
         public async Task<Result> Handle(AddDailyReportFileCommand request, CancellationToken cancellationToken)
         {
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
-
-            // TODO Kullanıcının seçmiş olduğu staj dönemi için gelen ıd ile bulunacak
+            
             var internship = await _generalRepository.Query<Domain.Entities.Internship.Internship>()
                 .FirstOrDefaultAsync(_=>_.Id == request.InternshipId, cancellationToken: cancellationToken);
             
