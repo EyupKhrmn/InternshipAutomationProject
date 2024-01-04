@@ -43,4 +43,16 @@ public class CompanyController : ControllerBase
     {
         return Ok(await _mediator.Send(getAllInternCommand));
     }
+    
+    [HttpGet("GetAllInternshipDailyReportForIntern")]
+    public async Task<IActionResult> GetAllInternshipDailyReportForIntern([FromQuery] GetAllInternshipDailyReportForInternCommand getAllInternshipDailyReportForInternCommand)
+    {
+        return Ok(await _mediator.Send(getAllInternshipDailyReportForInternCommand));
+    }
+    
+    [HttpPut("CheckInternshipDailyReport")]
+    public async Task<IActionResult> CheckInternshipDailyReport([FromQuery] CheckInternshipDailyReportCommand checkInternshipDailyReportCommand)
+    {
+        return Ok(await _mediator.Send(checkInternshipDailyReportCommand));
+    }
 }
