@@ -1,9 +1,11 @@
 using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MailKit.Net.Smtp;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using MimeKit;
 
 namespace InternshipAutomation.Persistance.CQRS.Login;
@@ -19,20 +21,23 @@ public class LoginCommand : IRequest<Result>
         private readonly UserManager<Domain.User.User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEmailSender _emailSender;
+        private readonly ILogService _logger;
    
 
-        public LoginCommandHandler(UserManager<Domain.User.User> userManager, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender)
+        public LoginCommandHandler(UserManager<Domain.User.User> userManager, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender, ILogService logger)
         {
             _userManager = userManager;
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
             _emailSender = emailSender;
+            _logger = logger;
         }
 
         public async Task<Result> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
             var role = await _userManager.GetRolesAsync(user);
+            
             
             if (user.PasswordHash != request.Password)
             {
@@ -42,6 +47,8 @@ public class LoginCommand : IRequest<Result>
             var token = TokenHandler.CreateToken(_configuration, request.UserName, request.Password, role);
 
             user.Token = token.AccessToken;
+            
+            _logger.Information($"{user.UserName} Kullanıcısı sisteme giriş yaptı");
 
             #region Cookie Features
 

@@ -5,6 +5,7 @@ using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.User;
 using InternshipAutomation.Persistance.Context;
+using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using IntershipOtomation.Domain.Entities.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using QuestPDF.Infrastructure;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddFluentValidation(v =>
@@ -131,10 +133,26 @@ builder.Services.AddScoped<IEmailSender,MailSender>();
 
 #endregion
 
+#region Log Operations
+
+builder.Services.AddScoped<ILogService,LogService>();
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(builder.Configuration["Serilog:Path"] ?? string.Empty,rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+
+#endregion
+
+#region DbContext Operations
+
 builder.Services.AddDbContext<InternshipAutomationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerLocalhost"));
 });
+
+#endregion
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 

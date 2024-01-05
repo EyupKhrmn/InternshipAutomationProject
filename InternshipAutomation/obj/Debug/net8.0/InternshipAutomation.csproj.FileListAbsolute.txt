@@ -548,3 +548,12 @@ C:/Users/eyupk/RiderProjects/InternshipAutomationProject/InternshipAutomation/bi
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/FluentValidation.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.AspNetCore.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.Extensions.Hosting.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.Extensions.Logging.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.Formatting.Compact.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.Settings.Configuration.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.Sinks.Console.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.Sinks.Debug.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.Sinks.File.dll

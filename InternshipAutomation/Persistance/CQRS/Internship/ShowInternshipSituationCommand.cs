@@ -1,10 +1,12 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Extensions;
+using QuestPDF.Helpers;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
@@ -14,11 +16,13 @@ public class ShowInternshipSituationCommand : IRequest<Result<InternshipDto>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
+        private readonly ILogService _logger;
 
-        public ShowInternshipSituationCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService)
+        public ShowInternshipSituationCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService, ILogService logger)
         {
             _generalRepository = generalRepository;
             _decodeTokenService = decodeTokenService;
+            _logger = logger;
         }
 
         public async Task<Result<InternshipDto>> Handle(ShowInternshipSituationCommand request, CancellationToken cancellationToken)
@@ -38,6 +42,7 @@ public class ShowInternshipSituationCommand : IRequest<Result<InternshipDto>>
                 .Select(_=>_.CompanyUserNameSurname)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
             
+            _logger.Information($"{CurrentUser.UserName} kullanıcısı staj durumunu görüntüledi. Staj durumu: {internship.Status.GetDisplayName()}");
             return new Result<InternshipDto>
             {
                 Data = new InternshipDto
