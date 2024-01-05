@@ -6,7 +6,6 @@ using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Extensions;
-using QuestPDF.Helpers;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 

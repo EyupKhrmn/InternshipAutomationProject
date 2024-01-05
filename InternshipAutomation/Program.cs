@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using QuestPDF.Infrastructure;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,8 +22,6 @@ builder.Services.AddControllers().AddFluentValidation(v =>
     v.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 });
 builder.Services.AddEndpointsApiExplorer();
-
-QuestPDF.Settings.License = LicenseType.Community;
 
 #region Swagger Token Entegrations
 

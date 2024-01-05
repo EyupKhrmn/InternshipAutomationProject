@@ -2,7 +2,6 @@ using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using SkiaSharp.HarfBuzz;
 
 namespace InternshipAutomation.Persistance.CQRS.User.CompanyUser;
 
