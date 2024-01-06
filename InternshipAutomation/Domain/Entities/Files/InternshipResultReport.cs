@@ -13,7 +13,6 @@ public class InternshipResultReport
     public string TeacherNameSurname { get; set; }
     public SchoolTerm SchoolTerm { get; set; }
     public string AcademicYear { get; set; }
-
     public Guid InternshipId { get; set; }
     public Internship.Internship Internship { get; set; }
 }

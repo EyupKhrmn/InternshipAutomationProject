@@ -1,4 +1,5 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
+using InternshipAutomation.Domain.Entities.Enums;
 using InternshipAutomation.Domain.Entities.Internship;
 using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Persistance.LogService;

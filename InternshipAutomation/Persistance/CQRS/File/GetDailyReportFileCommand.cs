@@ -44,9 +44,3 @@ public class GetDailyReportFileCommand : IRequest<Result<InternshipDailyReportFi
         }
     }
 }
-
-public class GetDailyReportFileResponse
-{
-    public InternshipDailyReportFile InternshipDailyReportFile { get; set; }
-    public bool Success { get; set; }
-}

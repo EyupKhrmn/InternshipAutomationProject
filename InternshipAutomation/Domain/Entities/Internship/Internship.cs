@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using InternshipAutomation.Domain.Entities.Base;
+using InternshipAutomation.Domain.Entities.Enums;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.User;
 using Newtonsoft.Json;

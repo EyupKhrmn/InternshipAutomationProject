@@ -1,4 +1,4 @@
-namespace InternshipAutomation.Domain.Entities.Internship;
+namespace InternshipAutomation.Domain.Entities.Enums;
 
 public enum InternshipStatus
 {

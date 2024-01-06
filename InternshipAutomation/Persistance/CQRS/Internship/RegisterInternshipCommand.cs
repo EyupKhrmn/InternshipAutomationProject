@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
+using InternshipAutomation.Domain.Entities.Enums;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.Entities.Internship;
 using InternshipAutomation.Persistance.CQRS.Response;
