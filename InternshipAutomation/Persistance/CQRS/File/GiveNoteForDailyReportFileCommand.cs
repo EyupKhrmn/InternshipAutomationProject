@@ -27,6 +27,7 @@ public class GiveNoteForDailyReportFileCommand : IRequest<Result>
         public async Task<Result> Handle(GiveNoteForDailyReportFileCommand request, CancellationToken cancellationToken)
         {
             var file = await _generalRepository.Query<InternshipDailyReportFile>()
+                .Include(_=>_.Internship)
                 .FirstOrDefaultAsync(_ => _.Id == request.InternshipDailyReportFileId, cancellationToken: cancellationToken);
 
             file.Note = request.Note;
@@ -34,7 +35,7 @@ public class GiveNoteForDailyReportFileCommand : IRequest<Result>
             _generalRepository.Update(file);
             await _generalRepository.SaveChangesAsync(cancellationToken);
             
-            _logService.Information($"{file.StudentNameSurname} kullanısının {file.WorkingDate} tarihli staj günlük raporuna puan verildi. Verilen puan: {file.Note}.");
+            _logService.Information($"{file.StudentNameSurname} kullanısının {file.WorkingDate} tarihli staj günlük raporuna puan verildi. Verilen puan: {file.Note}. Staj: {file.Internship.Id}. Puan veren: {file.Internship.TeacherUser}");
 
             return new Result
             {
