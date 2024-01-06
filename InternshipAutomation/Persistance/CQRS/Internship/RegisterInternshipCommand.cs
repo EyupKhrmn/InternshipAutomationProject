@@ -47,6 +47,16 @@ public class RegisterInternshipCommand : IRequest<Result>
                 .Query<InternshipPeriod>()
                 .SingleOrDefaultAsync(_ => _.Id == request.InternshipPeriod, cancellationToken: cancellationToken);
 
+            if (internshipPeriod is null)
+            {
+                _logService.Error($"{request.InternshipPeriod} id'li staj dönemi bulunamadı.");
+                return new Result
+                {
+                    Message = "Staj dönemi bulunamadı.",
+                    Success = false
+                };
+            }
+
             InternshipApplicationFile internshipApplicationFile = new()
             {
                 CompanyName = request.InternshipApplication.InternshipApplicationFile.CompanyName,
@@ -83,6 +93,16 @@ public class RegisterInternshipCommand : IRequest<Result>
             
             var teacherUser = await _generalRepository.Query<Domain.User.User>()
                 .FirstOrDefaultAsync(_=>_.Id == request.InternshipApplication.TeacherUser, cancellationToken: cancellationToken);
+
+            if (teacherUser is null)
+            {
+                _logService.Error($"{request.InternshipApplication.TeacherUser} id'li öğretim görevlisi bulunamadı.");
+                return new Result
+                {
+                    Message = "Öğretim görevlisi bulunamadı.",
+                    Success = false
+                };
+            }
             
             #region MailSender
 

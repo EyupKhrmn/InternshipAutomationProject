@@ -31,6 +31,16 @@ public class GiveNoteForInternshipCommand : IRequest<Result>
                 .Where(_ => _.Id == request.InternshipId)
                 .SingleOrDefaultAsync(cancellationToken: cancellationToken);
 
+            if (internship is null)
+            {
+                _logService.Error($"{request.InternshipId} ID'li staj bulunamadı.");
+                return new Result
+                {
+                    Message = "Staj bulunamadı.",
+                    Success = false
+                };
+            }
+
             internship.Note = request.Note;
 
             _generalRepository.Update(internship);

@@ -29,6 +29,16 @@ public class ChangeStatusForInternshipCommand : IRequest<Result>
         {
             var internship = await _generalRepository.Query<Domain.Entities.Internship.Internship>()
                 .FirstOrDefaultAsync(_=>_.Id == request.InternshipId, cancellationToken: cancellationToken);
+
+            if (internship is null)
+            {
+                _logService.Error($"{request.InternshipId} ID'li staj bulunamadı.");
+                return new Result
+                {
+                    Message = "Staj bulunamadı.",
+                    Success = false
+                };
+            }
             
             internship.Status = request.Status;
             

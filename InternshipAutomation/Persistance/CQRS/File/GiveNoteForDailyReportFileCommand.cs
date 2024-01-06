@@ -30,6 +30,16 @@ public class GiveNoteForDailyReportFileCommand : IRequest<Result>
                 .Include(_=>_.Internship)
                 .FirstOrDefaultAsync(_ => _.Id == request.InternshipDailyReportFileId, cancellationToken: cancellationToken);
 
+            if (file is null)
+            {
+                _logService.Error($"{request.InternshipDailyReportFileId} id'li staj günlük raporu bulunamadı.");
+                return new Result
+                {
+                    Message = "Staj günlük raporu bulunamadı.",
+                    Success = false
+                };
+            }
+
             file.Note = request.Note;
 
             _generalRepository.Update(file);

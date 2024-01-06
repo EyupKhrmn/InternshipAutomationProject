@@ -62,6 +62,15 @@ public class GetAllInternCommand : IRequest<Result<List<InternDto>>>
                     result.JoinedData.Internship.InternshipApplicationFile.StudentTCKN
                 })
                 .ToListAsync(cancellationToken: cancellationToken);
+            
+            if (interns is null)
+            {
+                return new Result<List<InternDto>>
+                {
+                    Message = "Stajyer bulunamadı.",
+                    Success = false
+                };
+            }
 
             foreach (var intern in interns)
             {

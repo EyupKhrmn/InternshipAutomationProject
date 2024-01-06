@@ -59,6 +59,30 @@ public class EvaluateStudentCommand : IRequest<Result>
 
             var studentUser = await _generalRepository.Query<Domain.User.User>()
                 .FirstOrDefaultAsync(_ => _.Id == internship.StudentUser, cancellationToken: cancellationToken);
+            
+            #region Null Control
+
+            if (internship is null)
+            {
+                _logService.Error($"{request.InternshipId} id'li staj bulunamadı.");
+                return new Result
+                {
+                    Message = "Stajyer bulunamadı.",
+                    Success = false
+                };
+            }
+
+            if (studentUser is null)
+            {
+                _logService.Error($"{internship.StudentUser} id'li öğrenci bulunamadı.");
+                return new Result
+                {
+                    Message = "Staj içerisinde öğrenci bulunamadı.",
+                    Success = false
+                };
+            }
+
+            #endregion
 
             #region File
 

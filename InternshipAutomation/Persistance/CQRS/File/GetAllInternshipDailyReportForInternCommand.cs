@@ -27,6 +27,30 @@ public class GetAllInternshipDailyReportForInternCommand : IRequest<Result<List<
                 .Where(_ => _.Internship.Id == internship.Id)
                 .ToListAsync(cancellationToken: cancellationToken);
 
+            #region Null Control
+
+            if (internship is null)
+            {
+                return new Result<List<DailyReportFileForCompanyDto>>
+                {
+                    Data = new List<DailyReportFileForCompanyDto>(),
+                    Message = "Staj bulunamadı.",
+                    Success = false
+                };
+            }
+
+            if (files is null)
+            {
+                return new Result<List<DailyReportFileForCompanyDto>>
+                {
+                    Data = new List<DailyReportFileForCompanyDto>(),
+                    Message = "Staj doslayaları bulunamadı.",
+                    Success = false
+                };
+            }
+
+            #endregion
+
             foreach (var file in files)
             {
                 DailyReportFileForCompanyDto dailyReportFileForCompanyDto = new()

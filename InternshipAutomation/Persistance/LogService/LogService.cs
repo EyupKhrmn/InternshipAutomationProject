@@ -32,4 +32,9 @@ public class LogService : ILogService
             Log.Error(message);
         }
     }
+
+    public void Error(string message)
+    {
+        Log.Error(message);
+    }
 }

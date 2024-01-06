@@ -4,6 +4,7 @@ using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Persistance.LogService;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
@@ -38,9 +39,16 @@ public class UpdateInternshipApplicationCommand : IRequest<Result>
         {
             var file = await _generalRepository.Query<InternshipApplicationFile>()
                 .FirstOrDefaultAsync(_ => _.Id == request.InternshipApplicationFile, cancellationToken: cancellationToken);
-            
-            if (file == null)
-                throw new Exception("Başvuru dosyası bulunamadı.");
+
+            if (file is null)
+            {
+                _logService.Error($"{request.InternshipApplicationFile} id'li staj başvuru dosyası bulunamadı.");
+                return new Result
+                {
+                    Message = "Staj başvuru dosyası bulunamadı.",
+                    Success = false
+                };
+            }
             
             file.StudentNameSurname = request.StudentNameSurname ?? file.StudentNameSurname;
             file.StudentNumber = request.StudentNumber ?? file.StudentNumber;

@@ -6,4 +6,6 @@ public interface ILogService
     public void InformationForParam(string message, object? param);
     
     public void Error(string message, object? param);
+    
+    public void Error(string message);
 }

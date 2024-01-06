@@ -2,6 +2,7 @@ using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using MediatR;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ public class GetInternshipResultReportCommand : IRequest<Result<InternshipResult
     public class GetInternshipResultReportCommandHandler : IRequestHandler<GetInternshipResultReportCommand, Result<InternshipResultReport>>
     {
         private readonly IGeneralRepository _generalRepository;
+        private readonly ILogService _logService;
 
-        public GetInternshipResultReportCommandHandler(IGeneralRepository generalRepository)
+        public GetInternshipResultReportCommandHandler(IGeneralRepository generalRepository, ILogService logService)
         {
             _generalRepository = generalRepository;
+            _logService = logService;
         }
 
         public async Task<Result<InternshipResultReport>> Handle(GetInternshipResultReportCommand request, CancellationToken cancellationToken)
@@ -28,6 +31,23 @@ public class GetInternshipResultReportCommand : IRequest<Result<InternshipResult
             
             var resultReport = await _generalRepository.Query<InternshipResultReport>()
                 .FirstOrDefaultAsync(_=>_.InternshipId == request.InternshipId, cancellationToken: cancellationToken);
+
+            #region Null Control
+
+            if (internship is null || resultReport is null)
+            {
+                if (internship is null)
+                    _logService.Error($"{request.InternshipId} ID'li staj bulunamadı.");
+                if (resultReport is null)
+                    _logService.Error($"{request.InternshipId} ID'li staj için sonuç raporu bulunamadı.");
+                return new Result<InternshipResultReport>
+                {
+                    Message = "Staj bulunamadı.",
+                    Success = false
+                };
+            }
+
+            #endregion
 
             return new Result<InternshipResultReport>
             {

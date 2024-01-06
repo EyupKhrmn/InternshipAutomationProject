@@ -28,6 +28,16 @@ public class UpdateCompanyUserCommand : IRequest<Result>
         {
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
             var user = await _userManager.FindByNameAsync(currentUser.UserName);
+
+            if (user is null)
+            {
+                _logService.Error($"{user.UserName} kullanıcısı bulunamadı");
+                return new Result
+                {
+                    Message = "Kullanıcı bulunamadı.",
+                    Success = false
+                };
+            }
             
             user.PasswordHash = request.Password ?? user.PasswordHash;
             user.CompanyUserNameSurname = request.NameSurname ?? user.CompanyUserNameSurname;

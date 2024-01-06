@@ -40,6 +40,16 @@ public class AddDailyReportFileCommand : IRequest<Result>
             var companyUser = await _generalRepository.Query<Domain.User.User>()
                 .FirstOrDefaultAsync(_ => _.Id == internship.CompanyUser, cancellationToken: cancellationToken);
 
+            if (internship is null)
+            {
+                _logService.Error($"{request.InternshipId} ID'li Staj bulunamadı.");
+                return new Result
+                {
+                    Message = "Staj bulunamadı.",
+                    Success = false
+                };
+            }
+
             var file = new InternshipDailyReportFile
             {
                 TopicTitleOfWork = request.TopicTitleOfWork,

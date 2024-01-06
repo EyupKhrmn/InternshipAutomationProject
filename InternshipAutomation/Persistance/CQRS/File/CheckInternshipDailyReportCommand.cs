@@ -28,6 +28,15 @@ public class CheckInternshipDailyReportCommand : IRequest<Result>
             var dailyReportFile = await _generalRepository.Query<Domain.Entities.Files.InternshipDailyReportFile>()
                 .FirstOrDefaultAsync(_ => _.Id == request.DailyReportFileId, cancellationToken: cancellationToken);
 
+            if (dailyReportFile is null)
+            {
+                return new Result
+                {
+                    Message = "Staj günlük raporu bulunamadı.",
+                    Success = false
+                };
+            }
+
             dailyReportFile.IsCheckCompany = request.IsChecked;
 
             await _generalRepository.SaveChangesAsync(cancellationToken);

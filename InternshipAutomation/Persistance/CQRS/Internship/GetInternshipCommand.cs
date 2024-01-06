@@ -1,6 +1,7 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Extensions;
@@ -14,10 +15,12 @@ public class GetInternshipCommand : IRequest<Result<InternshipDto>>
     public class GetInternshipCommandHandler : IRequestHandler<GetInternshipCommand, Result<InternshipDto>>
     {
         private readonly IGeneralRepository _generalRepository;
+        private readonly ILogService _logService;
 
-        public GetInternshipCommandHandler(IGeneralRepository generalRepository)
+        public GetInternshipCommandHandler(IGeneralRepository generalRepository, ILogService logService)
         {
             _generalRepository = generalRepository;
+            _logService = logService;
         }
 
         public async Task<Result<InternshipDto>> Handle(GetInternshipCommand request, CancellationToken cancellationToken)
@@ -39,7 +42,28 @@ public class GetInternshipCommand : IRequest<Result<InternshipDto>>
                 .Where(_ => _.Id == internship.CompanyUser)
                 .Select(_=>_.CompanyUserNameSurname)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-            
+
+            #region Null Control
+
+            if (internship is null || studentUser is null || teacherUser is null || companyUser is null)
+            {
+                if (internship is null)
+                    _logService.Error($"{request.InternshipId} ID'li staj bulunamadı.");
+                if (studentUser is null)
+                    _logService.Error($"{request.InternshipId} ID'li staj için öürenci bulunamadı.");
+                if (teacherUser is null)
+                    _logService.Error($"{request.InternshipId} ID'li staj için öğretmen bulunamadı.");
+                if (companyUser is null)
+                    _logService.Error($"{request.InternshipId} ID'li staj için şirket bulunamadı.");
+                
+                return new Result<InternshipDto>
+                {
+                    Message = "Staj ile ilgili gerekli alanlar bulunamadığı için görüntülenemiyor.",
+                    Success = false
+                };
+            }
+
+            #endregion
             
             return new Result<InternshipDto>
             {

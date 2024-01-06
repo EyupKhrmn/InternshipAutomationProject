@@ -33,9 +33,16 @@ public class UpdateDailyReportFileCommand : IRequest<Result>
         {
             var file = await _generalRepository.Query<InternshipDailyReportFile>()
                 .FirstOrDefaultAsync(_ => _.Id == request.DailyReportFileId, cancellationToken: cancellationToken);
-            
+
             if (file == null)
-                throw new Exception("Dosya bulunamadı.");
+            {
+                _logService.Error($"{request.DailyReportFileId} id'li staj günlük raporu bulunamadı.");
+                return new Result
+                {
+                    Message = "Staj günlük raporu bulunamadı.",
+                    Success = false
+                };
+            }
             
             file.TopicTitleOfWork = request.TopicTitleOfWork ?? file.TopicTitleOfWork;
             file.DescriptionOfWork = request.DescriptionOfWork ?? file.DescriptionOfWork;

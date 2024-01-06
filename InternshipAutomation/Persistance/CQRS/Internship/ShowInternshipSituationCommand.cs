@@ -40,6 +40,19 @@ public class ShowInternshipSituationCommand : IRequest<Result<InternshipDto>>
                 .Where(_ => _.Id == internship.CompanyUser)
                 .Select(_=>_.CompanyUserNameSurname)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+            #region Null Control
+
+            if (internship is null)
+                _logger.Error($"Staj Bulunamadı.");
+            
+            if (teacherUser is null)
+                _logger.Error($"Öğretmen bulunamadı.");
+            
+            if (companyUser is null)
+                _logger.Error($"Şirket bulunamadı.");
+
+            #endregion
             
             _logger.Information($"{CurrentUser.UserName} kullanıcısı staj durumunu görüntüledi. Staj durumu: {internship.Status.GetDisplayName()}");
             return new Result<InternshipDto>

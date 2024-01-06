@@ -3,6 +3,7 @@ using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.Entities.Internship;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -20,12 +21,14 @@ public class GetAllInternshipCommand : IRequest<Result<List<InternshipPreviewDto
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
         private readonly UserManager<Domain.User.User> _userManager;
+        private readonly ILogService _logService;
 
-        public GetAllInternshipCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService, UserManager<Domain.User.User> userManager)
+        public GetAllInternshipCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService, UserManager<Domain.User.User> userManager, ILogService logService)
         {
             _generalRepository = generalRepository;
             _decodeTokenService = decodeTokenService;
             _userManager = userManager;
+            _logService = logService;
         }
 
         public async Task<Result<List<InternshipPreviewDto>>> Handle(GetAllInternshipCommand request, CancellationToken cancellationToken)
@@ -36,6 +39,16 @@ public class GetAllInternshipCommand : IRequest<Result<List<InternshipPreviewDto
             var internships = await _generalRepository.Query<Domain.Entities.Internship.Internship>()
                 .Where(_=>_.TeacherUser == currentUser.Id && _.CreatedDate.Year == request.PeriodYear)
                 .ToListAsync(cancellationToken: cancellationToken);
+
+            if (internships is null)
+            {
+                _logService.Error($"{request.PeriodYear} yılına ait staj bulunamadı.");
+                return new Result<List<InternshipPreviewDto>>
+                {
+                    Message = $"{request.PeriodYear} yılına ait staj bulunamadı.",
+                    Success = false
+                };
+            }
 
             string? studentUserNameSurname;
             Guid? internshipId;

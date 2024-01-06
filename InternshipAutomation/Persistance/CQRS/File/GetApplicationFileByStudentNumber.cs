@@ -2,6 +2,7 @@
 using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,20 +17,31 @@ public class GetApplicationFileByStudentNumber : IRequest<Result<InternshipAppli
     {
         private readonly UserManager<Domain.User.User> _userManager;
         private readonly IGeneralRepository _generalRepository;
+        private readonly ILogService _logService;
 
-        public GetApplicationFileByStudentNumberHandler(UserManager<Domain.User.User> userManager, IGeneralRepository generalRepository)
+        public GetApplicationFileByStudentNumberHandler(UserManager<Domain.User.User> userManager, IGeneralRepository generalRepository, ILogService logService)
         {
             _userManager = userManager;
             _generalRepository = generalRepository;
+            _logService = logService;
         }
         
         public async Task<Result<InternshipApplicationFileDto>> Handle(GetApplicationFileByStudentNumber request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByNameAsync(request.StudentNumber);
             var applicationFile = await _generalRepository.Query<InternshipApplicationFile>()
                 .Where(_ => _.StudentNumber == request.StudentNumber)
                 .OrderByDescending(_=>_.CreatedDate)
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+            if (applicationFile is null)
+            {
+                _logService.Error($"{request.StudentNumber} numaralı öğrenciye ait staj başvuru dosyası bulunamadı.");
+                return new Result<InternshipApplicationFileDto>
+                {
+                    Message = "Staj başvuru dosyası bulunamadı.",
+                    Success = false
+                };
+            }
 
             InternshipApplicationFileDto applicationFileDto = new()
             {
