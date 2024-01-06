@@ -281,7 +281,6 @@ C:/Users/eyupk/RiderProjects/InternshipAutomationProject/InternshipAutomation/bi
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Azure.Core.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Azure.Identity.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/HarfBuzzSharp.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Humanizer.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/MailKit.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/MediatR.dll
@@ -343,9 +342,6 @@ C:/Users/eyupk/RiderProjects/InternshipAutomationProject/InternshipAutomation/bi
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/NuGet.ProjectModel.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/NuGet.Protocol.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/NuGet.Versioning.dll
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/QuestPDF.dll
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/SkiaSharp.dll
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/SkiaSharp.HarfBuzz.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -503,10 +499,6 @@ C:/Users/eyupk/RiderProjects/InternshipAutomationProject/InternshipAutomation/bi
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/osx/native/libHarfBuzzSharp.dylib
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win-arm64/native/libHarfBuzzSharp.dll
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win-x64/native/libHarfBuzzSharp.dll
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win-x86/native/libHarfBuzzSharp.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/unix/lib/net6.0/Microsoft.Data.SqlClient.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win/lib/net6.0/Microsoft.Data.SqlClient.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll
@@ -514,10 +506,6 @@ C:/Users/eyupk/RiderProjects/InternshipAutomationProject/InternshipAutomation/bi
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/osx/native/libSkiaSharp.dylib
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win-arm64/native/libSkiaSharp.dll
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win-x64/native/libSkiaSharp.dll
-/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win-x86/native/libSkiaSharp.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Diagnostics.EventLog.Messages.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Drawing.Common.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Runtime.Caching.dll

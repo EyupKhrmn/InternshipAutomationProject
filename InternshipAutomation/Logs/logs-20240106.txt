@@ -1,0 +1,4 @@
+2024-01-06 12:11:02.105 +03:00 [INF] 2111404031 Kullanıcısı sisteme giriş yaptı
+2024-01-06 12:11:59.089 +03:00 [INF] 2111404032 Kullanıcısı sisteme giriş yaptı
+2024-01-06 12:12:12.931 +03:00 [INF] 2111404032 Kullanıcısı sisteme giriş yaptı
+2024-01-06 12:17:04.786 +03:00 [INF] Eyüp Kahraman kullanısının 21.12.2023 12:24:43 tarihli staj günlük raporuna puan verildi. Verilen puan: 61.
