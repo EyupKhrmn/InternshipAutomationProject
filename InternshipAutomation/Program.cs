@@ -30,8 +30,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1",new OpenApiInfo
     {
         Version = "v1",
-        Title = "Deneme",
-        Description = "Deneme açıklaması"
+        Title = "InternshipAutomationProject",
+        Description = "Staj takip uygulamsı, Bilgisayar Mühendisliği Lisans Tezi için geliştirilmiştir.",
     });
     
     c.AddSecurityDefinition("Bearer",new OpenApiSecurityScheme
