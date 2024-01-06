@@ -2,6 +2,7 @@ using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Internship;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
@@ -18,12 +19,14 @@ public class InternshipPeriodCommand : IRequest<Result>
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
         private readonly IEmailSender _emailSender;
+        private readonly ILogService _logService;
 
-        public InternshipPeriodCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService, IEmailSender emailSender)
+        public InternshipPeriodCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService, IEmailSender emailSender, ILogService logService)
         {
             _generalRepository = generalRepository;
             _decodeTokenService = decodeTokenService;
             _emailSender = emailSender;
+            _logService = logService;
         }
 
         public async Task<Result> Handle(InternshipPeriodCommand request, CancellationToken cancellationToken)
@@ -49,6 +52,8 @@ public class InternshipPeriodCommand : IRequest<Result>
 
 
             #endregion
+            
+            _logService.Information($"{currentUser.UserName} kullanısı yeni staj dönemi başlattı. Başlatılan staj dönemi: {internshipPeriod.Id}");
             
             return new Result
             {

@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
@@ -20,11 +21,13 @@ public class AddDailyReportFileCommand : IRequest<Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
+        private readonly ILogService _logService;
 
-        public AddDailyReportFileCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService)
+        public AddDailyReportFileCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService, ILogService logService)
         {
             _generalRepository = generalRepository;
             _decodeTokenService = decodeTokenService;
+            _logService = logService;
         }
 
         public async Task<Result> Handle(AddDailyReportFileCommand request, CancellationToken cancellationToken)
@@ -49,6 +52,8 @@ public class AddDailyReportFileCommand : IRequest<Result>
 
             _generalRepository.Add(file);
             await _generalRepository.SaveChangesAsync(cancellationToken);
+            
+            _logService.Information($"{currentUser.UserName} kullanısı {file.WorkingDate} tarihli staj günlük raporunu ekledi. Eklenen rapor: {file.Id}");
 
             return new Result
             {

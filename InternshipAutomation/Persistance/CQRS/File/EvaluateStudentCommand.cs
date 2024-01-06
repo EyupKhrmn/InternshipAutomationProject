@@ -1,6 +1,7 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
@@ -40,11 +41,13 @@ public class EvaluateStudentCommand : IRequest<Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;
+        private readonly ILogService _logService;
 
-        public EvaluateStudentCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService)
+        public EvaluateStudentCommandHandler(IGeneralRepository generalRepository, IDecodeTokenService decodeTokenService, ILogService logService)
         {
             _generalRepository = generalRepository;
             _decodeTokenService = decodeTokenService;
+            _logService = logService;
         }
 
         public async Task<Result> Handle(EvaluateStudentCommand request, CancellationToken cancellationToken)
@@ -97,6 +100,9 @@ public class EvaluateStudentCommand : IRequest<Result>
 
             _generalRepository.Add(file);
             await _generalRepository.SaveChangesAsync(cancellationToken);
+
+            _logService.Information(
+                $"{currentUser.UserName} kullanıcısı {studentUser.UserName} kullanıcısını değerlendirdi.");
 
             return new Result
             {

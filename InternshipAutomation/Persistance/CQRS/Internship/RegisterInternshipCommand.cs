@@ -5,6 +5,7 @@ using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Domain.Entities.Internship;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -25,14 +26,16 @@ public class RegisterInternshipCommand : IRequest<Result>
         private readonly IDecodeTokenService _decodeTokenService;
         private readonly UserManager<Domain.User.User> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly ILogService _logService;
 
-        public RegisterInternshipCommandHandler(IGeneralRepository generalRepository, IHttpContextAccessor httpContextAccessor, IDecodeTokenService decodeTokenService, UserManager<Domain.User.User> userManager, IEmailSender emailSender)
+        public RegisterInternshipCommandHandler(IGeneralRepository generalRepository, IHttpContextAccessor httpContextAccessor, IDecodeTokenService decodeTokenService, UserManager<Domain.User.User> userManager, IEmailSender emailSender, ILogService logService)
         {
             _generalRepository = generalRepository;
             _httpContextAccessor = httpContextAccessor;
             _decodeTokenService = decodeTokenService;
             _userManager = userManager;
             _emailSender = emailSender;
+            _logService = logService;
         }
 
         public async Task<Result> Handle(RegisterInternshipCommand request, CancellationToken cancellationToken)
@@ -94,6 +97,8 @@ public class RegisterInternshipCommand : IRequest<Result>
             await _emailSender.SendEmailAsync(teacherUser.Email, teacherUser.UserName, mailSubjectForTeacher, mailContentForTeacher);
 
             #endregion
+            
+            _logService.Information($"{currentUser.StudentNameSurname} kullanıcısı staj dönemine kayıt oldu. Kayıt olan öğrenci numarası: {studentUser.UserName}. kayıt olan staj dönemi: {internshipPeriod.Id}. kayıt olunan staj: {internship.Id}");
             
             return new Result
             {

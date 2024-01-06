@@ -1,4 +1,5 @@
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -15,11 +16,13 @@ public class UpdateCompanyUserCommand : IRequest<Result>
     
     public class UpdateCompanyUserCommandHandler(
         UserManager<Domain.User.User> userManager,
-        IDecodeTokenService decodeTokenService)
+        IDecodeTokenService decodeTokenService,
+        ILogService logService)
         : IRequestHandler<UpdateCompanyUserCommand, Result>
     {
         private readonly UserManager<Domain.User.User> _userManager = userManager;
         private readonly IDecodeTokenService _decodeTokenService = decodeTokenService;
+        private readonly ILogService _logService = logService;
 
         public async Task<Result> Handle(UpdateCompanyUserCommand request, CancellationToken cancellationToken)
         {
@@ -33,6 +36,8 @@ public class UpdateCompanyUserCommand : IRequest<Result>
             user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
             
             await _userManager.UpdateAsync(user);
+            
+            _logService.Information($"{user.UserName} kullanıcısı güncelleme işlemi yapıldı.");
             
             return new Result
             {

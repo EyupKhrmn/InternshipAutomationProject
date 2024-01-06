@@ -1,5 +1,6 @@
 ﻿using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,10 +16,12 @@ public class GiveNoteForInternshipCommand : IRequest<Result>
         Result>
     {
         private readonly IGeneralRepository _generalRepository;
+        private readonly ILogService _logService;
 
-        public GiveNoteForInternshipCommandHandler(IGeneralRepository generalRepository)
+        public GiveNoteForInternshipCommandHandler(IGeneralRepository generalRepository, ILogService logService)
         {
             _generalRepository = generalRepository;
+            _logService = logService;
         }
 
         public async Task<Result> Handle(GiveNoteForInternshipCommand request,
@@ -32,7 +35,8 @@ public class GiveNoteForInternshipCommand : IRequest<Result>
 
             _generalRepository.Update(internship);
             await _generalRepository.SaveChangesAsync(cancellationToken);
-
+            
+            _logService.Information($"{internship.StudentUser} kullanıcısının staj notu güncellendi. Güncellenen not: {internship.Note}. Staj: {internship.Id}. Güncelleyen: {internship.TeacherUser}");
 
             return new Result
             {

@@ -1,5 +1,6 @@
 using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -12,11 +13,12 @@ public class AddStudentCommand : IRequest<Result>
     public string Email { get; set; }
     public string Password { get; set; }
     
-    public class AddStudentCommandHandler(UserManager<Domain.User.User> userManager, IEmailSender emailSender)
+    public class AddStudentCommandHandler(UserManager<Domain.User.User> userManager, IEmailSender emailSender, ILogService logService)
         : IRequestHandler<AddStudentCommand, Result>
     {
         private readonly UserManager<Domain.User.User> _userManager = userManager;
         private readonly IEmailSender _emailSender = emailSender;
+        private readonly ILogService _logService = logService;
 
         public async Task<Result> Handle(AddStudentCommand request, CancellationToken cancellationToken)
         {
@@ -33,6 +35,8 @@ public class AddStudentCommand : IRequest<Result>
             var createdUser = await _userManager.FindByNameAsync(request.StudentNumber);
             
             await _userManager.AddToRoleAsync(createdUser, "Öğrenci");
+            
+            _logService.Information($"{user.UserName} kullanıcısı öğrenci kullanıcısı olarak eklendi.");
 
             return new Result
             {

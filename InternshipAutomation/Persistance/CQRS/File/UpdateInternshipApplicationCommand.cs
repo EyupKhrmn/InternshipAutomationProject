@@ -1,6 +1,7 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,10 +26,12 @@ public class UpdateInternshipApplicationCommand : IRequest<Result>
     public class UpdateInternshipApplicationCommandHandler : IRequestHandler<UpdateInternshipApplicationCommand, Result>
     {
         private readonly IGeneralRepository _generalRepository;
+        private readonly ILogService _logService;
 
-        public UpdateInternshipApplicationCommandHandler(IGeneralRepository generalRepository)
+        public UpdateInternshipApplicationCommandHandler(IGeneralRepository generalRepository, ILogService logService)
         {
             _generalRepository = generalRepository;
+            _logService = logService;
         }
 
         public async Task<Result> Handle(UpdateInternshipApplicationCommand request, CancellationToken cancellationToken)
@@ -53,6 +56,8 @@ public class UpdateInternshipApplicationCommand : IRequest<Result>
             file.CompanySector = request.CompanySector ?? file.CompanySector;
             
             await _generalRepository.SaveChangesAsync(cancellationToken);
+            
+            _logService.Information($"{file.StudentNameSurname} kullanıcısının staj başvuru dosyası güncellendi. Güncellenen dosya: {file.Id}");
 
             return new Result
             {

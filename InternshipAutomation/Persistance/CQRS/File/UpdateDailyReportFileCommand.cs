@@ -1,6 +1,7 @@
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Entities.Files;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.LogService;
 using MediatR;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +21,12 @@ public class UpdateDailyReportFileCommand : IRequest<Result>
     public class UpdateDailyReportFileCommandHandler : IRequestHandler<UpdateDailyReportFileCommand, Result>
     {
         private readonly IGeneralRepository _generalRepository;
+        private readonly ILogService _logService;
 
-        public UpdateDailyReportFileCommandHandler(IGeneralRepository generalRepository)
+        public UpdateDailyReportFileCommandHandler(IGeneralRepository generalRepository, ILogService logService)
         {
             _generalRepository = generalRepository;
+            _logService = logService;
         }
 
         public async Task<Result> Handle(UpdateDailyReportFileCommand request, CancellationToken cancellationToken)
@@ -41,6 +44,8 @@ public class UpdateDailyReportFileCommand : IRequest<Result>
             file.WorkingDate = request.WorkingDate ?? file.WorkingDate;
             
             await _generalRepository.SaveChangesAsync(cancellationToken);
+            
+            _logService.Information($"{file.StudentNameSurname} kullanısı {file.WorkingDate} tarihli staj günlük raporunu güncelledi. Eklenen rapor: {file.Id}");
 
             return new Result
             {
