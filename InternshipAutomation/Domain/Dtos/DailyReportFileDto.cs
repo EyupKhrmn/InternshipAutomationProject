@@ -9,4 +9,5 @@ public class DailyReportFileDto
     public string CompanyManagerNameSurname { get; set; }
     public DateTime WorkingDate { get; set; }
     public int? Note { get; set; }
+    public double? GeneralAverage { get; set; }
 }
