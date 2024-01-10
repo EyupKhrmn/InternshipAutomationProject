@@ -62,7 +62,7 @@ public class ShowInternshipSituationCommand : IRequest<Result<InternshipDto>>
                     StudentUser = CurrentUser.StudentNameSurname,
                     TeacherUser = teacherUser,
                     CompanyUser = companyUser,
-                    InternshipAverage = internship.InternshipAverage,
+                    InternshipAverage = Math.Round(internship.InternshipAverage,2),
                     Note = internship.Note,
                     Status = internship.Status.GetDisplayName()
                 }
