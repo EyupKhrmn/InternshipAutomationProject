@@ -29,8 +29,7 @@ public class GetAllDailyReportCommand : IRequest<Result<List<DailyReportFileDto>
             var files = _generalRepository.Query<InternshipDailyReportFile>()
                 .Where(_ => _.Internship.Id == request.InternshipId)
                 .ToList();
-
-            //TODO: Ortalama hesaplanacak. Hocaya Sorulacak
+            
             double? average = files.Average(_ => _.Note);
             
             var internship = _generalRepository.Query<Domain.Entities.Internship.Internship>()
@@ -70,7 +69,7 @@ public class GetAllDailyReportCommand : IRequest<Result<List<DailyReportFileDto>
             {
                 Data = response,
                 Success = true,
-                Message = $"Staj raporları getirildi. Staj günlük rapor Ortalaması: {average}"
+                Message = $"Staj raporları getirildi. Staj günlük rapor Ortalaması: {Math.Round((decimal)average,2)}"
             };
         }
     }
