@@ -1,3 +1,4 @@
+using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Persistance.Hasing;
 using InternshipAutomation.Persistance.LogService;
@@ -18,12 +19,14 @@ public class UpdateCompanyUserCommand : IRequest<Result>
     public class UpdateCompanyUserCommandHandler(
         UserManager<Domain.User.User> userManager,
         IDecodeTokenService decodeTokenService,
-        ILogService logService)
+        ILogService logService,
+        IEmailSender emailSender)
         : IRequestHandler<UpdateCompanyUserCommand, Result>
     {
         private readonly UserManager<Domain.User.User> _userManager = userManager;
         private readonly IDecodeTokenService _decodeTokenService = decodeTokenService;
         private readonly ILogService _logService = logService;
+        private readonly IEmailSender _emailSender = emailSender;
 
         public async Task<Result> Handle(UpdateCompanyUserCommand request, CancellationToken cancellationToken)
         {
@@ -40,7 +43,12 @@ public class UpdateCompanyUserCommand : IRequest<Result>
                 };
             }
             
-            user.PasswordHash = Hash.ToHash(request.Password) ?? user.PasswordHash;
+            if (user.PasswordHash != Hash.ToHash(request.Password))
+            {
+                user.PasswordHash = Hash.ToHash(request.Password) ?? user.PasswordHash;
+                await _emailSender.SendEmailAsync(user.Email, user.TeacherNameSurname, "Şifre Değişikliği",
+                    "Şifre Değiştirme İşlemi başarıyla gerçekleşti.");
+            }
             user.CompanyUserNameSurname = request.NameSurname ?? user.CompanyUserNameSurname;
             user.UserName = request.UserCode ?? user.UserName;
             user.Email = request.Email ?? user.Email;

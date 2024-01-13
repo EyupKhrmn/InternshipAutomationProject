@@ -19,14 +19,7 @@ public class CompanyController : ControllerBase
     {
         _mediator = mediator;
     }
-
-    [AllowAnonymous]
-    [HttpPost("RegisterCompanyUser")]
-    public async Task<IActionResult> AddCompanyUserCommand([FromQuery] AddCompanyUserCommand addCompanyUserCommand)
-    {
-        return Ok(await _mediator.Send(addCompanyUserCommand));
-    }
-
+    
     [HttpPut("UpdateCompanyUser")]
     public async Task<IActionResult> UpdateCompanyUser([FromQuery] UpdateCompanyUserCommand updateCompanyUserCommand)
     {
