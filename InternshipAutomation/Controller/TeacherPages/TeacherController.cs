@@ -20,6 +20,7 @@ public class TeacherController : ControllerBase
         _mediator = mediator;
     }
 
+    [AllowAnonymous]
     [HttpPost("RegisterTeacher")]
     public async Task<IActionResult> AddTeacher([FromQuery] AddTeacherCommand addTeacherCommand)
     {
