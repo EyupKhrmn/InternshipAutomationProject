@@ -17,4 +17,5 @@ public class InternshipDailyReportFile : Entity
     public Internship.Internship Internship { get; set; }
     public bool IsCheckCompany { get; set; }
     public int? Note { get; set; }
+    public bool IsApproved { get; set; }
 }

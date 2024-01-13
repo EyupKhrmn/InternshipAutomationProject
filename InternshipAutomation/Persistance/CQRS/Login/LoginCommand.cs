@@ -1,5 +1,6 @@
 using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.Hasing;
 using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MailKit.Net.Smtp;
@@ -39,7 +40,7 @@ public class LoginCommand : IRequest<Result>
             var role = await _userManager.GetRolesAsync(user);
             
             
-            if (user.PasswordHash != request.Password)
+            if (user.PasswordHash != Hash.ToHash(request.Password))
             {
                 throw new Exception("Kullanıcı adı veya parola yanlış");
             }

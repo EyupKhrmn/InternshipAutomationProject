@@ -1,4 +1,5 @@
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.Hasing;
 using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MediatR;
@@ -29,7 +30,7 @@ public class UpdateStudentCommand : IRequest<Result>
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
             var user = await _userManager.FindByNameAsync(currentUser.UserName);
             
-            user.PasswordHash = request.Password ?? user.PasswordHash;
+            user.PasswordHash = Hash.ToHash(request.Password) ?? user.PasswordHash;
             user.StudentNameSurname = request.NameSurname ?? user.StudentNameSurname;
             user.UserName = request.StudentNumber ?? user.UserName;
             user.Email = request.Email ?? user.Email;

@@ -1,4 +1,5 @@
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.Hasing;
 using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using MediatR;
@@ -39,7 +40,7 @@ public class UpdateCompanyUserCommand : IRequest<Result>
                 };
             }
             
-            user.PasswordHash = request.Password ?? user.PasswordHash;
+            user.PasswordHash = Hash.ToHash(request.Password) ?? user.PasswordHash;
             user.CompanyUserNameSurname = request.NameSurname ?? user.CompanyUserNameSurname;
             user.UserName = request.UserCode ?? user.UserName;
             user.Email = request.Email ?? user.Email;

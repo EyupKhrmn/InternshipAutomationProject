@@ -1,5 +1,6 @@
 using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Persistance.CQRS.Response;
+using InternshipAutomation.Persistance.Hasing;
 using InternshipAutomation.Persistance.LogService;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -28,7 +29,7 @@ public class AddTeacherCommand : IRequest<Result>
             user.UserName = request.UserCode;
             user.Email = request.Email;
             user.SecurityStamp = Guid.NewGuid().ToString();
-            user.PasswordHash = request.Password;
+            user.PasswordHash = Hash.ToHash(request.Password);
             user.TeacherNameSurname = request.NameSurname;
             
             await _userManager.CreateAsync(user);

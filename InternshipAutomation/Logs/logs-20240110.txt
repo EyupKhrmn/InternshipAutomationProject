@@ -1,1 +1,5 @@
 2024-01-10 18:18:49.306 +03:00 [INF] 2111404032 Kullanıcısı sisteme giriş yaptı
+2024-01-10 18:57:30.831 +03:00 [INF] 2111404032 Kullanıcısı sisteme giriş yaptı
+2024-01-10 18:59:42.051 +03:00 [INF] Eyüp Kahraman kullanısının 22.12.2023 14:55:22 tarihli staj günlük raporuna puan verildi. Verilen puan: 61. Staj: cb87e254-3d08-4a64-0b03-08dc0201d9fe. Puan veren: 4fb4ae9e-fc95-4957-753b-08dc01efcfbe
+2024-01-10 18:59:59.078 +03:00 [INF] a10b6858-88ea-4009-0a27-08dc02fe05e9 id'li staj günlük raporu 4fb4ae9e-fc95-4957-753b-08dc01efcfbe kullanıcısı tarafından reddedildi.
+2024-01-10 18:59:59.099 +03:00 [INF] Eyüp Kahraman kullanısının 22.12.2023 14:55:22 tarihli staj günlük raporuna puan verildi. Verilen puan: 61. Staj: cb87e254-3d08-4a64-0b03-08dc0201d9fe. Puan veren: 4fb4ae9e-fc95-4957-753b-08dc01efcfbe
