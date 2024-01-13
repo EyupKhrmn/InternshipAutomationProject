@@ -10,11 +10,11 @@ namespace InternshipAutomation.Persistance.CQRS.User.CompanyUser;
 
 public class UpdateCompanyUserCommand : IRequest<Result>
 {
-    public string Password { get; set; }
-    public string NameSurname { get; set; }
-    public string Email { get; set; }
-    public string PhoneNumber { get; set; }
-    public string UserCode { get; set; }
+    public string? Password { get; set; }
+    public string? NameSurname { get; set; }
+    public string? Email { get; set; }
+    public string? PhoneNumber { get; set; }
+    public string? UserCode { get; set; }
     
     public class UpdateCompanyUserCommandHandler(
         UserManager<Domain.User.User> userManager,
@@ -43,11 +43,14 @@ public class UpdateCompanyUserCommand : IRequest<Result>
                 };
             }
             
-            if (user.PasswordHash != Hash.ToHash(request.Password))
+            if (request.Password is not null)
             {
-                user.PasswordHash = Hash.ToHash(request.Password) ?? user.PasswordHash;
-                await _emailSender.SendEmailAsync(user.Email, user.TeacherNameSurname, "Şifre Değişikliği",
-                    "Şifre Değiştirme İşlemi başarıyla gerçekleşti.");
+                if (user.PasswordHash != Hash.ToHash(request.Password))
+                {
+                    user.PasswordHash = Hash.ToHash(request.Password) ?? user.PasswordHash;
+                    await _emailSender.SendEmailAsync(user.Email, user.TeacherNameSurname, "Şifre Değişikliği",
+                        "Şifre Değiştirme İşlemi başarıyla gerçekleşti.");
+                }
             }
             user.CompanyUserNameSurname = request.NameSurname ?? user.CompanyUserNameSurname;
             user.UserName = request.UserCode ?? user.UserName;

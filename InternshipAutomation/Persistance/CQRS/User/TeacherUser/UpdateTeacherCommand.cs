@@ -11,11 +11,11 @@ namespace InternshipAutomation.Persistance.CQRS.User.TeacherUser;
 
 public class UpdateTeacherCommand : IRequest<Result>
 {
-    public string UserCode { get; set; }
-    public string Password { get; set; }
-    public string NameSurname { get; set; }
-    public string Email { get; set; }
-    public string PhoneNumber { get; set; }
+    public string? UserCode { get; set; }
+    public string? Password { get; set; }
+    public string? NameSurname { get; set; }
+    public string? Email { get; set; }
+    public string? PhoneNumber { get; set; }
     
     public class UpdateTeacherCommandHandler(
         UserManager<Domain.User.User> userManager,
@@ -34,11 +34,14 @@ public class UpdateTeacherCommand : IRequest<Result>
             var currentUser = await _decodeTokenService.GetUsernameFromToken();
             var user = await _userManager.FindByNameAsync(currentUser.UserName);
 
-            if (user.PasswordHash != Hash.ToHash(request.Password))
+            if (request.Password is not null)
             {
-                user.PasswordHash = Hash.ToHash(request.Password) ?? user.PasswordHash;
-                await _emailSender.SendEmailAsync(user.Email, user.TeacherNameSurname, "Şifre Değişikliği",
-                    "Şifre Değiştirme İşlemi başarıyla gerçekleşti.");
+                if (user.PasswordHash != Hash.ToHash(request.Password))
+                {
+                    user.PasswordHash = Hash.ToHash(request.Password) ?? user.PasswordHash;
+                    await _emailSender.SendEmailAsync(user.Email, user.TeacherNameSurname, "Şifre Değişikliği",
+                        "Şifre Değiştirme İşlemi başarıyla gerçekleşti.");
+                }
             }
             user.StudentNameSurname = request.NameSurname ?? user.StudentNameSurname;
             user.UserName = request.UserCode ?? user.UserName;
