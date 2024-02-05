@@ -11,8 +11,7 @@ namespace InternshipAutomation.Persistance.CQRS.User;
 public class UpdateUserCommand : IRequest<Result>
 {
     public string? Password { get; set; }
-    public string? Name { get; set; }
-    public string? Surname { get; set; }
+    public string? NameSurname { get; set; }
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
     public string? StudentNumber { get; set; }
@@ -44,7 +43,7 @@ public class UpdateUserCommand : IRequest<Result>
                         "Şifre Değiştirme İşlemi başarıyla gerçekleşti.");
                 }
             }
-            user.StudentNameSurname = request.Name ?? user.StudentNameSurname;
+            user.StudentNameSurname = request.NameSurname ?? user.StudentNameSurname;
             user.UserName = request.StudentNumber ?? user.UserName;
             user.Email = request.Email ?? user.Email;
             user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
