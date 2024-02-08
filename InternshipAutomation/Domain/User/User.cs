@@ -30,5 +30,8 @@ public class User : IdentityUser<Guid>
 
     #endregion
 
+    public bool IsFirstLoginAfterForgotPassword { get; set; }
+    public string OneTimePassword { get; set; }
+    public DateTime? PasswordExpirationDate { get; set; }
     public string? Token { get; set; }
 }

@@ -19,20 +19,31 @@ public class ForgotPasswordCommand : IRequest<Result>
 
         public async Task<Result> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
         {
+            var oneTimePassword = new Random().Next(100000, 999999).ToString();
             var user = await _userManager.FindByNameAsync(request.UserCode);
             
             if (user == null)
             {
-                throw new Exception("Kullanıcı bulunamadı");
+                return new Result
+                {
+                    Message = "Kullanıcı Bulunamadı",
+                    Success = false
+                };
             }
             
-            await _emailSender.SendEmailAsync(user.Email, "MAKÜ Staj","Şifre Hatırlatma", $"Şifreniz: {user.PasswordHash}");
+            user.OneTimePassword = oneTimePassword;
+            user.PasswordExpirationDate = DateTime.Now.AddMinutes(10);
+            user.IsFirstLoginAfterForgotPassword = true;
+            
+            await _userManager.UpdateAsync(user);
+            
+            await _emailSender.SendEmailAsync(user.Email, "MAKÜ Staj","Tek Kullanımlık Şifre", $"Şifreniz: {oneTimePassword}");
             
             _logService.Information($"{user.UserName} kullanıcısının şifresi mail olarak gönderildi. Şifremi unuttum işlemi gerçekleştirildi.");
 
             return new Result
             {
-                Message = "Şifreniz mail adresinize gönderildi.",
+                Message = "Tek Kullanımlık Şifreniz mail adresinize gönderildi.",
                 Success = true
             };
         }

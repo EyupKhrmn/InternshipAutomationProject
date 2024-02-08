@@ -36,6 +36,7 @@ public class AddUserCommand : IRequest<Result>
             user.Email = request.Email;
             user.SecurityStamp = Guid.NewGuid().ToString();
             user.PasswordHash = request.Password;
+            user.PasswordExpirationDate = DateTime.Now.AddMonths(12);
             
             switch (request.Role)
             {

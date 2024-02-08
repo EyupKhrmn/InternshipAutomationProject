@@ -33,5 +33,11 @@ namespace InternshipAutomation.Controller
         {
             return Ok(await _mediator.Send(forgotPasswordCommand));
         }
+        
+        [HttpPut("ResetPassword")]
+        public async Task<IActionResult> ResetPassword([FromQuery] ResetPasswordCommand resetPasswordCommand)
+        {
+            return Ok(await _mediator.Send(resetPasswordCommand));
+        }
     }
 }

@@ -3,11 +3,8 @@ using InternshipAutomation.Persistance.CQRS.Response;
 using InternshipAutomation.Persistance.Hasing;
 using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
-using MailKit.Net.Smtp;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
-using MimeKit;
 
 namespace InternshipAutomation.Persistance.CQRS.Login;
 
@@ -39,10 +36,47 @@ public class LoginCommand : IRequest<Result>
             var user = await _userManager.FindByNameAsync(request.UserName);
             var role = await _userManager.GetRolesAsync(user);
             
+            bool isOneTimePasswordExpired = (user.PasswordExpirationDate > DateTime.Now && user.PasswordExpirationDate < DateTime.Now.AddMinutes(11)) ? false : true;
+            
+            if (!isOneTimePasswordExpired && user.IsFirstLoginAfterForgotPassword)
+            {
+                if (user.OneTimePassword == request.Password)
+                {
+                    return new Result
+                    {
+                        Message = "Tek Kullanımlık Şifre Başarıyla Kullanıldı, Şimdi Şifre sıfırlama işlemi yapınız.",
+                        Success = true
+                    };
+                }
+                else if (user.OneTimePassword != request.Password)
+                {
+                    return new Result
+                    {
+                        Message = "Tek Kullanımlık Şifreniz Yanlış",
+                        Success = false
+                    };
+                }
+                
+                
+            }
+            
             
             if (user.PasswordHash != Hash.ToHash(request.Password))
             {
-                throw new Exception("Kullanıcı adı veya parola yanlış");
+                return new Result
+                {
+                    Message = "Kullanıcı adı veya şifre hatalı.",
+                    Success = false
+                };
+            }
+            
+            if (user.PasswordExpirationDate < DateTime.Now)
+            {
+                return new Result
+                {
+                    Message = "Şifrenizin süresi dolmuş. Lütfen şifrenizi Şifremi Unuttum alanından güncelleyin.",
+                    Success = false
+                };
             }
             
             var token = TokenHandler.CreateToken(_configuration, request.UserName, request.Password, role);
