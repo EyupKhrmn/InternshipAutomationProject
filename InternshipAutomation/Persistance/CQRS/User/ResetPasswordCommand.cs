@@ -24,7 +24,6 @@ public class ResetPasswordCommand : IRequest<Result>
 
             user.PasswordHash = Hash.ToHash(request.NewPassword);
             user.PasswordExpirationDate = DateTime.Now.AddMonths(12);
-            user.IsFirstLoginAfterForgotPassword = false;
             
             await _userManager.UpdateAsync(user);
             
@@ -32,7 +31,7 @@ public class ResetPasswordCommand : IRequest<Result>
             
             return new Result
             {
-                Message = "Yeni Şifresniz başarıyla oluşturuldu.",
+                Message = "Yeni Şifreniz başarıyla oluşturuldu.",
                 Success = true
             };
         }

@@ -38,21 +38,30 @@ public class LoginCommand : IRequest<Result>
             
             bool isOneTimePasswordExpired = (user.PasswordExpirationDate > DateTime.Now && user.PasswordExpirationDate < DateTime.Now.AddMinutes(11)) ? false : true;
             
-            if (!isOneTimePasswordExpired && user.IsFirstLoginAfterForgotPassword)
+            if (!isOneTimePasswordExpired)
             {
-                if (user.OneTimePassword == request.Password)
+                if (user.OneTimePassword == request.Password && user.IsFirstLoginAfterForgotPassword)
                 {
+                    user.IsFirstLoginAfterForgotPassword = false;
                     return new Result
                     {
                         Message = "Tek Kullanımlık Şifre Başarıyla Kullanıldı, Şimdi Şifre sıfırlama işlemi yapınız.",
                         Success = true
                     };
                 }
-                else if (user.OneTimePassword != request.Password)
+                if (user.OneTimePassword != request.Password)
                 {
                     return new Result
                     {
                         Message = "Tek Kullanımlık Şifreniz Yanlış",
+                        Success = false
+                    };
+                }
+                if (!user.IsFirstLoginAfterForgotPassword)
+                {
+                    return new Result
+                    {
+                        Message = "Tek Kullanımlık Şifre Kullanılmış",
                         Success = false
                     };
                 }
