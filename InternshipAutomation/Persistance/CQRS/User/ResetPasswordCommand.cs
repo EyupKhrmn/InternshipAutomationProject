@@ -27,8 +27,6 @@ public class ResetPasswordCommand : IRequest<Result>
             
             await _userManager.UpdateAsync(user);
             
-            //Deneme Commiti
-            
             _logService.Information($"{user.UserName} kullanıcısının şifresi başarıyla değiştirildi.");
             
             return new Result
