@@ -21,19 +21,19 @@ public class AdminController(IMediator mediator) : ControllerBase
     }
         
     [HttpPost("AddUser")]
-    public async Task<IActionResult> AddUser([FromBody] AddUserCommand addUserCommand)
+    public async Task<IActionResult> AddUser([FromQuery] AddUserCommand addUserCommand)
     {
         return Ok(await _mediator.Send(addUserCommand));
     }
         
     [HttpPost("AddClaimForUser")]
-    public async Task<IActionResult> AddClaim([FromBody] AddClaimCommand addClaimCommand)
+    public async Task<IActionResult> AddClaim([FromQuery] AddClaimCommand addClaimCommand)
     {
         return Ok(await _mediator.Send(addClaimCommand));
     }
 
     [HttpPut("UpdateUser")]
-    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand updateUserCommand)
+    public async Task<IActionResult> UpdateUser([FromQuery] UpdateUserCommand updateUserCommand)
     {
         return Ok(await _mediator.Send(updateUserCommand));
     }

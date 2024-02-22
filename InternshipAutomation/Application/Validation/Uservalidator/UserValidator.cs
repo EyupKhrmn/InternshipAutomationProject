@@ -33,7 +33,7 @@ public class UserValidator
     {
         public UpdateUserValidator()
         {
-            
+            RuleFor(_ => _.UserId).NotNull().NotEmpty();
         }
     }
     

@@ -10,11 +10,12 @@ namespace InternshipAutomation.Persistance.CQRS.User;
 
 public class UpdateUserCommand : IRequest<Result>
 {
+    public Guid UserId { get; set; }
     public string? Password { get; set; }
     public string? NameSurname { get; set; }
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
-    public string? StudentNumber { get; set; }
+    public string? UserNumber { get; set; }
     
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand,Result>
     {
@@ -31,8 +32,7 @@ public class UpdateUserCommand : IRequest<Result>
 
         public async Task<Result> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var currentUser = await _decodeTokenService.GetUsernameFromToken();
-            var user = await _userManager.FindByNameAsync(currentUser.UserName);
+            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
             
             if (request.Password is not null)
             {
@@ -43,8 +43,26 @@ public class UpdateUserCommand : IRequest<Result>
                         "Şifre Değiştirme İşlemi başarıyla gerçekleşti.");
                 }
             }
-            user.StudentNameSurname = request.NameSurname ?? user.StudentNameSurname;
-            user.UserName = request.StudentNumber ?? user.UserName;
+
+            var userRole = await _userManager.GetRolesAsync(user);
+
+            switch (userRole[0])
+            {
+                case "Öğretmen":
+                    user.TeacherNameSurname = request.NameSurname ?? user.TeacherNameSurname;
+                    break;
+                case "Öğrenci":
+                    user.StudentNameSurname = request.NameSurname ?? user.StudentNameSurname;
+                    break;
+                case "Admin":
+                    user.AdminUserNameSurname = request.NameSurname ?? user.AdminUserNameSurname;
+                    break;
+                case "Şirket":
+                    user.CompanyUserNameSurname = request.NameSurname ?? user.CompanyUserNameSurname;
+                    break;
+            }
+            
+            user.UserName = request.UserNumber ?? user.UserName;
             user.Email = request.Email ?? user.Email;
             user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
             
