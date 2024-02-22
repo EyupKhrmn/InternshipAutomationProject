@@ -4,9 +4,8 @@ using InternshipAutomation.Persistance.Hasing;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.Elfie.Serialization;
 
-namespace InternshipAutomation.Persistance.CQRS.User;
+namespace InternshipAutomation.Persistance.CQRS.User.AdminUser;
 
 public class UpdateUserCommand : IRequest<Result>
 {

@@ -1,5 +1,6 @@
 using InternshipAutomation.Persistance.CQRS.Role;
 using InternshipAutomation.Persistance.CQRS.User;
+using InternshipAutomation.Persistance.CQRS.User.AdminUser;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,17 +26,17 @@ public class AdminController(IMediator mediator) : ControllerBase
     {
         return Ok(await _mediator.Send(addUserCommand));
     }
-        
-    [HttpPost("AddClaimForUser")]
-    public async Task<IActionResult> AddClaim([FromQuery] AddClaimCommand addClaimCommand)
-    {
-        return Ok(await _mediator.Send(addClaimCommand));
-    }
-
+    
     [HttpPut("UpdateUser")]
     public async Task<IActionResult> UpdateUser([FromQuery] UpdateUserCommand updateUserCommand)
     {
         return Ok(await _mediator.Send(updateUserCommand));
+    }
+    
+    [HttpDelete("DeleteUser")]
+    public async Task<IActionResult> DeleteUser([FromQuery] DeleteUserCommand deleteUserCommand)
+    {
+        return Ok(await _mediator.Send(deleteUserCommand));
     }
 
     [HttpPut("AddUserRole")]
@@ -67,5 +68,11 @@ public class AdminController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> DeleteRole([FromBody] DeleteRoleCommand deleteRoleCommand)
     {
         return Ok(await _mediator.Send(deleteRoleCommand));
+    }
+    
+    [HttpPost("AddClaimForUser")]
+    public async Task<IActionResult> AddClaim([FromQuery] AddClaimCommand addClaimCommand)
+    {
+        return Ok(await _mediator.Send(addClaimCommand));
     }
 }

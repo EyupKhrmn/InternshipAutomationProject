@@ -6,8 +6,7 @@ namespace InternshipAutomation.Persistance.CQRS.User;
 
 public class DeleteUserCommand : IRequest<Result>
 {
-    public string Email { get; set; }
-    
+    public Guid UserId { get; set; }
     
     public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand,Result>
     {
@@ -20,7 +19,7 @@ public class DeleteUserCommand : IRequest<Result>
 
         public async Task<Result> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email);
+            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
 
             await _userManager.DeleteAsync(user);
 

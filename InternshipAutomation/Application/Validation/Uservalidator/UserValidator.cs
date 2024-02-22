@@ -1,5 +1,6 @@
 using FluentValidation;
 using InternshipAutomation.Persistance.CQRS.User;
+using InternshipAutomation.Persistance.CQRS.User.AdminUser;
 using InternshipAutomation.Persistance.CQRS.User.CompanyUser;
 using InternshipAutomation.Persistance.CQRS.User.StudentUser;
 using InternshipAutomation.Persistance.CQRS.User.TeacherUser;
@@ -25,7 +26,7 @@ public class UserValidator
     {
         public DeleteUserValidator()
         {
-            RuleFor(_ => _.Email).NotEmpty();
+            RuleFor(_ => _.UserId).NotEmpty();
         }
     }
     
