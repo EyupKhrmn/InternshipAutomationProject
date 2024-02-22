@@ -1,0 +1,11 @@
+2024-02-22 17:39:00.135 +03:00 [INF] 2111404034 Kullanıcısı sisteme giriş yaptı
+2024-02-22 17:50:56.747 +03:00 [INF] 2111404031 Kullanıcısı sisteme giriş yaptı
+2024-02-22 17:51:28.483 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: WaitingForApproval
+2024-02-22 18:04:53.660 +03:00 [INF] 2111404032 Kullanıcısı sisteme giriş yaptı
+2024-02-22 18:05:11.411 +03:00 [INF] 8fc59e7b-b6be-4b0f-ae95-08dc01ef93ee kullanıcısının staj durumu güncellendi. Güncellenen durum: Approved. Staj: cb87e254-3d08-4a64-0b03-08dc0201d9fe. Güncelleyen: 4fb4ae9e-fc95-4957-753b-08dc01efcfbe
+2024-02-22 18:05:37.842 +03:00 [INF] 2111404031 Kullanıcısı sisteme giriş yaptı
+2024-02-22 18:06:08.637 +03:00 [INF] 8fc59e7b-b6be-4b0f-ae95-08dc01ef93ee kullanıcısının staj durumu güncellendi. Güncellenen durum: Rejected. Staj: cb87e254-3d08-4a64-0b03-08dc0201d9fe. Güncelleyen: 4fb4ae9e-fc95-4957-753b-08dc01efcfbe
+2024-02-22 18:48:20.205 +03:00 [INF] 2111404031 Kullanıcısı sisteme giriş yaptı
+2024-02-22 18:56:00.283 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: Rejected
+2024-02-22 18:56:50.438 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: Rejected
+2024-02-22 18:59:54.346 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: Rejected
