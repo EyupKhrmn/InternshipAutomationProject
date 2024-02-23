@@ -545,3 +545,7 @@ C:/Users/eyupk/RiderProjects/InternshipAutomationProject/InternshipAutomation/bi
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.Sinks.Console.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.Sinks.Debug.dll
 /Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Serilog.Sinks.File.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/Pipelines.Sockets.Unofficial.dll
+/Users/eyupkahraman/RiderProjects/InternshipAutomationProject/InternshipAutomation/bin/Debug/net8.0/StackExchange.Redis.dll

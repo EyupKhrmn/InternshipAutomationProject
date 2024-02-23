@@ -1,3 +1,4 @@
+using InternshipAutomation.Application.Caching;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.Dtos;
 using InternshipAutomation.Persistance.CQRS.Response;
@@ -5,6 +6,7 @@ using InternshipAutomation.Persistance.LogService;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Extensions;
+using Newtonsoft.Json;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
@@ -16,15 +18,30 @@ public class GetInternshipCommand : IRequest<Result<InternshipDto>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly ILogService _logService;
+        private readonly CacheService _cache;
+        private readonly CacheObject _cacheObject;
 
-        public GetInternshipCommandHandler(IGeneralRepository generalRepository, ILogService logService)
+        public GetInternshipCommandHandler(IGeneralRepository generalRepository, ILogService logService, CacheService cache, CacheObject cacheObject)
         {
             _generalRepository = generalRepository;
             _logService = logService;
+            _cache = cache;
+            _cacheObject = cacheObject;
         }
 
         public async Task<Result<InternshipDto>> Handle(GetInternshipCommand request, CancellationToken cancellationToken)
         {
+            var cacheInternship = await _cache.GetCache("internship");
+
+            if (cacheInternship is not null)
+            {
+                return new Result<InternshipDto>
+                {
+                    Data = await _cacheObject.DeserializeObject<InternshipDto>(cacheInternship),
+                    Success = true
+                };
+            }
+            
             var internship = await _generalRepository.Query<Domain.Entities.Internship.Internship>()
                 .FirstOrDefaultAsync(_=>_.Id == request.InternshipId, cancellationToken: cancellationToken);
 
@@ -64,18 +81,23 @@ public class GetInternshipCommand : IRequest<Result<InternshipDto>>
             }
 
             #endregion
+
+            var result = new InternshipDto
+            {
+                CompanyUser = companyUser,
+                StudentUser = studentUser,
+                TeacherUser = teacherUser,
+                InternshipAverage = internship.InternshipAverage,
+                Note = internship.Note,
+                Status = internship.Status.GetDisplayName()
+            };
+            
+            await _cache.SetCache("internship", await _cacheObject.SerializeObject(result));
             
             return new Result<InternshipDto>
             {
-                Data = new InternshipDto
-                {
-                    CompanyUser = companyUser,
-                    StudentUser = studentUser,
-                    TeacherUser = teacherUser,
-                    InternshipAverage = internship.InternshipAverage,
-                    Note = internship.Note,
-                    Status = internship.Status.GetDisplayName()
-                }
+                Data = result,
+                Success = true
             };
         }
     }

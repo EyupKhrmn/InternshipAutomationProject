@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Text;
 using FluentValidation.AspNetCore;
+using InternshipAutomation.Application.Caching;
 using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.User;
@@ -22,6 +23,17 @@ builder.Services.AddControllers().AddFluentValidation(v =>
     v.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 });
 builder.Services.AddEndpointsApiExplorer();
+
+#region Redis Configuration
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder
+        .Configuration
+        .GetConnectionString("RedisLocalHost");
+});
+
+#endregion
 
 #region Swagger Token Entegrations
 
@@ -67,6 +79,10 @@ builder.Services.AddScoped<IGeneralRepository, GeneralRepository<InternshipAutom
 builder.Services.AddScoped<IDecodeTokenService, DecodeTokenService>();
 
 builder.Services.AddIdentity<User, AppRole>().AddEntityFrameworkStores<InternshipAutomationDbContext>();
+
+builder.Services.AddScoped<CacheService>();
+
+builder.Services.AddScoped<CacheObject>();
 
 #endregion
 
