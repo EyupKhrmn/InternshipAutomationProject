@@ -15,4 +15,13 @@ public class IdentityData
     
     public const string CompanyUserRankName = "Şirket";
     public const string CompanyUserPolicyName = "company";
+    
+    public const string AdminAndTeacherUserPolicyName = "admin,teacher";
+    public const string AdminAndTeacherUserRankName = "Admin,Öğretmen";
+    
+    public const string AdminAndStudentUserPolicyName = "admin,student";
+    public const string AdminAndStudentUserRankName = "Admin,Öğrenci";
+    
+    public const string AdminAndCompanyUserPolicyName = "admin,company";
+    public const string AdminAndCompanyUserRankName = "Admin,Şirket";
 }

@@ -9,10 +9,11 @@ namespace InternshipAutomation.Security.Token;
 
 public class TokenHandler
 {
-    public static Token CreateToken(IConfiguration configuration,string UserName,string Password,IList<string> Role)
+    public static Token CreateToken(IConfiguration configuration,string UserName,IList<string> Role)
     {
         var claims = new[]
         {
+            // İstenilen şekilde claim eklemek için claimTypes alanında istenilen string değerinde claim ekleyebilirsiniz.
             new Claim(ClaimTypes.Name, UserName),
             new Claim(ClaimTypes.Role, Role[0])
         };

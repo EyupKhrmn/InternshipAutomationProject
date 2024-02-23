@@ -88,7 +88,7 @@ public class LoginCommand : IRequest<Result>
                 };
             }
             
-            var token = TokenHandler.CreateToken(_configuration, request.UserName, request.Password, role);
+            var token = TokenHandler.CreateToken(_configuration, request.UserName, role);
 
             user.Token = token.AccessToken;
             

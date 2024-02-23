@@ -24,9 +24,8 @@ public class DecodeTokenService : IDecodeTokenService
         var token = _contextAccessor.HttpContext.Request.Cookies["AuthToken"];
         
         var handler = new JwtSecurityTokenHandler();
-        var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
 
-        if (jsonToken is not null)
+        if (handler.ReadToken(token) is JwtSecurityToken jsonToken)
         {
             var username = jsonToken.Claims
                 .FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
