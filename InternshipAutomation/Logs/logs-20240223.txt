@@ -1,0 +1,6 @@
+2024-02-23 14:49:11.619 +03:00 [INF] 2111404031 Kullanıcısı sisteme giriş yaptı
+2024-02-23 14:49:27.184 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: Rejected
+2024-02-23 14:52:57.780 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: Rejected
+2024-02-23 14:52:59.535 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: Rejected
+2024-02-23 14:53:00.104 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: Rejected
+2024-02-23 14:53:00.584 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: Rejected
