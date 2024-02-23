@@ -10,7 +10,7 @@ namespace InternshipAutomation.Controller.TeacherPages;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(AuthenticationSchemes = "Bearer", Policy = IdentityData.TeacherUserPolicyName)]
+[Authorize(AuthenticationSchemes = "Bearer", Roles = IdentityData.AdminAndTeacherUserRankName)]
 public class TeacherController : ControllerBase
 {
     private readonly IMediator _mediator;

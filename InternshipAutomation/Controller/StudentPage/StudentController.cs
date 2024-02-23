@@ -10,7 +10,7 @@ namespace InternshipAutomation.Controller.StudentPage;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(AuthenticationSchemes = "Bearer", Policy = IdentityData.StudentUserPolicyName)]
+[Authorize(AuthenticationSchemes = "Bearer", Roles = IdentityData.AdminAndStudentUserRankName)]
 public class StudentController : ControllerBase
 {
     private readonly IMediator _mediator;

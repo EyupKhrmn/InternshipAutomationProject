@@ -6,3 +6,13 @@
 2024-02-23 14:53:00.584 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: Rejected
 2024-02-23 15:12:56.719 +03:00 [INF] 2111404031 Kullanıcısı sisteme giriş yaptı
 2024-02-23 15:16:43.122 +03:00 [INF] 2111404031 Kullanıcısı sisteme giriş yaptı
+2024-02-23 15:18:46.804 +03:00 [INF] 2111404031 Kullanıcısı sisteme giriş yaptı
+2024-02-23 15:20:58.812 +03:00 [INF] 2111404034 Kullanıcısı sisteme giriş yaptı
+2024-02-23 15:21:53.537 +03:00 [INF] 2111404032 Kullanıcısı sisteme giriş yaptı
+2024-02-23 15:34:07.986 +03:00 [INF] 2111404034 Kullanıcısı sisteme giriş yaptı
+2024-02-23 15:34:35.914 +03:00 [INF] 2111404032 Kullanıcısı sisteme giriş yaptı
+2024-02-23 15:36:10.891 +03:00 [INF] 2111404031 Kullanıcısı sisteme giriş yaptı
+2024-02-23 15:36:20.488 +03:00 [INF] 2111404031 kullanıcısı staj durumunu görüntüledi. Staj durumu: Rejected
+2024-02-23 15:36:56.560 +03:00 [INF] 2111404032 Kullanıcısı sisteme giriş yaptı
+2024-02-23 15:38:47.578 +03:00 [INF] 2111404031 Kullanıcısı sisteme giriş yaptı
+2024-02-23 15:41:00.661 +03:00 [INF] 2111404034 Kullanıcısı sisteme giriş yaptı

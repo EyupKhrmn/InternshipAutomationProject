@@ -10,7 +10,7 @@ namespace InternshipAutomation.Controller.CompanyPage;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize(AuthenticationSchemes = "Bearer", Policy = IdentityData.CompanyUserPolicyName)]
+[Authorize(AuthenticationSchemes = "Bearer", Roles = IdentityData.AdminAndCompanyUserRankName)]
 public class CompanyController : ControllerBase
 {
     private readonly IMediator _mediator;
