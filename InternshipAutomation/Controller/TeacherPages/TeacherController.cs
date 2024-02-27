@@ -34,9 +34,9 @@ public class TeacherController : ControllerBase
     }
 
     [HttpPost("StartInternshipPeriod")]
-    public async Task<IActionResult> StartInternshipPeriod([FromQuery] InternshipPeriodCommand ınternshipPeriodCommand)
+    public async Task<IActionResult> StartInternshipPeriod([FromQuery] InternshipPeriodCommand internshipPeriodCommand)
     {
-        return Ok(await _mediator.Send(ınternshipPeriodCommand));
+        return Ok(await _mediator.Send(internshipPeriodCommand));
     }
 
     [HttpGet("GetApplicationFileByStudentNumber")]
