@@ -1,3 +1,4 @@
+using InternshipAutomation.Controller.Filters;
 using InternshipAutomation.Persistance.CQRS.File;
 using InternshipAutomation.Persistance.CQRS.Internship;
 using InternshipAutomation.Persistance.CQRS.User.CompanyUser;
@@ -21,30 +22,35 @@ public class CompanyController : ControllerBase
     }
     
     [HttpPut("UpdateCompanyUser")]
+    [ConsoleLog("UpdateCompanyUser - CompanyController")]
     public async Task<IActionResult> UpdateCompanyUser([FromQuery] UpdateCompanyUserCommand updateCompanyUserCommand)
     {
         return Ok(await _mediator.Send(updateCompanyUserCommand));
     }
 
     [HttpPost("EvaluateStudent")]
+    [ConsoleLog("EvaluateStudent - CompanyController")]
     public async Task<IActionResult> EvaluateStudent([FromQuery] EvaluateStudentCommand evaluateStudentCommand)
     {
         return Ok(await _mediator.Send(evaluateStudentCommand));
     }
 
     [HttpGet("GetAllIntern")]
+    [ConsoleLog("GetAllIntern - CompanyController")]
     public async Task<IActionResult> GetAllIntern([FromQuery] GetAllInternCommand getAllInternCommand)
     {
         return Ok(await _mediator.Send(getAllInternCommand));
     }
     
     [HttpGet("GetAllInternshipDailyReportForIntern")]
+    [ConsoleLog("GetAllInternshipDailyReportForIntern - CompanyController")]
     public async Task<IActionResult> GetAllInternshipDailyReportForIntern([FromQuery] GetAllInternshipDailyReportForInternCommand getAllInternshipDailyReportForInternCommand)
     {
         return Ok(await _mediator.Send(getAllInternshipDailyReportForInternCommand));
     }
     
     [HttpPut("CheckInternshipDailyReport")]
+    [ConsoleLog("CheckInternshipDailyReport - CompanyController")]
     public async Task<IActionResult> CheckInternshipDailyReport([FromQuery] CheckInternshipDailyReportCommand checkInternshipDailyReportCommand)
     {
         return Ok(await _mediator.Send(checkInternshipDailyReportCommand));

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InternshipAutomation.Controller.Filters;
 using InternshipAutomation.Persistance.CQRS.Login;
 using InternshipAutomation.Persistance.CQRS.User;
 using MediatR;
@@ -23,18 +24,21 @@ namespace InternshipAutomation.Controller
         }
 
         [HttpGet("Login")]
+        [ConsoleLog("Login - LoginController")]
         public async Task<IActionResult> Login([FromQuery] LoginCommand loginCommand)
         {
             return Ok(await _mediator.Send(loginCommand));
         }
 
         [HttpPut("ForgotPassword")]
+        [ConsoleLog("ForgotPassword - LoginController")]
         public async Task<IActionResult> ForgotPassword([FromQuery] ForgotPasswordCommand forgotPasswordCommand)
         {
             return Ok(await _mediator.Send(forgotPasswordCommand));
         }
         
         [HttpPut("ResetPassword")]
+        [ConsoleLog("ResetPassword - LoginController")]
         public async Task<IActionResult> ResetPassword([FromQuery] ResetPasswordCommand resetPasswordCommand)
         {
             return Ok(await _mediator.Send(resetPasswordCommand));

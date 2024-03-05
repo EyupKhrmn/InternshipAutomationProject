@@ -3,18 +3,17 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace InternshipAutomation.Controller.Filters;
 
-public class ConsoleLogAttribute(string actionName, string callerId) : Attribute, IActionFilter
+public class ConsoleLogAttribute(string actionName) : Attribute, IActionFilter
 {
     private readonly string _actionName = actionName;
-    private readonly string _callerId = callerId;
 
     public void OnActionExecuting(ActionExecutingContext context)
     {
-        Console.WriteLine($"{_actionName} Action Called By: {_callerId}");
+        Console.WriteLine($"{_actionName} Action Called In Time: {DateTime.Now}");
     }
 
     public void OnActionExecuted(ActionExecutedContext context)
     {
-        Console.WriteLine($"{_actionName} Action Executed By: {_callerId}");
+        Console.WriteLine($"{_actionName} Action Executed In Time: {DateTime.Now}");
     }
 }
