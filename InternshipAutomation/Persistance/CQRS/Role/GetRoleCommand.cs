@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace InternshipAutomation.Persistance.CQRS.Role;
 
-public class GetRoleCommand : IRequest<Result<List<AppRole>>>
+public record GetRoleCommand : IRequest<Result<List<AppRole>>>
 {
     public string? RoleName { get; set; }
 

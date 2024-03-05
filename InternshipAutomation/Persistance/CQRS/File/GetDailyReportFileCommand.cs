@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class GetDailyReportFileCommand : IRequest<Result<InternshipDailyReportFile>>
+public record GetDailyReportFileCommand : IRequest<Result<InternshipDailyReportFile>>
 {
     public Guid StudentId { get; set; }
     public DateTime ReportDate { get; set; }

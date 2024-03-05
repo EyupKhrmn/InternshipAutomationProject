@@ -7,7 +7,7 @@ using Hash = InternshipAutomation.Persistance.Hasing.Hash;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
-public class ResetPasswordCommand : IRequest<Result>
+public record ResetPasswordCommand : IRequest<Result>
 {
     public string UserCode { get; set; }
     public string NewPassword { get; set; }

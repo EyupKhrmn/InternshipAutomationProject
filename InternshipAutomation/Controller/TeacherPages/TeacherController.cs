@@ -1,3 +1,4 @@
+using InternshipAutomation.Controller.Filters;
 using InternshipAutomation.Persistance.CQRS.File;
 using InternshipAutomation.Persistance.CQRS.Internship;
 using InternshipAutomation.Persistance.CQRS.User.TeacherUser;
@@ -14,10 +15,14 @@ namespace InternshipAutomation.Controller.TeacherPages;
 public class TeacherController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IDecodeTokenService _decodeTokenService;
+    
+    
 
-    public TeacherController(IMediator mediator)
+    public TeacherController(IMediator mediator, IDecodeTokenService decodeTokenService)
     {
         _mediator = mediator;
+        _decodeTokenService = decodeTokenService;
     }
 
     [HttpPut("UpdateTeacher")]

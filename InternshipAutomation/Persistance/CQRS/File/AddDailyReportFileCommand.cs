@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class AddDailyReportFileCommand : IRequest<Result>
+public record AddDailyReportFileCommand : IRequest<Result>
 {
     public string TopicTitleOfWork { get; set; }
     public string DescriptionOfWork { get; set; }

@@ -7,7 +7,7 @@ using MediatR;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class GetAllDailyReportCommand : IRequest<Result<List<DailyReportFileDto>>>
+public record GetAllDailyReportCommand : IRequest<Result<List<DailyReportFileDto>>>
 {
     public Guid InternshipId { get; set; }
     

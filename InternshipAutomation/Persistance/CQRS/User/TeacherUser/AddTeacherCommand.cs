@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InternshipAutomation.Persistance.CQRS.User.TeacherUser;
 
-public class AddTeacherCommand : IRequest<Result>
+public record AddTeacherCommand : IRequest<Result>
 {
     public string UserCode { get; set; }
     public string NameSurname { get; set; }

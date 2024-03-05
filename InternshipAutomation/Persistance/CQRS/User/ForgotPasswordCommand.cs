@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
-public class ForgotPasswordCommand : IRequest<Result>
+public record ForgotPasswordCommand : IRequest<Result>
 {
     public string UserCode { get; set; }
     

@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class RegisterInternshipCommand : IRequest<Result>
+public record RegisterInternshipCommand : IRequest<Result>
 {
     public InternshipApplicationDto InternshipApplication { get; set; }
     public Guid InternshipPeriod { get; set; }

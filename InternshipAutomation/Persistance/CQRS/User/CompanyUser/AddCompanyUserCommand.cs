@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InternshipAutomation.Persistance.CQRS.User.CompanyUser;
 
-public class AddCompanyUserCommand : IRequest<Result>
+public record AddCompanyUserCommand : IRequest<Result>
 {
     public string UserCode { get; set; }
     public string NameSurname { get; set; }

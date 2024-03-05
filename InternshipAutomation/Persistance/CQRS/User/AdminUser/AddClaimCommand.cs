@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
-public class AddClaimCommand : IRequest<Result>
+public record AddClaimCommand : IRequest<Result>
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

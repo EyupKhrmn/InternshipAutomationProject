@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class GetInternshipResultReportCommand : IRequest<Result<InternshipResultReport>>
+public record GetInternshipResultReportCommand : IRequest<Result<InternshipResultReport>>
 {
     public Guid InternshipId { get; set; }
     

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class CheckInternshipDailyReportCommand : IRequest<Result>
+public record CheckInternshipDailyReportCommand : IRequest<Result>
 {
     public Guid DailyReportFileId { get; set; }
     public bool IsChecked { get; set; }

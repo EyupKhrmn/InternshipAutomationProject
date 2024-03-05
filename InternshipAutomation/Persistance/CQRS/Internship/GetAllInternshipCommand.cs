@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class GetAllInternshipCommand : IRequest<Result<List<InternshipPreviewDto>>>
+public record GetAllInternshipCommand : IRequest<Result<List<InternshipPreviewDto>>>
 {
     public int PeriodYear { get; set; }
     

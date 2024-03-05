@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class UpdateDailyReportFileCommand : IRequest<Result>
+public record UpdateDailyReportFileCommand : IRequest<Result>
 {
     public Guid DailyReportFileId { get; set; }
     public string? TopicTitleOfWork { get; set; }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class GiveNoteForInternshipCommand : IRequest<Result>
+public record GiveNoteForInternshipCommand : IRequest<Result>
 {
     public Guid InternshipId { get; set; }
     public int Note { get; set; }

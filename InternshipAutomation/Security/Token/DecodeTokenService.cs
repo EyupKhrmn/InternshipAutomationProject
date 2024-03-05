@@ -19,6 +19,12 @@ public class DecodeTokenService : IDecodeTokenService
         _generalRepository = generalRepository;
     }
 
+    public async Task<string> GetIPAddressFromRequest()
+    {
+        var iPAddress = _contextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
+        return iPAddress ?? "IP Address Is Not Found";
+    }
+
     public async Task<User> GetUsernameFromToken()
     {
         var token = _contextAccessor.HttpContext.Request.Cookies["AuthToken"];

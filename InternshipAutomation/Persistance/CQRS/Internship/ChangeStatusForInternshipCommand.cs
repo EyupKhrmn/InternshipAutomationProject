@@ -9,7 +9,7 @@ using Microsoft.OpenApi.Extensions;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class ChangeStatusForInternshipCommand : IRequest<Result>
+public record ChangeStatusForInternshipCommand : IRequest<Result>
 {
     public Guid InternshipId { get; set; }
     public InternshipStatus Status { get; set; }

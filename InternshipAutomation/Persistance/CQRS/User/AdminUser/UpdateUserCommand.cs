@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InternshipAutomation.Persistance.CQRS.User.AdminUser;
 
-public class UpdateUserCommand : IRequest<Result>
+public record UpdateUserCommand : IRequest<Result>
 {
     public Guid UserId { get; set; }
     public string? Password { get; set; }

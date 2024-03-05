@@ -8,7 +8,7 @@ using NuGet.Protocol;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class UpdateInternshipApplicationCommand : IRequest<Result>
+public record UpdateInternshipApplicationCommand : IRequest<Result>
 {
     public Guid InternshipApplicationFile { get; set; }
     public string? StudentNameSurname { get; set; }

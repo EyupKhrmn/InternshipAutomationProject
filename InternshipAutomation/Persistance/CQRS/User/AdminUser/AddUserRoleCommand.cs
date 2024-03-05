@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
-public class AddUserRoleCommand : IRequest<Result>
+public record AddUserRoleCommand : IRequest<Result>
 {
     public string UserName { get; set; }
     public string RoleName { get; set; }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
-public class DeleteUserCommand : IRequest<Result>
+public record DeleteUserCommand : IRequest<Result>
 {
     public Guid UserId { get; set; }
     

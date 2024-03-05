@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace InternshipAutomation.Persistance.CQRS.User.TeacherUser;
 
-public class UpdateTeacherCommand : IRequest<Result>
+public record UpdateTeacherCommand : IRequest<Result>
 {
     public string? UserCode { get; set; }
     public string? Password { get; set; }

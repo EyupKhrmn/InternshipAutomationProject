@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class GetAllInternshipDailyReportForInternCommand : IRequest<Result<List<DailyReportFileForCompanyDto>>>
+public record GetAllInternshipDailyReportForInternCommand : IRequest<Result<List<DailyReportFileForCompanyDto>>>
 {
     public Guid InternId { get; set; }
     

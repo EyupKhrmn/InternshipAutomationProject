@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class ShowInternshipSituationCommand : IRequest<Result<InternshipDto>>
+public record ShowInternshipSituationCommand : IRequest<Result<InternshipDto>>
 {
     public class ShowInternshipSituationCommandHandler : IRequestHandler<ShowInternshipSituationCommand, Result<InternshipDto>>
     {

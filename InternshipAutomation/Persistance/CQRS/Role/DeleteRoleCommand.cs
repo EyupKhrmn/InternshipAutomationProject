@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InternshipAutomation.Persistance.CQRS.Role;
 
-public class DeleteRoleCommand : IRequest<Result>
+public record DeleteRoleCommand : IRequest<Result>
 {
     public string Name { get; set; }
     

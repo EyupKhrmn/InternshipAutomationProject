@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InternshipAutomation.Persistance.CQRS.User.StudentUser;
 
-public class UpdateStudentCommand : IRequest<Result>
+public record UpdateStudentCommand : IRequest<Result>
 {
     public string? Password { get; set; }
     public string? NameSurname { get; set; }

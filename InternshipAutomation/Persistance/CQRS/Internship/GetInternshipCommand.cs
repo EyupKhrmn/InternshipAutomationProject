@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class GetInternshipCommand : IRequest<Result<InternshipDto>>
+public record GetInternshipCommand : IRequest<Result<InternshipDto>>
 {
     public Guid InternshipId { get; set; }
  

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class GetApplicationFileByStudentNumber : IRequest<Result<InternshipApplicationFileDto>>
+public record GetApplicationFileByStudentNumber : IRequest<Result<InternshipApplicationFileDto>>
 {
     public string StudentNumber { get; set; }
     

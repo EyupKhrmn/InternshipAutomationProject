@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.Internship;
 
-public class AddInternshipCommand : IRequest<Result>
+public record AddInternshipCommand : IRequest<Result>
 {
     public Domain.Entities.Internship.Internship Internship { get; set; }
     

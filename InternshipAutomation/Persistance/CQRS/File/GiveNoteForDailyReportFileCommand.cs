@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.File;
 
-public class GiveNoteForDailyReportFileCommand : IRequest<Result>
+public record GiveNoteForDailyReportFileCommand : IRequest<Result>
 {
     public Guid InternshipDailyReportFileId { get; set; }
     public bool IsApproved { get; set; }

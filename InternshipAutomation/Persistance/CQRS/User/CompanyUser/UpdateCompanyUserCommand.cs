@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InternshipAutomation.Persistance.CQRS.User.CompanyUser;
 
-public class UpdateCompanyUserCommand : IRequest<Result>
+public record UpdateCompanyUserCommand : IRequest<Result>
 {
     public string? Password { get; set; }
     public string? NameSurname { get; set; }

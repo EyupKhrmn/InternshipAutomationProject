@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
-public class GetUserCommand : IRequest<Result<List<Domain.User.User>>>
+public record GetUserCommand : IRequest<Result<List<Domain.User.User>>>
 {
     public string? Username { get; set; }
     public string? Email { get; set; }

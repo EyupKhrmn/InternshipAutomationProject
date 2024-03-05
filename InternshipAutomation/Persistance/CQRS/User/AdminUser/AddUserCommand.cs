@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
-public class AddUserCommand : IRequest<Result>
+public record AddUserCommand : IRequest<Result>
 {
     public string UserNumber { get; set; }
     public string NameSurname { get; set; }
