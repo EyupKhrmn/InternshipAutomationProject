@@ -1,9 +1,12 @@
 using InternshipAutomation.Application.Mail;
+using InternshipAutomation.Application.Repository.GeneralRepository;
+using InternshipAutomation.Domain.Entities.Internship;
 using InternshipAutomation.Persistance.CQRS.Response;
 using IntershipOtomation.Domain.Entities.User;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace InternshipAutomation.Persistance.CQRS.User;
 
@@ -14,6 +17,7 @@ public record AddUserCommand : IRequest<Result>
     public string Email { get; set; }
     public string Password { get; set; }
     public string Role { get; set; }
+    public string? CompanyName { get; set; }
     
     public class AddUserCommandHandler : IRequestHandler<AddUserCommand,Result>
     {
@@ -47,6 +51,7 @@ public record AddUserCommand : IRequest<Result>
                     user.StudentNameSurname = request.NameSurname;
                     break;
                 case "Şirket":
+                    user.CompanyName = request.CompanyName;
                     user.CompanyUserNameSurname = request.NameSurname;
                     break;
                 case "Admin":

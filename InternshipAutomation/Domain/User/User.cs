@@ -21,6 +21,7 @@ public class User : IdentityUser<Guid>
     #region Company
 
     public string? CompanyUserNameSurname { get; set; }
+    public string? CompanyName { get; set; }
 
     #endregion
 
