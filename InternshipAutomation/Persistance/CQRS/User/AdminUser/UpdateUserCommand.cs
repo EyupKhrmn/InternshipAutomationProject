@@ -16,7 +16,7 @@ public record UpdateUserCommand : IRequest<Result>
     public string? PhoneNumber { get; set; }
     public string? UserNumber { get; set; }
     
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand,Result>
+    public sealed class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand,Result>
     {
         private readonly UserManager<Domain.User.User> _userManager;
         private readonly IDecodeTokenService _decodeTokenService;

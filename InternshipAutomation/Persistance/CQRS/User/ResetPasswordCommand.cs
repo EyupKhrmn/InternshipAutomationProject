@@ -12,7 +12,7 @@ public record ResetPasswordCommand : IRequest<Result>
     public string UserCode { get; set; }
     public string NewPassword { get; set; }
     
-    public class ResetPasswordCommandHandler(UserManager<Domain.User.User> userManager, ILogService logService)
+    public sealed class ResetPasswordCommandHandler(UserManager<Domain.User.User> userManager, ILogService logService)
         : IRequestHandler<ResetPasswordCommand, Result>
     {
         private readonly UserManager<Domain.User.User> _userManager = userManager;

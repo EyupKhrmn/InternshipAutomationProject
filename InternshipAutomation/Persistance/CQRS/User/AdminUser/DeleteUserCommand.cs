@@ -8,7 +8,7 @@ public record DeleteUserCommand : IRequest<Result>
 {
     public Guid UserId { get; set; }
     
-    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand,Result>
+    public sealed class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand,Result>
     {
         private readonly UserManager<Domain.User.User> _userManager;
 

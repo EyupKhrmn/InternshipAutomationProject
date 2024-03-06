@@ -16,7 +16,7 @@ public record GetAllInternshipCommand : IRequest<Result<List<InternshipPreviewDt
 {
     public int PeriodYear { get; set; }
     
-    public class GetAllInternshipCommandHandler : IRequestHandler<GetAllInternshipCommand,Result<List<InternshipPreviewDto>>>
+    public sealed class GetAllInternshipCommandHandler : IRequestHandler<GetAllInternshipCommand,Result<List<InternshipPreviewDto>>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;

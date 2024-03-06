@@ -16,7 +16,7 @@ public record UpdateStudentCommand : IRequest<Result>
     public string? PhoneNumber { get; set; }
     public string? StudentNumber { get; set; }
     
-    public class UpdateStudentCommandHandler(
+    public sealed class UpdateStudentCommandHandler(
         UserManager<Domain.User.User> userManager,
         IDecodeTokenService decodeTokenService,
         ILogService logService,

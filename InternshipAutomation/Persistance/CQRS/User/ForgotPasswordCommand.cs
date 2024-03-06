@@ -10,7 +10,7 @@ public record ForgotPasswordCommand : IRequest<Result>
 {
     public string UserCode { get; set; }
     
-    public class ForgotPasswordCommandHandler(UserManager<Domain.User.User> userManager, IEmailSender emailSender, ILogService logService)
+    public sealed class ForgotPasswordCommandHandler(UserManager<Domain.User.User> userManager, IEmailSender emailSender, ILogService logService)
         : IRequestHandler<ForgotPasswordCommand, Result>
     {
         private readonly UserManager<Domain.User.User> _userManager = userManager;

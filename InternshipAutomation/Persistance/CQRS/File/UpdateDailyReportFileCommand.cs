@@ -18,7 +18,7 @@ public record UpdateDailyReportFileCommand : IRequest<Result>
     public string? CompanyManagerNameSurname { get; set; }
     public DateTime? WorkingDate { get; set; }
  
-    public class UpdateDailyReportFileCommandHandler : IRequestHandler<UpdateDailyReportFileCommand, Result>
+    public sealed class UpdateDailyReportFileCommandHandler : IRequestHandler<UpdateDailyReportFileCommand, Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly ILogService _logService;

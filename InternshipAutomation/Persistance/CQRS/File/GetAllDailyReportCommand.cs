@@ -11,7 +11,7 @@ public record GetAllDailyReportCommand : IRequest<Result<List<DailyReportFileDto
 {
     public Guid InternshipId { get; set; }
     
-    public class GetAllDailyReportCommandHandler : IRequestHandler<GetAllDailyReportCommand, Result<List<DailyReportFileDto>>>
+    public sealed class GetAllDailyReportCommandHandler : IRequestHandler<GetAllDailyReportCommand, Result<List<DailyReportFileDto>>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly ILogService _logService;

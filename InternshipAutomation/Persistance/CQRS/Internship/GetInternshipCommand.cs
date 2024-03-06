@@ -14,7 +14,7 @@ public record GetInternshipCommand : IRequest<Result<InternshipDto>>
 {
     public Guid InternshipId { get; set; }
  
-    public class GetInternshipCommandHandler : IRequestHandler<GetInternshipCommand, Result<InternshipDto>>
+    public sealed class GetInternshipCommandHandler : IRequestHandler<GetInternshipCommand, Result<InternshipDto>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly ILogService _logService;

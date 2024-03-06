@@ -14,7 +14,7 @@ public record GetDailyReportFileCommand : IRequest<Result<InternshipDailyReportF
     public DateTime ReportDate { get; set; }
     
     
-    public class GetDailyReportFileCommandHandler : IRequestHandler<GetDailyReportFileCommand,Result<InternshipDailyReportFile>>
+    public sealed class GetDailyReportFileCommandHandler : IRequestHandler<GetDailyReportFileCommand,Result<InternshipDailyReportFile>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly ILogService _logService;

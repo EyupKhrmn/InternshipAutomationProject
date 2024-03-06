@@ -13,7 +13,7 @@ public record GetAllInternshipDailyReportForInternCommand : IRequest<Result<List
 {
     public Guid InternId { get; set; }
     
-    public class GetAllInternshipDailyReportForInternCommandHandler(IGeneralRepository generalRepository, CacheService cache, CacheObject cacheObject)
+    public sealed class GetAllInternshipDailyReportForInternCommandHandler(IGeneralRepository generalRepository, CacheService cache, CacheObject cacheObject)
         : IRequestHandler<GetAllInternshipDailyReportForInternCommand, Result<List<DailyReportFileForCompanyDto>>>
     {
         private readonly IGeneralRepository _generalRepository = generalRepository;

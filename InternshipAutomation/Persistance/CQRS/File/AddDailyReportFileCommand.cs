@@ -17,7 +17,7 @@ public record AddDailyReportFileCommand : IRequest<Result>
     public string DescriptionOfWork { get; set; }
     public Guid InternshipId { get; set; }
     
-    public class AddDailyReportFileCommandHandler : IRequestHandler<AddDailyReportFileCommand,Result>
+    public sealed class AddDailyReportFileCommandHandler : IRequestHandler<AddDailyReportFileCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;

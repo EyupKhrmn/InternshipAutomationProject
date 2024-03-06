@@ -15,7 +15,7 @@ public record GetRoleCommand : IRequest<Result<List<AppRole>>>
 {
     public string? RoleName { get; set; }
 
-    public class GetRoleCommandHandler : IRequestHandler<GetRoleCommand, Result<List<AppRole>>>
+    public sealed class GetRoleCommandHandler : IRequestHandler<GetRoleCommand, Result<List<AppRole>>>
     {
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IHttpContextAccessor _contextAccessor;

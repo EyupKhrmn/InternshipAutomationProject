@@ -14,7 +14,7 @@ public record AddTeacherCommand : IRequest<Result>
     public string Email { get; set; }
     public string Password { get; set; }
     
-    public class AddTeacherCommandHandler(UserManager<Domain.User.User> userManager, IEmailSender emailSender, ILogService logService)
+    public sealed class AddTeacherCommandHandler(UserManager<Domain.User.User> userManager, IEmailSender emailSender, ILogService logService)
         : IRequestHandler<AddTeacherCommand, Result>
     {
         

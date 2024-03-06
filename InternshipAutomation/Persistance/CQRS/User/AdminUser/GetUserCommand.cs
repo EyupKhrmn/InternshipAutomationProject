@@ -15,7 +15,7 @@ public record GetUserCommand : IRequest<Result<List<Domain.User.User>>>
     public string? Email { get; set; }
     
     
-    public class GetUserCommandHandler : IRequestHandler<GetUserCommand,Result<List<Domain.User.User>>>
+    public sealed class GetUserCommandHandler : IRequestHandler<GetUserCommand,Result<List<Domain.User.User>>>
     {
         private readonly UserManager<Domain.User.User> _userManager;
         private readonly CacheService _cacheService;

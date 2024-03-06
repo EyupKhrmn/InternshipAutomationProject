@@ -14,7 +14,7 @@ public record LoginCommand : IRequest<Result>
     public string UserName { get; set; }
     public string Password { get; set; }
 
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, Result>
+    public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, Result>
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<Domain.User.User> _userManager;

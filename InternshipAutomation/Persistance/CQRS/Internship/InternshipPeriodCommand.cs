@@ -14,7 +14,7 @@ public record InternshipPeriodCommand : IRequest<Result>
 {
     public int StartedDate { get; set; }
 
-    public class InternshipPeriodCommandHandler : IRequestHandler<InternshipPeriodCommand,Result>
+    public sealed class InternshipPeriodCommandHandler : IRequestHandler<InternshipPeriodCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;

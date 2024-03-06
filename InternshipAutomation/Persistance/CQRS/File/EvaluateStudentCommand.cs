@@ -37,7 +37,7 @@ public record EvaluateStudentCommand : IRequest<Result>
     public bool WorkAgain { get; set; }
     public string DevelopmentSuggestionForStudentUser { get; set; }
     
-    public class EvaluateStudentCommandHandler : IRequestHandler<EvaluateStudentCommand,Result>
+    public sealed class EvaluateStudentCommandHandler : IRequestHandler<EvaluateStudentCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;

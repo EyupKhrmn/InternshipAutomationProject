@@ -20,7 +20,7 @@ public record RegisterInternshipCommand : IRequest<Result>
     public Guid InternshipPeriod { get; set; }
     
     
-    public class RegisterInternshipCommandHandler : IRequestHandler<RegisterInternshipCommand,Result>
+    public sealed class RegisterInternshipCommandHandler : IRequestHandler<RegisterInternshipCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;

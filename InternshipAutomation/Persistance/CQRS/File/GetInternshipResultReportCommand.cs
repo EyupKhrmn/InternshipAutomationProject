@@ -13,7 +13,7 @@ public record GetInternshipResultReportCommand : IRequest<Result<InternshipResul
 {
     public Guid InternshipId { get; set; }
     
-    public class GetInternshipResultReportCommandHandler : IRequestHandler<GetInternshipResultReportCommand, Result<InternshipResultReport>>
+    public sealed class GetInternshipResultReportCommandHandler : IRequestHandler<GetInternshipResultReportCommand, Result<InternshipResultReport>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly ILogService _logService;

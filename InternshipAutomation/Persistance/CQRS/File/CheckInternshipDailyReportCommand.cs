@@ -14,7 +14,7 @@ public record CheckInternshipDailyReportCommand : IRequest<Result>
     public Guid DailyReportFileId { get; set; }
     public bool IsChecked { get; set; }
     
-    public class CheckInternshipDailyReportCommandHandler(IGeneralRepository generalRepository, ILogService logService, IDecodeTokenService decodeTokenService)
+    public sealed class CheckInternshipDailyReportCommandHandler(IGeneralRepository generalRepository, ILogService logService, IDecodeTokenService decodeTokenService)
         : IRequestHandler<CheckInternshipDailyReportCommand, Result>
     {
         private readonly IGeneralRepository _generalRepository = generalRepository;

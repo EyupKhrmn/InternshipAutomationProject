@@ -11,7 +11,7 @@ public record AddRoleCommand : IRequest<Result>
     public string RoleName { get; set; }
     
     
-    public class AddRoleCommandHandler : IRequestHandler<AddRoleCommand,Result>
+    public sealed class AddRoleCommandHandler : IRequestHandler<AddRoleCommand,Result>
     {
         private readonly RoleManager<AppRole> _roleManager;
 

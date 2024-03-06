@@ -24,7 +24,7 @@ public record UpdateInternshipApplicationCommand : IRequest<Result>
     public string? CompanyEMail { get; set; }
     public string? CompanySector { get; set; }
     
-    public class UpdateInternshipApplicationCommandHandler : IRequestHandler<UpdateInternshipApplicationCommand, Result>
+    public sealed class UpdateInternshipApplicationCommandHandler : IRequestHandler<UpdateInternshipApplicationCommand, Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly ILogService _logService;

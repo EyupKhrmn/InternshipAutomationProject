@@ -11,7 +11,7 @@ public record UpdateRoleCommand : IRequest<Result>
     public string NewName { get; set; }
     
     
-    public class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand,Result>
+    public sealed class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand,Result>
     {
         private readonly RoleManager<AppRole> _roleManager;
 

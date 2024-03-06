@@ -9,7 +9,7 @@ public record AddUserRoleCommand : IRequest<Result>
     public string UserName { get; set; }
     public string RoleName { get; set; }
     
-    public class AddUserRoleCommandHandler: IRequestHandler<AddUserRoleCommand,Result>
+    public sealed class AddUserRoleCommandHandler: IRequestHandler<AddUserRoleCommand,Result>
     {
         private readonly UserManager<Domain.User.User> _userManager;
 

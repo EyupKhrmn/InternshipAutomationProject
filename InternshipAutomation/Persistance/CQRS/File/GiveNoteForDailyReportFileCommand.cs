@@ -16,7 +16,7 @@ public record GiveNoteForDailyReportFileCommand : IRequest<Result>
     public bool IsApproved { get; set; }
     public int Note { get; set; }
     
-    public class GiveNoteForDailyReportFileCommandHandler : IRequestHandler<GiveNoteForDailyReportFileCommand,Result>
+    public sealed class GiveNoteForDailyReportFileCommandHandler : IRequestHandler<GiveNoteForDailyReportFileCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly ILogService _logService;

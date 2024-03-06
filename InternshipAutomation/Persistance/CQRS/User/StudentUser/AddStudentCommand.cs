@@ -14,7 +14,7 @@ public record AddStudentCommand : IRequest<Result>
     public string Email { get; set; }
     public string Password { get; set; }
     
-    public class AddStudentCommandHandler(UserManager<Domain.User.User> userManager, IEmailSender emailSender, ILogService logService)
+    public sealed class AddStudentCommandHandler(UserManager<Domain.User.User> userManager, IEmailSender emailSender, ILogService logService)
         : IRequestHandler<AddStudentCommand, Result>
     {
         private readonly UserManager<Domain.User.User> _userManager = userManager;

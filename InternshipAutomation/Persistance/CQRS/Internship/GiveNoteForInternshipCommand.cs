@@ -11,7 +11,7 @@ public record GiveNoteForInternshipCommand : IRequest<Result>
     public Guid InternshipId { get; set; }
     public int Note { get; set; }
 
-    public class
+    public sealed class
         GiveNoteForInternshipCommandHandler : IRequestHandler<GiveNoteForInternshipCommand,
         Result>
     {

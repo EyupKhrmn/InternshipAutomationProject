@@ -16,7 +16,7 @@ public record UpdateCompanyUserCommand : IRequest<Result>
     public string? PhoneNumber { get; set; }
     public string? UserCode { get; set; }
     
-    public class UpdateCompanyUserCommandHandler(
+    public sealed class UpdateCompanyUserCommandHandler(
         UserManager<Domain.User.User> userManager,
         IDecodeTokenService decodeTokenService,
         ILogService logService,

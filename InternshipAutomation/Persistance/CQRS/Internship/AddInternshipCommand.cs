@@ -11,7 +11,7 @@ public record AddInternshipCommand : IRequest<Result>
 {
     public Domain.Entities.Internship.Internship Internship { get; set; }
     
-    public class AddInternshipCommandHandler : IRequestHandler<AddInternshipCommand,Result>
+    public sealed class AddInternshipCommandHandler : IRequestHandler<AddInternshipCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;

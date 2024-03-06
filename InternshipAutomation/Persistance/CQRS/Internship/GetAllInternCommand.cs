@@ -13,7 +13,7 @@ namespace InternshipAutomation.Persistance.CQRS.Internship;
 
 public record GetAllInternCommand : IRequest<Result<List<InternDto>>>
 {
-    public class GetAllInternCommandHandler : IRequestHandler<GetAllInternCommand, Result<List<InternDto>>>
+    public sealed class GetAllInternCommandHandler : IRequestHandler<GetAllInternCommand, Result<List<InternDto>>>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly IDecodeTokenService _decodeTokenService;

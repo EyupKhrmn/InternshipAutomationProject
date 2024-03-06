@@ -14,7 +14,7 @@ public record ChangeStatusForInternshipCommand : IRequest<Result>
     public Guid InternshipId { get; set; }
     public InternshipStatus Status { get; set; }
     
-    public class ChangeStatusForInternshipCommandHandler : IRequestHandler<ChangeStatusForInternshipCommand, Result>
+    public sealed class ChangeStatusForInternshipCommandHandler : IRequestHandler<ChangeStatusForInternshipCommand, Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly ILogService _logService;

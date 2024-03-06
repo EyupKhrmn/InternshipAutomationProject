@@ -13,7 +13,7 @@ public record GetApplicationFileByStudentNumber : IRequest<Result<InternshipAppl
 {
     public string StudentNumber { get; set; }
     
-    public class GetApplicationFileByStudentNumberHandler : IRequestHandler<GetApplicationFileByStudentNumber,Result<InternshipApplicationFileDto>>
+    public sealed class GetApplicationFileByStudentNumberHandler : IRequestHandler<GetApplicationFileByStudentNumber,Result<InternshipApplicationFileDto>>
     {
         private readonly UserManager<Domain.User.User> _userManager;
         private readonly IGeneralRepository _generalRepository;

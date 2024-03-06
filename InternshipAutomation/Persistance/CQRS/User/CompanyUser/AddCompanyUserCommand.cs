@@ -14,7 +14,7 @@ public record AddCompanyUserCommand : IRequest<Result>
     public string Email { get; set; }
     public string Password { get; set; }
     
-    public class AddCompanyUserCommandHandler(UserManager<Domain.User.User> userManager, ILogService logService)
+    public sealed class AddCompanyUserCommandHandler(UserManager<Domain.User.User> userManager, ILogService logService)
         : IRequestHandler<AddCompanyUserCommand, Result>
     {
         

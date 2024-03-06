@@ -15,7 +15,7 @@ public record AddClaimCommand : IRequest<Result>
     public string Value { get; set; }
     public string Role { get; set; }
     
-    public class AddClaimCommandHandler : IRequestHandler<AddClaimCommand,Result>
+    public sealed class AddClaimCommandHandler : IRequestHandler<AddClaimCommand,Result>
     {
         private readonly IGeneralRepository _generalRepository;
         private readonly UserManager<Domain.User.User> _userManager;

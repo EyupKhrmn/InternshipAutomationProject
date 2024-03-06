@@ -10,7 +10,7 @@ public record DeleteRoleCommand : IRequest<Result>
     public string Name { get; set; }
     
     
-    public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand,Result>
+    public sealed class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand,Result>
     {
         private readonly RoleManager<AppRole> _roleManager;
 
