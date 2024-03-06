@@ -90,6 +90,7 @@ public record AddUserCommand : IRequest<Result>
             
             return new Result
             {
+                Message = "Kullanıcı başarıyla eklendi.",
                 Success = true
             };
         }

@@ -37,6 +37,7 @@ public record GetUserCommand : IRequest<Result<List<Domain.User.User>>>
                 return new Result<List<Domain.User.User>>
                 {
                     Data = await _cacheObject.DeserializeObject<List<Domain.User.User>>(cache),
+                    Message = "kullanıcılar başarıyla getirildi.",
                     Success = true
                 };
             }
@@ -58,6 +59,7 @@ public record GetUserCommand : IRequest<Result<List<Domain.User.User>>>
             return new Result<List<Domain.User.User>>
             {
                 Data = users,
+                Message = "kullanıcılar başarıyla getirildi.",
                 Success = true
             };
         }

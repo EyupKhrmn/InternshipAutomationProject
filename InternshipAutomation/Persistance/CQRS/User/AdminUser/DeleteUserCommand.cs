@@ -25,6 +25,7 @@ public record DeleteUserCommand : IRequest<Result>
 
             return new Result
             {
+                Message = "Kullanıcı başarıyla silindi.",
                 Success = true
             };
         }

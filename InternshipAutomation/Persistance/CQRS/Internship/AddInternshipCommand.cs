@@ -30,6 +30,7 @@ public record AddInternshipCommand : IRequest<Result>
 
             return new Result
             {
+                Message = $"Staj ekleme işlemi başarıyla gerçekleşti.",
                 Success = true
             };
         }

@@ -38,6 +38,7 @@ public record GetInternshipCommand : IRequest<Result<InternshipDto>>
                 return new Result<InternshipDto>
                 {
                     Data = await _cacheObject.DeserializeObject<InternshipDto>(cacheInternship),
+                    Message = "staj başarıyla getirildi.",
                     Success = true
                 };
             }
@@ -75,6 +76,7 @@ public record GetInternshipCommand : IRequest<Result<InternshipDto>>
                 
                 return new Result<InternshipDto>
                 {
+                    Data = null,
                     Message = "Staj ile ilgili gerekli alanlar bulunamadığı için görüntülenemiyor.",
                     Success = false
                 };
@@ -97,6 +99,7 @@ public record GetInternshipCommand : IRequest<Result<InternshipDto>>
             return new Result<InternshipDto>
             {
                 Data = result,
+                Message = "staj başarıyla getirildi.",
                 Success = true
             };
         }

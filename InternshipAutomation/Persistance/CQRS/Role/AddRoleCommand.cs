@@ -30,6 +30,7 @@ public record AddRoleCommand : IRequest<Result>
 
             return new Result
             {
+                Message = "Role başarıyla eklendi.",
                 Success = true
             };
         }

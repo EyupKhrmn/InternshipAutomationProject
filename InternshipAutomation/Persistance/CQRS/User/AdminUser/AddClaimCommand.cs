@@ -44,12 +44,17 @@ public record AddClaimCommand : IRequest<Result>
                 }
                 else
                 {
-                    throw new Exception("Eklemek istediğiniz alan bu kullanıcı için eklenemez");
+                    return new Result
+                    {
+                        Message = "Kullanıcı bu role sahip değil.",
+                        Success = false
+                    };
                 }
             }
             
             return new Result
             {
+                Message = "Claim başarıyla eklendi.",
                 Success = true
             };
         }

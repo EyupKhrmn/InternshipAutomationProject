@@ -36,6 +36,7 @@ public record GetAllInternshipDailyReportForInternCommand : IRequest<Result<List
             List<DailyReportFileForCompanyDto> dailyReportFileForCompanyDtos = new();
             
             var internship = await _generalRepository.Query<Domain.Entities.Internship.Internship>()
+                .Include(_=>_.InternshipApplicationFile)
                 .FirstOrDefaultAsync(_=>_.StudentUser == request.InternId, cancellationToken: cancellationToken);
             
             var files = await _generalRepository.Query<InternshipDailyReportFile>()
@@ -87,6 +88,7 @@ public record GetAllInternshipDailyReportForInternCommand : IRequest<Result<List
             return new Result<List<DailyReportFileForCompanyDto>>
             {
                 Data = dailyReportFileForCompanyDtos,
+                Message = $"{internship.InternshipApplicationFile?.StudentNameSurname} adlı öğrencinin staj günlük raporları başarıyla getirildi.",
                 Success = true
             };
         }

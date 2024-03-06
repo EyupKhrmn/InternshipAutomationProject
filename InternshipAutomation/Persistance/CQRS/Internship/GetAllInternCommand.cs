@@ -84,6 +84,7 @@ public record GetAllInternCommand : IRequest<Result<List<InternDto>>>
             {
                 return new Result<List<InternDto>>
                 {
+                    Data = null,
                     Message = "Stajyer bulunamadı.",
                     Success = false
                 };
@@ -109,7 +110,9 @@ public record GetAllInternCommand : IRequest<Result<List<InternDto>>>
 
             return new Result<List<InternDto>>
             {
-                Data = internsDto
+                Message = "Stajyerler başarıyla getirildi.",
+                Data = internsDto,
+                Success = true
             };
 
         }

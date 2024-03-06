@@ -30,6 +30,7 @@ public record UpdateRoleCommand : IRequest<Result>
 
             return new Result
             {
+                Message = "Role başarıyla güncellendi.",
                 Success = true
             };
         }

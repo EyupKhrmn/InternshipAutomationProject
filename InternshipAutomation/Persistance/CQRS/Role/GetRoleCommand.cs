@@ -41,6 +41,7 @@ public record GetRoleCommand : IRequest<Result<List<AppRole>>>
             
             return new Result<List<AppRole>>
             {
+                Message = "Role başarıyla getirildi.",
                 Data = roles,
             };
         }

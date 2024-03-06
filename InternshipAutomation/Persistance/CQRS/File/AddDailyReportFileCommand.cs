@@ -67,6 +67,7 @@ public record AddDailyReportFileCommand : IRequest<Result>
 
             return new Result
             {
+                Message = $"{file.TopicTitleOfWork} başlıklı günlük rapor başarıyla eklendi.",
                 Success = true
             };
         }

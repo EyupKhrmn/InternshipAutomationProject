@@ -41,6 +41,7 @@ public record ShowInternshipSituationCommand : IRequest<Result<InternshipDto>>
                 return new Result<InternshipDto>
                 {
                     Data = await _cacheObject.DeserializeObject<InternshipDto>(cacheInternship),
+                    Message = "staj durumu başarıyla getirildi.",
                     Success = true
                 };
             }
@@ -88,6 +89,7 @@ public record ShowInternshipSituationCommand : IRequest<Result<InternshipDto>>
             return new Result<InternshipDto>
             {
                 Data = result,
+                Message = "Staj durumu başarıyla getirildi.",
                 Success = true
             };
         }

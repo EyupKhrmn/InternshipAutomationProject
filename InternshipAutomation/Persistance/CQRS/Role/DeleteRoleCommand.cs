@@ -27,6 +27,7 @@ public record DeleteRoleCommand : IRequest<Result>
 
             return new Result
             {
+                Message = "Role başarıyla silindi.",
                 Success = true
             };
         }

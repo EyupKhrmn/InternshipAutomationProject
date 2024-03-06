@@ -26,6 +26,7 @@ public record AddUserRoleCommand : IRequest<Result>
 
             return new Result
             {
+                Message = "kullanıcıya rol başarıyla eklendi.",
                 Success = true
             };
         }

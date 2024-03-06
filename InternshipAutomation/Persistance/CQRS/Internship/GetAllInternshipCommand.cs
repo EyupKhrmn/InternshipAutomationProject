@@ -45,6 +45,7 @@ public record GetAllInternshipCommand : IRequest<Result<List<InternshipPreviewDt
                 _logService.Error($"{request.PeriodYear} yılına ait staj bulunamadı.");
                 return new Result<List<InternshipPreviewDto>>
                 {
+                    Data = null,
                     Message = $"{request.PeriodYear} yılına ait staj bulunamadı.",
                     Success = false
                 };
@@ -72,7 +73,9 @@ public record GetAllInternshipCommand : IRequest<Result<List<InternshipPreviewDt
 
             return new Result<List<InternshipPreviewDto>>
             {
-                Data =  internshipPreviewDto
+                Data =  internshipPreviewDto,
+                Message = "Stajlar başarıyla getirildi.",
+                Success = true
             };
         }
     }

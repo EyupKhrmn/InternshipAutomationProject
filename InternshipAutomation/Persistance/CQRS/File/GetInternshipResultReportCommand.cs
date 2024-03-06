@@ -42,6 +42,7 @@ public record GetInternshipResultReportCommand : IRequest<Result<InternshipResul
                     _logService.Error($"{request.InternshipId} ID'li staj için sonuç raporu bulunamadı.");
                 return new Result<InternshipResultReport>
                 {
+                    Data = null,
                     Message = "Staj bulunamadı.",
                     Success = false
                 };
@@ -52,6 +53,7 @@ public record GetInternshipResultReportCommand : IRequest<Result<InternshipResul
             return new Result<InternshipResultReport>
             {
                 Data = resultReport,
+                Message = $"{internship.InternshipApplicationFile.StudentNameSurname} adlı öğrenciye ait staj sonuç raporu başarıyla getirildi.",
                 Success = true
             };
         }

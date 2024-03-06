@@ -57,6 +57,7 @@ public record GetDailyReportFileCommand : IRequest<Result<InternshipDailyReportF
             return new Result<InternshipDailyReportFile>
             {
                 Data = file,
+                Message = $"{file.StudentNameSurname} adlı öğrenciye ait {file.WorkingDate} tarihli staj günlük raporu başarıyla getirildi.",
                 Success = true
             };
         }

@@ -62,6 +62,7 @@ public record GetApplicationFileByStudentNumber : IRequest<Result<InternshipAppl
             return new Result<InternshipApplicationFileDto>
             {
                 Data = applicationFileDto,
+                Message = $"{applicationFile.StudentNameSurname} adlı öğrenciye ait staj başvuru dosyası başarıyla getirildi.",
                 Success = true
             };
         }
