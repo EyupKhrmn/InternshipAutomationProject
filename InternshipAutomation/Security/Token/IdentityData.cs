@@ -5,7 +5,7 @@ public class IdentityData
     public const string UserRankClaimsName = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
     
     
-    // Yeni bir Policy ekleyerek kullanıcal role işlemleri
+    // Yeni bir Policy ekleyerek kullanıcak role işlemleri
     public const string AdminUserRankName = "Admin";
     public const string AdminUserPolicyName = "admin";
 

@@ -1,14 +1,17 @@
 using InternshipAutomation.Controller.Filters;
 using InternshipAutomation.Persistance.CQRS.Role;
+using InternshipAutomation.Persistance.CQRS.TimeoutData;
 using InternshipAutomation.Persistance.CQRS.User;
 using InternshipAutomation.Persistance.CQRS.User.AdminUser;
 using InternshipAutomation.Security.Token;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternshipAutomation.Controller.AdminPage;
 
+[RequestTimeout(TimeoutMessage.MoreThanOneMinute)]
 [Route("api/[controller]")]
 [ApiController]
 [Authorize(AuthenticationSchemes = "Bearer", Roles = IdentityData.AdminUserRankName)]

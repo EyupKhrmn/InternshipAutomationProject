@@ -1,3 +1,4 @@
+using System.Net;
 using System.Reflection;
 using System.Text;
 using FluentValidation.AspNetCore;
@@ -6,10 +7,12 @@ using InternshipAutomation.Application.Mail;
 using InternshipAutomation.Application.Repository.GeneralRepository;
 using InternshipAutomation.Domain.User;
 using InternshipAutomation.Persistance.Context;
+using InternshipAutomation.Persistance.CQRS.TimeoutData;
 using InternshipAutomation.Persistance.LogService;
 using InternshipAutomation.Security.Token;
 using IntershipOtomation.Domain.Entities.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Timeouts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -23,6 +26,21 @@ builder.Services.AddControllers().AddFluentValidation(v =>
     v.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 });
 builder.Services.AddEndpointsApiExplorer();
+
+#region TimeOut Configuration
+
+builder.Services.AddRequestTimeouts(opt =>
+{
+    opt.DefaultPolicy = new RequestTimeoutPolicy
+    {
+        Timeout = TimeSpan.FromMilliseconds(1000),
+        TimeoutStatusCode = (int)HttpStatusCode.BadRequest
+    };
+
+    opt.AddPolicy(TimeoutMessage.MoreThanOneMinute, TimeSpan.FromMinutes(1));
+});
+
+#endregion
 
 #region Redis Configuration
 
@@ -181,6 +199,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseRequestTimeouts();
 
 app.MapControllers();
 
